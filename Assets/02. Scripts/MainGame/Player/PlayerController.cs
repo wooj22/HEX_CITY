@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     private void Move()
     {
         inputX = Input.GetAxis("Horizontal");
@@ -62,10 +63,10 @@ public class PlayerController : MonoBehaviour
         switch (player.moveState)
         {
             case Player.PlayerMoveState.WALK:
-                
+                rb.velocity = moveDir * walkSpeed;
                 break;
             case Player.PlayerMoveState.RUN:
-
+                rb.velocity = moveDir * runSpeed;
                 break;
             default:
                 break;
@@ -74,7 +75,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-
+        if (player.isFloor)
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 
     private void Climb()

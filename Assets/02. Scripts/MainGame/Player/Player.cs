@@ -7,16 +7,15 @@ public class Player : MonoBehaviour
     [Header("Stat")]
     [SerializeField] public int hp;
     [SerializeField] public int power;
-    //[SerializeField] public float speed;
 
     [Header ("State")]
     [SerializeField] public PlayerState curState;
     [SerializeField] private PlayerState preState;
     [SerializeField] public PlayerMoveState moveState;
     [SerializeField] public PlayerAttackState attackState;
-    [SerializeField] private bool isLadderIn;
+    [SerializeField] private bool isInLadder;
     [SerializeField] private bool isChargeMax;
-    [SerializeField] private bool isFloor;
+    [SerializeField] public bool isFloor;
 
     public enum PlayerState { IDLE, MOVE, JUMP, CLIMB, ATTACK, HIT, DIE, NONE }
     public enum PlayerMoveState { WALK, RUN, NONE }
@@ -38,6 +37,7 @@ public class Player : MonoBehaviour
         StateUpdate();
     }
 
+    /// State Update
     void StateUpdate()
     {
         // move
@@ -65,14 +65,14 @@ public class Player : MonoBehaviour
         }
 
         // climb      * 사다리와 닿아있는지 검사 추가 필요
-        if ((Input.GetKey(climbDown) || Input.GetKey(climbUp)) && isLadderIn)
+        if ((Input.GetKey(climbDown) || Input.GetKey(climbUp)) && isInLadder)
         {
             preState = curState;
             curState = PlayerState.CLIMB;
         }
 
         // attack
-        if (Input.GetKey(attack) && 
+        if (Input.GetKeyDown(attack) && 
             (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
         {
             preState = curState;
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
         }
 
         // special attack
-        if (Input.GetKey(specialAttack) && isChargeMax && isFloor &&
+        if (Input.GetKeyDown(specialAttack) && isChargeMax && isFloor &&
             (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
         {
             preState = curState;
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ladder"))
         {
-            isLadderIn = true;
+            isInLadder = true;
         }
     }
 
@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ladder"))
         {
-            isLadderIn = false;
+            isInLadder = false;
         }
     }
 
@@ -142,6 +142,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// Hit
     private void Hit(int damage)
     {
         hp -= damage;
