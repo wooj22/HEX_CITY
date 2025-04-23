@@ -11,22 +11,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower;
 
     // move contorll
-    private float inputX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
-    private float inputY;
-    private Vector2 moveDir;
+    private float moveX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
+    private float moveY;
 
     // component
     private Player player;
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
 
     private void Start()
     {
         player = GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+        // input   
+        moveX = Input.GetAxis("Horizontal");
+        moveY = Input.GetAxis("Vertical");
+
+        // filp
+        if (moveX < 0) sr.flipX = true;
+        else if (moveX > 0) sr.flipX = false;
+
+        // movement contoll
         switch (player.curState)
         {
             case Player.PlayerState.IDLE:
@@ -57,17 +67,14 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        inputX = Input.GetAxis("Horizontal");
-        moveDir = transform.right * inputX;
-
-        // walk, run, jump
+        // walk, run
         switch (player.moveState)
         {
             case Player.PlayerMoveState.WALK:
-                rb.velocity = moveDir * walkSpeed;
+                rb.velocity = new Vector2(moveX * walkSpeed, rb.velocity.y);
                 break;
             case Player.PlayerMoveState.RUN:
-                rb.velocity = moveDir * runSpeed;
+                rb.velocity = new Vector2(moveX * runSpeed, rb.velocity.y);
                 break;
             default:
                 break;
@@ -77,17 +84,16 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         // TODO :: isFloor 제어, move시에 !isFloor가 되어서 
-        // 계속 점프됨. 수정 요함
+        // 계속 점프됨. 수정 요함 -> 임시로 Player.cs 안에 옮겨둔 상태
         if (player.isFloor)
-            rb.AddForce(transform.up * jumpPower, ForceMode2D.Impulse);
+        {
+            //rb.AddForce(transform.up * jumpPower, ForceMode2D.Impulse);
+        }
     }
 
     private void Climb()
     {
-        // 중력 적용 X
-        inputY = Input.GetAxis("Vertical");
-        moveDir = transform.up * inputY;
-        rb.velocity = moveDir * climbSpeed;
+        rb.velocity = transform.up * moveY * climbSpeed;
     }
 
     private void Attack()
@@ -98,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
                 break;
             case Player.PlayerAttackState.RUNATTACK:
-
+                rb.velocity = new Vector2(moveX * runSpeed, rb.velocity.y);
                 break;
             case Player.PlayerAttackState.SPECIALATTACK:
 

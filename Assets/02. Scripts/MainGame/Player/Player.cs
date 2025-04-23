@@ -50,12 +50,13 @@ public class Player : MonoBehaviour
     void StateUpdate()
     {
         // move
-        if ((Input.GetKey(moveL) || Input.GetKey(moveR)) &&
-            curState != PlayerState.JUMP &&
-            curState != PlayerState.ATTACK &&
-            curState != PlayerState.CLIMB &&
-            curState != PlayerState.HIT)
+        if (Input.GetKey(moveL) || Input.GetKey(moveR))
         {
+            if (!isFloor) return;
+            if (curState == PlayerState.ATTACK) return;
+            if (curState == PlayerState.CLIMB) return;
+            if (curState == PlayerState.HIT) return;
+
             preState = curState;
             curState = PlayerState.MOVE;
 
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour
         {
             preState = curState;
             curState = PlayerState.JUMP;
+            rb.AddForce(transform.up * 15f, ForceMode2D.Impulse);
         }
 
         // climb
@@ -115,6 +117,8 @@ public class Player : MonoBehaviour
         }
 
         // idle
+        // TODO :: class 기반의 FSM으로 바꾸고 idle 처리 일부 옮기기
+        // Attack animation이 끝나고 -> idle
         if (!isFloor) return;
         else if (curState == PlayerState.CLIMB) return;
         else if ((Input.GetKey(moveL) || Input.GetKey(moveR) ||
@@ -137,6 +141,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ladder"))
         {
             isInLadder = true;
+            Debug.Log("In Ladder");
         }
     }
 
@@ -144,7 +149,8 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ladder"))
         {
-            //isInLadder = false;
+            isInLadder = false;
+            Debug.Log("out Ladder");
         }
     }
 
