@@ -13,9 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerState preState;
     [SerializeField] public PlayerMoveState moveState;
     [SerializeField] public PlayerAttackState attackState;
+    [SerializeField] public bool isFloor;
     [SerializeField] private bool isInLadder;
     [SerializeField] private bool isChargeMax;
-    [SerializeField] public bool isFloor;
 
     public enum PlayerState { IDLE, MOVE, JUMP, CLIMB, ATTACK, HIT, DIE, NONE }
     public enum PlayerMoveState { WALK, RUN, NONE }
@@ -31,6 +31,13 @@ public class Player : MonoBehaviour
     [SerializeField] public KeyCode attack = KeyCode.F;
     [SerializeField] public KeyCode specialAttack = KeyCode.G;
 
+    // component
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     private void Update()
     {
@@ -44,7 +51,7 @@ public class Player : MonoBehaviour
         if ((Input.GetKey(moveL) || Input.GetKey(moveR)) &&
             curState != PlayerState.JUMP &&
             curState != PlayerState.ATTACK &&
-            curState != PlayerState.CLIMB &&
+            //curState != PlayerState.CLIMB &&
             curState != PlayerState.HIT)
         {
             preState = curState;
@@ -64,15 +71,23 @@ public class Player : MonoBehaviour
             curState = PlayerState.JUMP;
         }
 
-        // climb      * 사다리와 닿아있는지 검사 추가 필요
+        // climb
         if ((Input.GetKey(climbDown) || Input.GetKey(climbUp)) && isInLadder)
         {
+            rb.gravityScale = 0;
             preState = curState;
             curState = PlayerState.CLIMB;
         }
 
+        // climb 모드 해제
+        if (curState != PlayerState.CLIMB)// && !isInLadder)
+        {
+            rb.gravityScale = 5f;
+            preState = curState;
+        }
+
         // attack
-        if (Input.GetKeyDown(attack) && 
+        if (Input.GetKeyDown(attack) &&
             (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
         {
             preState = curState;
@@ -95,15 +110,16 @@ public class Player : MonoBehaviour
         }
 
         // idle
-        if(isFloor && 
-            (Input.GetKey(moveL) || Input.GetKey(moveR) ||
+        if (!isFloor) return;
+        else if (curState == PlayerState.CLIMB) return;
+        else if ((Input.GetKey(moveL) || Input.GetKey(moveR) ||
             Input.GetKey(run) || Input.GetKey(jump) ||
-            Input.GetKey(climbUp) || Input.GetKey(climbDown) ||
             Input.GetKey(attack) || Input.GetKey(specialAttack)))
         {
             return;
         }
-        else {
+        else
+        {
             preState = curState;
             curState = PlayerState.IDLE;
         }

@@ -250,7 +250,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.32}
+  m_Size: {x: 0.05, y: 0.32}
   m_EdgeRadius: 0
 --- !u!1 &152107179
 GameObject:
@@ -1713,7 +1713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3893194189324511950, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: m_GravityScale
-      value: 2.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4295907002301755653, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: runSpeed
@@ -1738,6 +1738,10 @@ PrefabInstance:
     - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: isFloor
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
+      propertyPath: preState
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: climbDown

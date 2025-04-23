@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     // move contorll
     private float inputX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
+    private float inputY;
     private Vector2 moveDir;
 
     // component
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
         switch (player.curState)
         {
             case Player.PlayerState.IDLE:
+                rb.velocity = Vector2.zero;
                 break;
             case Player.PlayerState.MOVE:
                 Move();
@@ -53,7 +55,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void Move()
     {
         inputX = Input.GetAxis("Horizontal");
@@ -75,13 +76,19 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        // TODO :: isFloor 제어, move시에 !isFloor가 되어서 
+        // 계속 점프됨. 수정 요함
         if (player.isFloor)
-            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            rb.AddForce(transform.up * jumpPower, ForceMode2D.Impulse);
     }
 
     private void Climb()
     {
-        // climb
+        // 중력 적용 X
+        inputY = Input.GetAxis("Vertical");
+        moveDir = transform.up * inputY;
+        transform.Translate(moveDir * climbSpeed * Time.deltaTime);
+        rb.velocity = Vector2.zero;
     }
 
     private void Attack()
