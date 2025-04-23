@@ -87,8 +87,7 @@ public class PlayerController : MonoBehaviour
         // 중력 적용 X
         inputY = Input.GetAxis("Vertical");
         moveDir = transform.up * inputY;
-        transform.Translate(moveDir * climbSpeed * Time.deltaTime);
-        rb.velocity = Vector2.zero;
+        rb.velocity = moveDir * climbSpeed;
     }
 
     private void Attack()

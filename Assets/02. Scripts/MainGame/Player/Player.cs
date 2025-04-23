@@ -33,10 +33,12 @@ public class Player : MonoBehaviour
 
     // component
     private Rigidbody2D rb;
+    private float gravity;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gravity = rb.gravityScale;
     }
 
     private void Update()
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
         if ((Input.GetKey(moveL) || Input.GetKey(moveR)) &&
             curState != PlayerState.JUMP &&
             curState != PlayerState.ATTACK &&
-            //curState != PlayerState.CLIMB &&
+            curState != PlayerState.CLIMB &&
             curState != PlayerState.HIT)
         {
             preState = curState;
@@ -80,9 +82,9 @@ public class Player : MonoBehaviour
         }
 
         // climb 모드 해제
-        if (curState != PlayerState.CLIMB)// && !isInLadder)
+        if (curState == PlayerState.CLIMB && !isInLadder)
         {
-            rb.gravityScale = 5f;
+            rb.gravityScale = gravity;
             preState = curState;
         }
 
