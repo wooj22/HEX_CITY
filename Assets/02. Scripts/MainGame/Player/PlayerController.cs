@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     // move contorll
     private float inputX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
-    private Vector2 movement;
+    private Vector2 moveDir;
 
     // component
     private Player player;
@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
             case Player.PlayerState.MOVE:
                 Move();
                 break;
+            case Player.PlayerState.JUMP:
+                Jump();
+                break;
             case Player.PlayerState.CLIMB:
                 Climb();
                 break;
@@ -52,21 +55,26 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        inputX = Input.GetAxis("Horizontal");
+        moveDir = transform.right * inputX;
+
         // walk, run, jump
         switch (player.moveState)
         {
             case Player.PlayerMoveState.WALK:
-
+                
                 break;
             case Player.PlayerMoveState.RUN:
-
-                break;
-            case Player.PlayerMoveState.JUMP:
 
                 break;
             default:
                 break;
         }
+    }
+
+    private void Jump()
+    {
+
     }
 
     private void Climb()

@@ -10,15 +10,16 @@ public class Player : MonoBehaviour
     //[SerializeField] public float speed;
 
     [Header ("State")]
-    [SerializeField] public PlayerState curState = PlayerState.IDLE;
-    [SerializeField] public PlayerState preState;
+    [SerializeField] public PlayerState curState;
+    [SerializeField] private PlayerState preState;
     [SerializeField] public PlayerMoveState moveState;
     [SerializeField] public PlayerAttackState attackState;
     [SerializeField] private bool isLadderIn;
     [SerializeField] private bool isChargeMax;
+    [SerializeField] private bool isFloor;
 
-    public enum PlayerState { IDLE, MOVE, CLIMB, ATTACK, HIT, DIE, NONE }
-    public enum PlayerMoveState { WALK, RUN, JUMP, NONE }
+    public enum PlayerState { IDLE, MOVE, JUMP, CLIMB, ATTACK, HIT, DIE, NONE }
+    public enum PlayerMoveState { WALK, RUN, NONE }
     public enum PlayerAttackState { ATTACK, RUNATTACK, SPECIALATTACK, NONE }
 
     [Header("Key Bindings")]
@@ -40,8 +41,9 @@ public class Player : MonoBehaviour
     void StateUpdate()
     {
         // move
-        if ((Input.GetKey(moveL) || Input.GetKey(moveL)) && 
-            curState != PlayerState.ATTACK && 
+        if ((Input.GetKey(moveL) || Input.GetKey(moveR)) &&
+            curState != PlayerState.JUMP &&
+            curState != PlayerState.ATTACK &&
             curState != PlayerState.CLIMB &&
             curState != PlayerState.HIT)
         {
@@ -55,14 +57,23 @@ public class Player : MonoBehaviour
                 moveState = PlayerMoveState.WALK;
         }
 
+        // jump
+        if (Input.GetKeyDown(jump) && isFloor)
+        {
+            preState = curState;
+            curState = PlayerState.JUMP;
+        }
+
         // climb      * 사다리와 닿아있는지 검사 추가 필요
-        if ((Input.GetKey(climbDown) || Input.GetKey(climbUp) && isLadderIn) {
+        if ((Input.GetKey(climbDown) || Input.GetKey(climbUp)) && isLadderIn)
+        {
             preState = curState;
             curState = PlayerState.CLIMB;
         }
 
         // attack
-        if (Input.GetKey(attack) && (curState == PlayerState.IDLE || curState == PlayerState.MOVE))
+        if (Input.GetKey(attack) && 
+            (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
         {
             preState = curState;
             curState = PlayerState.ATTACK;
@@ -75,18 +86,62 @@ public class Player : MonoBehaviour
         }
 
         // special attack
-        if (Input.GetKey(specialAttack) && isChargeMax &&
-            (curState == PlayerState.IDLE || curState == PlayerState.MOVE))
+        if (Input.GetKey(specialAttack) && isChargeMax && isFloor &&
+            (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
         {
             preState = curState;
             curState = PlayerState.ATTACK;
             attackState = PlayerAttackState.SPECIALATTACK;
         }
 
-        if()
+        // idle
+        if(isFloor && 
+            (Input.GetKey(moveL) || Input.GetKey(moveR) ||
+            Input.GetKey(run) || Input.GetKey(jump) ||
+            Input.GetKey(climbUp) || Input.GetKey(climbDown) ||
+            Input.GetKey(attack) || Input.GetKey(specialAttack)))
+        {
+            return;
+        }
+        else {
+            preState = curState;
+            curState = PlayerState.IDLE;
+        }
+
     }
 
     /*-------------- event ---------------*/
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            isLadderIn = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ladder"))
+        {
+            isLadderIn = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isFloor = true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Floor"))
+        {
+            isFloor = false;
+        }
+    }
+
     private void Hit(int damage)
     {
         hp -= damage;

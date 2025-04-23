@@ -222,8 +222,11 @@ MonoBehaviour:
   power: 10
   curState: 0
   preState: 0
-  moveState: 3
+  moveState: 2
   attackState: 3
+  isLadderIn: 1
+  isChargeMax: 1
+  isGround: 1
   moveL: 276
   moveR: 275
   run: 304
