@@ -76,6 +76,7 @@ public class Player : MonoBehaviour
         // climb
         if ((Input.GetKey(climbDown) || Input.GetKey(climbUp)) && isInLadder)
         {
+            this.gameObject.layer = LayerMask.NameToLayer("Ladder");
             rb.gravityScale = 0;
             preState = curState;
             curState = PlayerState.CLIMB;
@@ -84,8 +85,10 @@ public class Player : MonoBehaviour
         // climb 모드 해제
         if (curState == PlayerState.CLIMB && !isInLadder)
         {
+            this.gameObject.layer = LayerMask.NameToLayer("Player");
             rb.gravityScale = gravity;
             preState = curState;
+            curState = PlayerState.NONE;
         }
 
         // attack
@@ -141,7 +144,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ladder"))
         {
-            isInLadder = false;
+            //isInLadder = false;
         }
     }
 
