@@ -16,7 +16,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void Update()
     {
-        if(!isHit) transform.Translate(transform.right * -speed * Time.deltaTime);
+        if(!isHit) transform.Translate(transform.right * speed * Time.deltaTime, Space.Self);
     }
 
     // 플레이어와 충돌시 소멸
