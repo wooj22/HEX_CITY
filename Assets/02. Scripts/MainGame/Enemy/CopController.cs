@@ -18,7 +18,7 @@ public class CopController : MonoBehaviour
     // controll data
     private GameObject player;
     private Vector3 playerPos;
-    private float curDist;
+    private float dist;
 
     // component
     private Rigidbody2D rb;
@@ -68,11 +68,11 @@ public class CopController : MonoBehaviour
     {
         // player cheak
         playerPos = player.transform.position;
-        curDist = (playerPos - this.transform.position).magnitude;
+        dist = (playerPos - this.transform.position).magnitude;
 
         // state
-        if (curDist > traceLimit) curState = State.IDLE;
-        else if (curDist <= attackLimit) curState = State.ATTACK;
+        if (dist > traceLimit) curState = State.IDLE;
+        else if (dist <= attackLimit) curState = State.ATTACK;
         else curState = State.TRACE;
     }
 
