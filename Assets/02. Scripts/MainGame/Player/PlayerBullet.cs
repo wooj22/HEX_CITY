@@ -6,7 +6,7 @@ public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int damage;
-    [HideInInspector] public int dir = 1; 
+    [HideInInspector] public int direction = 1; 
     private bool isHit;
     private Animator ani;
 
@@ -18,12 +18,12 @@ public class PlayerBullet : MonoBehaviour
 
     private void Update()
     {
-        if(!isHit) transform.Translate(transform.right * speed * dir * Time.deltaTime, Space.World);
+        if(!isHit) transform.Translate(transform.right * speed * direction * Time.deltaTime, Space.World);
     }
 
-    public void SetDirection(int d)
+    public void SetDirection(int dir)
     {
-        dir = d;
+        direction = dir;
     }
 
     // enemy와 충돌시 소멸

@@ -6,6 +6,7 @@ public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int damage;
+    [HideInInspector] public int direction = 1;
     private Animator ani;
     private bool isHit;
 
@@ -17,7 +18,12 @@ public class EnemyBullet : MonoBehaviour
 
     private void Update()
     {
-        if(!isHit) transform.Translate(transform.right * -speed * Time.deltaTime, Space.World);
+        if(!isHit) transform.Translate(transform.right * speed * direction * Time.deltaTime, Space.World);
+    }
+
+    public void SetDirection(int dir)
+    {
+        direction = dir;
     }
 
     // 플레이어와 충돌시 소멸

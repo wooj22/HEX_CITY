@@ -174,12 +174,12 @@ public class PlayerController : MonoBehaviour
     {
         if(lastDir == -1)
         {
-            GameObject playerBullet = Instantiate(bulelt, bulletPosL.position, this.transform.localRotation);
+            GameObject playerBullet = Instantiate(bulelt, bulletPosL.position, Quaternion.identity);
             playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
         }
         else
         {
-            GameObject playerBullet = Instantiate(bulelt, bulletPosR.position, this.transform.localRotation);
+            GameObject playerBullet = Instantiate(bulelt, bulletPosR.position, Quaternion.identity);
             playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
         }
            

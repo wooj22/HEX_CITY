@@ -22,7 +22,8 @@ public class CopController : MonoBehaviour
 
     [Header("Asset")]
     [SerializeField] private GameObject bulelt;
-    [SerializeField] private Transform bulletPos;
+    [SerializeField] private Transform bulletPosL;
+    [SerializeField] private Transform bulletPosR;
 
     // controll data
     private bool isDie;
@@ -31,14 +32,17 @@ public class CopController : MonoBehaviour
     private float dist;
     private float yDist;
     private float timer;
+    private int direction;    // right : 1, left : -1
 
     // component
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
     private Animator ani;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player");
         timer = attackCooltime;     // √÷√  1»∏
@@ -103,13 +107,15 @@ public class CopController : MonoBehaviour
     {
         if(playerPos.x < this.transform.position.x)
         {
-            this.transform.localRotation = new Quaternion(0, 0, 0, 0);
-            rb.velocity = transform.right * -speed;
+            sr.flipX = false;
+            direction = -1;
+            rb.velocity = transform.right * speed * direction;
         }
         else
         {
-            this.transform.localRotation = new Quaternion(0, 180, 0, 0);
-            rb.velocity = transform.right * -speed;
+            sr.flipX = true;
+            direction = 1;
+            rb.velocity = transform.right * speed * direction;
         }
     }
 
@@ -119,12 +125,14 @@ public class CopController : MonoBehaviour
         // transfomrm
         if (playerPos.x < this.transform.position.x)
         {
-            this.transform.localRotation = new Quaternion(0, 0, 0, 0);
+            sr.flipX = false;
+            direction = -1;
             rb.velocity = Vector2.zero;
         }
         else
         {
-            this.transform.localRotation = new Quaternion(0, 180, 0, 0);
+            sr.flipX = true;
+            direction = 1;
             rb.velocity = Vector2.zero;
         }
 
@@ -147,7 +155,17 @@ public class CopController : MonoBehaviour
     /// Shoot
     private void Shoot()
     {
-        GameObject enemyBullet = Instantiate(bulelt, bulletPos.position, this.transform.localRotation);
+        if (direction == 1)
+        {
+            GameObject enemyBullet = Instantiate(bulelt, bulletPosL.position, Quaternion.identity);
+            enemyBullet.GetComponent<EnemyBullet>().SetDirection(direction);
+        }
+        else
+        {
+            GameObject enemyBullet = Instantiate(bulelt, bulletPosR.position, Quaternion.identity);
+            enemyBullet.GetComponent<EnemyBullet>().SetDirection(direction);
+        }
+        
     }
 
     // Hit
