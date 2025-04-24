@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static Player;
 
 public class CopController : MonoBehaviour
 {
@@ -21,8 +23,9 @@ public class CopController : MonoBehaviour
     [Header("Asset")]
     [SerializeField] private GameObject bulelt;
     [SerializeField] private Transform bulletPos;
-    
+
     // controll data
+    private bool isDie;
     private GameObject player;
     private Vector3 playerPos;
     private float dist;
@@ -43,31 +46,34 @@ public class CopController : MonoBehaviour
 
     private void Update()
     {
-        StateUpdate();
-
-        switch (curState)
+        if (!isDie)
         {
-            case State.IDLE:
-                ani.SetBool("isTrace", false);
-                ani.SetBool("isAttack", false);
-                rb.velocity = Vector2.zero;
-                break;
+            StateUpdate();
 
-            case State.TRACE:
-                ani.SetBool("isTrace", true);
-                ani.SetBool("isAttack", false);
-                Trace();
-                break;
+            switch (curState)
+            {
+                case State.IDLE:
+                    ani.SetBool("isTrace", false);
+                    ani.SetBool("isAttack", false);
+                    rb.velocity = Vector2.zero;
+                    break;
 
-            case State.ATTACK:
-                ani.SetBool("isTrace", false);
-                ani.SetBool("isAttack", true);
-                Attack();
-                break;
+                case State.TRACE:
+                    ani.SetBool("isTrace", true);
+                    ani.SetBool("isAttack", false);
+                    Trace();
+                    break;
 
-            default:
-                break;
-            
+                case State.ATTACK:
+                    ani.SetBool("isTrace", false);
+                    ani.SetBool("isAttack", true);
+                    Attack();
+                    break;
+
+                default:
+                    break;
+
+            }
         }
     }
 
@@ -131,9 +137,30 @@ public class CopController : MonoBehaviour
         }
     }
 
+    /// Die
+    private void Die()
+    {
+        // 죽는 연출 추가
+        Destroy(this.gameObject);
+    }
+
     /// Shoot
     private void Shoot()
     {
         GameObject enemyBullet = Instantiate(bulelt, bulletPos.position, this.transform.localRotation);
+    }
+
+    // Hit
+    public void Hit(int damage)
+    {
+        Debug.Log("아파");
+        hp -= damage;
+
+        if (hp < 0)
+        {
+            hp = 0;
+            isDie = true;
+            Die();
+        }
     }
 }

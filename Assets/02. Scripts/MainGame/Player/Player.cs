@@ -61,12 +61,14 @@ public class Player : MonoBehaviour
                 moveState = PlayerMoveState.WALK;
 
             if (!isFloor) return;
-            if (curState == PlayerState.ATTACK) return;
-            if (curState == PlayerState.CLIMB) return;
-            //if (curState == PlayerState.HIT) return;
-
-            preState = curState;
-            curState = PlayerState.MOVE;
+            else if (curState == PlayerState.ATTACK) return;
+            else if (curState == PlayerState.CLIMB) return;
+            else if (curState == PlayerState.HIT) return;
+            else
+            {
+                preState = curState;
+                curState = PlayerState.MOVE;
+            }
         }
 
         // jump
@@ -117,6 +119,7 @@ public class Player : MonoBehaviour
         // Attack animation이 끝나고 -> idle
         if (!isFloor) return;
         else if (curState == PlayerState.CLIMB) return;
+        else if (curState == PlayerState.HIT) return;
         else if ((Input.GetKey(moveL) || Input.GetKey(moveR) ||
             Input.GetKey(run) || Input.GetKey(jump) || Input.GetKey(jump2) ||
             Input.GetKey(attack) || Input.GetKey(specialAttack)))
@@ -176,6 +179,13 @@ public class Player : MonoBehaviour
         else
         {
             curState = PlayerState.HIT;
+            StartCoroutine(nameof(Waiting));
         }
+    }
+
+    private IEnumerator Waiting()
+    {
+        yield return new WaitForSeconds(0.5f);
+        curState = PlayerState.IDLE;
     }
 }

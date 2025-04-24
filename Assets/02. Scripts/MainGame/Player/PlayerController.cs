@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // speed data
+    [Header("Stat")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
     [SerializeField] private float climbSpeed;
     [SerializeField] private float jumpPower;
+    [SerializeField] private float attackCooltime;
 
-    // move contorll
+    [Header("Asset")]
+    [SerializeField] private GameObject bulelt;
+    [SerializeField] private Transform bulletPos;
+
+    // contorll
     private float moveX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
     private float moveY;
+    private float timer;
 
     // component
     private Player player;
@@ -26,6 +32,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
+        timer = attackCooltime;
     }
 
     private void Update()
@@ -33,10 +40,15 @@ public class PlayerController : MonoBehaviour
         // input   
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
+        timer += Time.deltaTime;
 
         // filp
-        if (moveX < 0) sr.flipX = true;
-        else if (moveX > 0) sr.flipX = false;
+        //if (moveX < 0) sr.flipX = true;
+        //else if (moveX > 0) sr.flipX = false;
+        if (moveX < 0)
+            this.transform.localRotation = new Quaternion(0, 180, 0, 0);
+        else if (moveX > 0)
+            this.transform.localRotation = new Quaternion(0, 0, 0, 0);
 
         // movement contoll
         switch (player.curState)
@@ -73,7 +85,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case Player.PlayerState.HIT:
-
+                ani.SetTrigger("Hurt");
                 break;
             case Player.PlayerState.DIE:
 
@@ -83,6 +95,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// Move
     private void Move()
     {
         // walk, run
@@ -103,6 +116,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// Jump
     private void Jump()
     {
         // TODO :: isFloor 제어, move시에 !isFloor가 되어서 
@@ -113,23 +127,43 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// Climb
     private void Climb()
     {
         rb.velocity = transform.up * moveY * climbSpeed;
     }
 
+    /// Attack
     private void Attack()
     {
-        switch (player.attackState) 
-        { 
+        switch (player.attackState)
+        {
             case Player.PlayerAttackState.ATTACK:
-                ani.SetTrigger("Attack");
+                if (timer >= attackCooltime)
+                {
+                    ani.SetTrigger("Attack");
+                    Shoot();
+                    timer = 0;
+                }
                 break;
+
             case Player.PlayerAttackState.SPECIALATTACK:
-                ani.SetTrigger("SpecialAttack");
+                if (timer >= attackCooltime)
+                {
+                    ani.SetTrigger("SpecialAttack");
+                    Shoot();
+                    timer = 0;
+                }
+
                 break;
-            default :
+            default:
                 break;
         }
+    }
+
+    /// Shoot
+    private void Shoot()
+    {
+        GameObject playerBullet = Instantiate(bulelt, bulletPos.position, this.transform.localRotation);
     }
 }
