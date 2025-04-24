@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isPatrol
+    m_ConditionEvent: isTrace
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: isAttack
@@ -65,7 +65,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isPatrol
+    m_ConditionEvent: isTrace
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isAttack
@@ -93,7 +93,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isPatrol
+    m_ConditionEvent: isTrace
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isAttack
@@ -121,7 +121,7 @@ AnimatorController:
   m_Name: CopAni
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: isPatrol
+  - m_Name: isTrace
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -291,7 +291,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isPatrol
+    m_ConditionEvent: isTrace
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isAttack
@@ -319,7 +319,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isPatrol
+    m_ConditionEvent: isTrace
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: isAttack
@@ -347,7 +347,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isPatrol
+    m_ConditionEvent: isTrace
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isAttack

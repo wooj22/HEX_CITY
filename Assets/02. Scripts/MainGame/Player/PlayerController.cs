@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 ani.SetBool("isWalk", false);
                 ani.SetBool("isRun", false);
-                ani.SetBool("isRunAttack", false);
                 ani.SetBool("isJump", false);
                 ani.SetBool("isClimb", false);
                 break;
@@ -64,7 +63,6 @@ public class PlayerController : MonoBehaviour
             case Player.PlayerState.CLIMB:
                 ani.SetBool("isWalk", false);
                 ani.SetBool("isRun", false);
-                ani.SetBool("isRunAttack", false);
                 ani.SetBool("isJump", false);
                 ani.SetBool("isClimb", true);
                 Climb();
@@ -93,7 +91,6 @@ public class PlayerController : MonoBehaviour
             case Player.PlayerMoveState.WALK:
                 ani.SetBool("isWalk", true);
                 ani.SetBool("isRun", false);
-                ani.SetBool("isRunAttack", false);
                 rb.velocity = new Vector2(moveX * walkSpeed, rb.velocity.y);
                 break;
             case Player.PlayerMoveState.RUN:
@@ -127,10 +124,6 @@ public class PlayerController : MonoBehaviour
         { 
             case Player.PlayerAttackState.ATTACK:
                 ani.SetTrigger("Attack");
-                break;
-            case Player.PlayerAttackState.RUNATTACK:
-                ani.SetBool("isRunAttack", true);
-                rb.velocity = new Vector2(moveX * runSpeed, rb.velocity.y);
                 break;
             case Player.PlayerAttackState.SPECIALATTACK:
                 ani.SetTrigger("SpecialAttack");

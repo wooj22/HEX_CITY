@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     public enum PlayerState { IDLE, MOVE, JUMP, CLIMB, ATTACK, HIT, DIE, NONE }
     public enum PlayerMoveState { WALK, RUN, NONE }
-    public enum PlayerAttackState { ATTACK, RUNATTACK, SPECIALATTACK, NONE }
+    public enum PlayerAttackState { ATTACK, SPECIALATTACK, NONE }
 
     [Header("Key Bindings")]
     [SerializeField] public KeyCode moveL = KeyCode.LeftArrow;
@@ -96,21 +96,16 @@ public class Player : MonoBehaviour
         }
 
         // attack
-        if (Input.GetKeyDown(attack) &&
+        if (Input.GetKey(attack) && isFloor &&
             (curState == PlayerState.IDLE || curState == PlayerState.MOVE))
         {
             preState = curState;
             curState = PlayerState.ATTACK;
-
-            // attack state setting
-            if (moveState == PlayerMoveState.RUN)
-                attackState = PlayerAttackState.RUNATTACK;
-            else
-                attackState = PlayerAttackState.ATTACK;
+            attackState = PlayerAttackState.ATTACK;
         }
 
         // special attack
-        if (Input.GetKeyDown(specialAttack) && isChargeMax && isFloor &&
+        if (Input.GetKey(specialAttack) && isChargeMax && isFloor &&
             (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
         {
             curState = PlayerState.ATTACK;
