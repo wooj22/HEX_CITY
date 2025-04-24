@@ -198,6 +198,7 @@ MonoBehaviour:
   hp: 50
   power: 10
   speed: 3
+  yLimit: 1
   traceLimit: 10
   attackLimit: 5
   attackCooltime: 1.5

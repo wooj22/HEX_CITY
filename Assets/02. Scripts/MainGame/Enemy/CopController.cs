@@ -11,8 +11,9 @@ public class CopController : MonoBehaviour
     [SerializeField] private float hp;
     [SerializeField] private float power;
     [SerializeField] private float speed;
-    
+
     [Header("AI")]
+    [SerializeField] private float yLimit;
     [SerializeField] private float traceLimit;
     [SerializeField] private float attackLimit;
     [SerializeField] private float attackCooltime;
@@ -79,7 +80,7 @@ public class CopController : MonoBehaviour
         yDist = Mathf.Abs(playerPos.y - this.transform.position.y);
 
         // state
-        if (yDist <= 2f) {
+        if (yDist <= yLimit) {
             if (dist > traceLimit) curState = State.IDLE;
             else if (dist <= attackLimit) curState = State.ATTACK;
             else curState = State.TRACE;

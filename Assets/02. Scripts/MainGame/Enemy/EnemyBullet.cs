@@ -12,6 +12,7 @@ public class EnemyBullet : MonoBehaviour
     private void Start()
     {
         ani = GetComponent<Animator>();
+        Destroy(this.gameObject, 7f);
     }
 
     private void Update()
