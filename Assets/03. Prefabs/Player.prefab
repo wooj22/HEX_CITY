@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 4211329783949145661}
   - component: {fileID: 6715237810929490759}
   - component: {fileID: 4295907002301755653}
-  m_Layer: 0
+  - component: {fileID: 3945709574555301698}
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -104,7 +105,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 7
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -115,7 +116,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &7409107520138047710
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -220,21 +221,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   power: 10
-  curState: 0
-  preState: 0
+  state: 0
   moveState: 2
   attackState: 3
-  isLadderIn: 1
+  isFloor: 0
+  isInLadder: 0
   isChargeMax: 1
-  isGround: 1
   moveL: 276
   moveR: 275
   run: 304
+  jump: 273
+  jump2: 32
   climbUp: 273
-  climbDown: 273
-  jump: 304
-  attack: 102
-  specialAttack: 103
+  climbDown: 274
+  attack: 100
+  specialAttack: 102
 --- !u!114 &4295907002301755653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +248,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd4b087f0f29a74e96ace453f7c35a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0
-  runSpeed: 0
-  climbSpeed: 0
-  jumpPower: 0
+  walkSpeed: 5
+  runSpeed: 7
+  climbSpeed: 1
+  jumpPower: 1.5
+--- !u!95 &3945709574555301698
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7677507365103120603}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc8504ba753b3834ab73502efbb3def0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

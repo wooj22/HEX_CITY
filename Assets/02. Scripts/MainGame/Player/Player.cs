@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,7 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] public int power;
 
     [Header ("State")]
-    [SerializeField] public PlayerState state;
+    [SerializeField] public PlayerState curState;
+    [SerializeField] public PlayerState preState;
     [SerializeField] public PlayerMoveState moveState;
     [SerializeField] public PlayerAttackState attackState;
     [SerializeField] public bool isFloor;
@@ -52,25 +54,27 @@ public class Player : MonoBehaviour
         // move
         if (Input.GetKey(moveL) || Input.GetKey(moveR))
         {
-            if (!isFloor) return;
-            if (state == PlayerState.ATTACK) return;
-            if (state == PlayerState.CLIMB) return;
-            if (state == PlayerState.HIT) return;
-
-            state = PlayerState.MOVE;
-
             // move state setting
             if (Input.GetKey(run))
                 moveState = PlayerMoveState.RUN;
             else
                 moveState = PlayerMoveState.WALK;
+
+            if (!isFloor) return;
+            if (curState == PlayerState.ATTACK) return;
+            if (curState == PlayerState.CLIMB) return;
+            if (curState == PlayerState.HIT) return;
+
+            preState = curState;
+            curState = PlayerState.MOVE;
         }
 
         // jump
         if (Input.GetKeyDown(jump2) && isFloor ||
             Input.GetKeyDown(jump) && isFloor && !isInLadder)
         {
-            state = PlayerState.JUMP;
+            preState = curState;
+            curState = PlayerState.JUMP;
             rb.AddForce(transform.up * 15f, ForceMode2D.Impulse);
         }
 
@@ -79,22 +83,24 @@ public class Player : MonoBehaviour
         {
             this.gameObject.layer = LayerMask.NameToLayer("Ladder");
             rb.gravityScale = 0;
-            state = PlayerState.CLIMB;
+            preState = curState;
+            curState = PlayerState.CLIMB;
         }
 
         // climb 모드 해제
-        if (state == PlayerState.CLIMB && !isInLadder)
+        if (curState == PlayerState.CLIMB && !isInLadder)
         {
             this.gameObject.layer = LayerMask.NameToLayer("Player");
             rb.gravityScale = gravity;
-            state = PlayerState.NONE;
+            curState = PlayerState.IDLE;
         }
 
         // attack
         if (Input.GetKeyDown(attack) &&
-            (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.JUMP))
+            (curState == PlayerState.IDLE || curState == PlayerState.MOVE))
         {
-            state = PlayerState.ATTACK;
+            preState = curState;
+            curState = PlayerState.ATTACK;
 
             // attack state setting
             if (moveState == PlayerMoveState.RUN)
@@ -105,9 +111,9 @@ public class Player : MonoBehaviour
 
         // special attack
         if (Input.GetKeyDown(specialAttack) && isChargeMax && isFloor &&
-            (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.JUMP))
+            (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
         {
-            state = PlayerState.ATTACK;
+            curState = PlayerState.ATTACK;
             attackState = PlayerAttackState.SPECIALATTACK;
         }
 
@@ -115,7 +121,7 @@ public class Player : MonoBehaviour
         // TODO :: 추상 class 기반의 FSM으로 바꾸고 idle 처리 일부 옮기기
         // Attack animation이 끝나고 -> idle
         if (!isFloor) return;
-        else if (state == PlayerState.CLIMB) return;
+        else if (curState == PlayerState.CLIMB) return;
         else if ((Input.GetKey(moveL) || Input.GetKey(moveR) ||
             Input.GetKey(run) || Input.GetKey(jump) || Input.GetKey(jump2) ||
             Input.GetKey(attack) || Input.GetKey(specialAttack)))
@@ -124,7 +130,8 @@ public class Player : MonoBehaviour
         }
         else
         {
-            state = PlayerState.IDLE;
+            preState = curState;
+            curState = PlayerState.IDLE;
         }
     }
 
@@ -134,7 +141,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ladder"))
         {
             isInLadder = true;
-            Debug.Log("In Ladder");
         }
     }
 
@@ -143,7 +149,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ladder"))
         {
             isInLadder = false;
-            Debug.Log("out Ladder");
         }
     }
 
@@ -170,11 +175,11 @@ public class Player : MonoBehaviour
         if (hp < 0)
         {
             hp = 0;
-            state = PlayerState.DIE;
+            curState = PlayerState.DIE;
         }
         else
         {
-            state = PlayerState.HIT;
+            curState = PlayerState.HIT;
         }
     }
 }
