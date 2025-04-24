@@ -7,6 +7,7 @@ TagManager:
   - Ladder
   - Floor
   - Enemy
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

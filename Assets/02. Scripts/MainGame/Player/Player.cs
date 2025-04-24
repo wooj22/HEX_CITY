@@ -163,8 +163,9 @@ public class Player : MonoBehaviour
     }
 
     /// Hit
-    private void Hit(int damage)
+    public void Hit(int damage)
     {
+        Debug.Log("¾ÆÆÄ");
         hp -= damage;
 
         if (hp < 0)
