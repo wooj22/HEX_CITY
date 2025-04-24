@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             if (!isFloor) return;
             if (curState == PlayerState.ATTACK) return;
             if (curState == PlayerState.CLIMB) return;
-            if (curState == PlayerState.HIT) return;
+            //if (curState == PlayerState.HIT) return;
 
             preState = curState;
             curState = PlayerState.MOVE;
