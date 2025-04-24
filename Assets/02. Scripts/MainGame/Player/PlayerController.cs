@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Asset")]
     [SerializeField] private GameObject bulelt;
-    [SerializeField] private Transform bulletPos;
+    [SerializeField] private Transform bulletPosL;
+    [SerializeField] private Transform bulletPosR;
 
     // contorll
     private float moveX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
     private float moveY;
+    private int lastDir;       // right : 1, left : -1
     private float timer;
 
     // component
@@ -43,15 +45,21 @@ public class PlayerController : MonoBehaviour
         timer += Time.deltaTime;
 
         // filp
-        //if (moveX < 0) sr.flipX = true;
-        //else if (moveX > 0) sr.flipX = false;
-        if (moveX < 0)
-            this.transform.localRotation = new Quaternion(0, 180, 0, 0);
+        // left
+        if (moveX < 0)  
+        {
+            sr.flipX = true;
+            lastDir = -1;
+        }
+        // right
         else if (moveX > 0)
-            this.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        {
+            sr.flipX = false;
+            lastDir = 1;
+        }
 
-        // movement contoll
-        switch (player.curState)
+            // movement contoll
+            switch (player.curState)
         {
             case Player.PlayerState.IDLE:
                 rb.velocity = Vector2.zero;
@@ -164,6 +172,16 @@ public class PlayerController : MonoBehaviour
     /// Shoot
     private void Shoot()
     {
-        GameObject playerBullet = Instantiate(bulelt, bulletPos.position, this.transform.localRotation);
+        if(lastDir == -1)
+        {
+            GameObject playerBullet = Instantiate(bulelt, bulletPosL.position, this.transform.localRotation);
+            playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
+        }
+        else
+        {
+            GameObject playerBullet = Instantiate(bulelt, bulletPosR.position, this.transform.localRotation);
+            playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
+        }
+           
     }
 }
