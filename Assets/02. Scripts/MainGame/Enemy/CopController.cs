@@ -21,14 +21,15 @@ public class CopController : MonoBehaviour
     private float curDist;
 
     // component
-    private Rigidbody rb;
-    private Animator animator;
-
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
+    private Animator ani;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();    
+        ani = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player");
     }
 
@@ -39,19 +40,20 @@ public class CopController : MonoBehaviour
         switch (curState)
         {
             case State.IDLE:
-                animator.SetBool("isTrace", false);
-                animator.SetBool("isAttack", false);
+                ani.SetBool("isTrace", false);
+                ani.SetBool("isAttack", false);
+                rb.velocity = Vector2.zero;
                 break;
 
             case State.TRACE:
-                animator.SetBool("isTrace", true);
-                animator.SetBool("isAttack", false);
+                ani.SetBool("isTrace", true);
+                ani.SetBool("isAttack", false);
                 Trace();
                 break;
 
             case State.ATTACK:
-                animator.SetBool("isTrace", false);
-                animator.SetBool("isAttack", true);
+                ani.SetBool("isTrace", false);
+                ani.SetBool("isAttack", true);
                 Attack();
                 break;
 
@@ -67,7 +69,6 @@ public class CopController : MonoBehaviour
         // player cheak
         playerPos = player.transform.position;
         curDist = (playerPos - this.transform.position).magnitude;
-        Debug.Log(curDist);
 
         // state
         if (curDist > traceLimit) curState = State.IDLE;
@@ -78,12 +79,30 @@ public class CopController : MonoBehaviour
     /// Trace
     private void Trace()
     {
-
+        if(playerPos.x < this.transform.position.x)
+        {
+            sr.flipX = false;
+            rb.velocity = transform.right * -speed;
+        }
+        else
+        {
+            sr.flipX = true;
+            rb.velocity = transform.right * speed;
+        }
     }
 
     /// Attack
     private void Attack()
     {
-
+        if (playerPos.x < this.transform.position.x)
+        {
+            sr.flipX = false;
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            sr.flipX = true;
+            rb.velocity = Vector2.zero;
+        }
     }
 }
