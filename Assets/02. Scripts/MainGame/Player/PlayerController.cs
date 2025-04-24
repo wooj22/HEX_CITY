@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         else if (moveX > 0) sr.flipX = false;
 
         // movement contoll
-        switch (player.curState)
+        switch (player.state)
         {
             case Player.PlayerState.IDLE:
                 rb.velocity = Vector2.zero;

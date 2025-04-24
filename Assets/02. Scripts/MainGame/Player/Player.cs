@@ -9,8 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] public int power;
 
     [Header ("State")]
-    [SerializeField] public PlayerState curState;
-    [SerializeField] private PlayerState preState;
+    [SerializeField] public PlayerState state;
     [SerializeField] public PlayerMoveState moveState;
     [SerializeField] public PlayerAttackState attackState;
     [SerializeField] public bool isFloor;
@@ -25,11 +24,12 @@ public class Player : MonoBehaviour
     [SerializeField] public KeyCode moveL = KeyCode.LeftArrow;
     [SerializeField] public KeyCode moveR = KeyCode.RightArrow;
     [SerializeField] public KeyCode run = KeyCode.LeftShift;
+    [SerializeField] public KeyCode jump = KeyCode.UpArrow;
+    [SerializeField] public KeyCode jump2 = KeyCode.Space;
     [SerializeField] public KeyCode climbUp = KeyCode.UpArrow;
     [SerializeField] public KeyCode climbDown = KeyCode.DownArrow;
-    [SerializeField] public KeyCode jump = KeyCode.Space;
-    [SerializeField] public KeyCode attack = KeyCode.F;
-    [SerializeField] public KeyCode specialAttack = KeyCode.G;
+    [SerializeField] public KeyCode attack = KeyCode.D;
+    [SerializeField] public KeyCode specialAttack = KeyCode.F;
 
     // component
     private Rigidbody2D rb;
@@ -53,12 +53,11 @@ public class Player : MonoBehaviour
         if (Input.GetKey(moveL) || Input.GetKey(moveR))
         {
             if (!isFloor) return;
-            if (curState == PlayerState.ATTACK) return;
-            if (curState == PlayerState.CLIMB) return;
-            if (curState == PlayerState.HIT) return;
+            if (state == PlayerState.ATTACK) return;
+            if (state == PlayerState.CLIMB) return;
+            if (state == PlayerState.HIT) return;
 
-            preState = curState;
-            curState = PlayerState.MOVE;
+            state = PlayerState.MOVE;
 
             // move state setting
             if (Input.GetKey(run))
@@ -68,10 +67,10 @@ public class Player : MonoBehaviour
         }
 
         // jump
-        if (Input.GetKeyDown(jump) && isFloor)
+        if (Input.GetKeyDown(jump2) && isFloor ||
+            Input.GetKeyDown(jump) && isFloor && !isInLadder)
         {
-            preState = curState;
-            curState = PlayerState.JUMP;
+            state = PlayerState.JUMP;
             rb.AddForce(transform.up * 15f, ForceMode2D.Impulse);
         }
 
@@ -80,25 +79,22 @@ public class Player : MonoBehaviour
         {
             this.gameObject.layer = LayerMask.NameToLayer("Ladder");
             rb.gravityScale = 0;
-            preState = curState;
-            curState = PlayerState.CLIMB;
+            state = PlayerState.CLIMB;
         }
 
         // climb 모드 해제
-        if (curState == PlayerState.CLIMB && !isInLadder)
+        if (state == PlayerState.CLIMB && !isInLadder)
         {
             this.gameObject.layer = LayerMask.NameToLayer("Player");
             rb.gravityScale = gravity;
-            preState = curState;
-            curState = PlayerState.NONE;
+            state = PlayerState.NONE;
         }
 
         // attack
         if (Input.GetKeyDown(attack) &&
-            (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
+            (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.JUMP))
         {
-            preState = curState;
-            curState = PlayerState.ATTACK;
+            state = PlayerState.ATTACK;
 
             // attack state setting
             if (moveState == PlayerMoveState.RUN)
@@ -109,28 +105,26 @@ public class Player : MonoBehaviour
 
         // special attack
         if (Input.GetKeyDown(specialAttack) && isChargeMax && isFloor &&
-            (curState == PlayerState.IDLE || curState == PlayerState.MOVE || curState == PlayerState.JUMP))
+            (state == PlayerState.IDLE || state == PlayerState.MOVE || state == PlayerState.JUMP))
         {
-            preState = curState;
-            curState = PlayerState.ATTACK;
+            state = PlayerState.ATTACK;
             attackState = PlayerAttackState.SPECIALATTACK;
         }
 
         // idle
-        // TODO :: class 기반의 FSM으로 바꾸고 idle 처리 일부 옮기기
+        // TODO :: 추상 class 기반의 FSM으로 바꾸고 idle 처리 일부 옮기기
         // Attack animation이 끝나고 -> idle
         if (!isFloor) return;
-        else if (curState == PlayerState.CLIMB) return;
+        else if (state == PlayerState.CLIMB) return;
         else if ((Input.GetKey(moveL) || Input.GetKey(moveR) ||
-            Input.GetKey(run) || Input.GetKey(jump) ||
+            Input.GetKey(run) || Input.GetKey(jump) || Input.GetKey(jump2) ||
             Input.GetKey(attack) || Input.GetKey(specialAttack)))
         {
             return;
         }
         else
         {
-            preState = curState;
-            curState = PlayerState.IDLE;
+            state = PlayerState.IDLE;
         }
 
     }
@@ -177,13 +171,11 @@ public class Player : MonoBehaviour
         if (hp < 0)
         {
             hp = 0;
-            preState = curState;
-            curState = PlayerState.DIE;
+            state = PlayerState.DIE;
         }
         else
         {
-            preState = curState;
-            curState = PlayerState.HIT;
+            state = PlayerState.HIT;
         }
     }
 }
