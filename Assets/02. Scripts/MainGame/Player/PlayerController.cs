@@ -172,16 +172,8 @@ public class PlayerController : MonoBehaviour
     /// Shoot
     private void Shoot()
     {
-        if(lastDir == -1)
-        {
-            GameObject playerBullet = Instantiate(bulelt, bulletPosL.position, Quaternion.identity);
-            playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
-        }
-        else
-        {
-            GameObject playerBullet = Instantiate(bulelt, bulletPosR.position, Quaternion.identity);
-            playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
-        }
-           
+        Transform bulletPos = (lastDir == -1) ? bulletPosL : bulletPosR;
+        GameObject playerBullet = Instantiate(bulelt, bulletPos.position, Quaternion.identity);
+        playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
     }
 }
