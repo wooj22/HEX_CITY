@@ -126,7 +126,6 @@ public class Player : MonoBehaviour
         {
             state = PlayerState.IDLE;
         }
-
     }
 
     /*-------------- event ---------------*/

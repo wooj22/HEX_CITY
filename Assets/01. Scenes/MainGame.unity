@@ -1863,7 +1863,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: jump
-      value: 32
+      value: 273
+      objectReference: {fileID: 0}
+    - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
+      propertyPath: attack
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: isFloor
@@ -1880,6 +1884,10 @@ PrefabInstance:
     - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: isLadderIn
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6715237810929490759, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
+      propertyPath: specialAttack
+      value: 102
       objectReference: {fileID: 0}
     - target: {fileID: 7677507365103120603, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: m_Name
