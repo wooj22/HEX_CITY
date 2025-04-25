@@ -5,16 +5,17 @@ using UnityEngine.Rendering.Universal;
 
 public class MainMenuDirector : MonoBehaviour
 {
+    // light ø¨√‚
     [SerializeField] Light2D light;
     [SerializeField] float lightLimit;
     [SerializeField] float lightSpeed;
 
     private void Start()
     {
-        StartCoroutine(lightDirect());
+        StartCoroutine(lightDirector());
     }
 
-    IEnumerator lightDirect()
+    IEnumerator lightDirector()
     {
         while (true)
         {
