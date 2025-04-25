@@ -10,33 +10,18 @@ public class TutorialDirector : MonoBehaviour
 
     private void Start()
     {
-        fadeImage.gameObject.SetActive(true);
-        textBoardImage.gameObject.SetActive(false);
         StartCoroutine(FadeIn());
     }
 
-    /// Screen FadeIn
-    IEnumerator FadeIn()
-    {
-        float fadeCount = 1;
-        while (fadeCount > 0.001f)
-        {
-            fadeCount -= 0.01f;
-            yield return new WaitForSeconds(0.01f);
-            fadeImage.color = new Color(0, 0, 0, fadeCount);
-        }
-
-        fadeImage.gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(3f);
-        textBoardImage.gameObject.SetActive(true);
-        StartCoroutine(TextBoardOn());
-    }
+    public void TextBoardOn() { StartCoroutine(TextBoardOnCo()); }
+    public void TextBoardOff() { StartCoroutine(TextBoardOffCo()); }
 
     /// Text Borad On
-    IEnumerator TextBoardOn()
+    private IEnumerator TextBoardOnCo()
     {
         float fadeCount = 0;
+        textBoardImage.gameObject.SetActive(true);
+
         while (fadeCount < 0.5f)
         {
             fadeCount += 0.01f;
@@ -46,9 +31,11 @@ public class TutorialDirector : MonoBehaviour
     }
 
     /// Text Borad Off
-    IEnumerator TextBoardOff()
+    private IEnumerator TextBoardOffCo()
     {
         float fadeCount = 0.5f;
+        textBoardImage.gameObject.SetActive(true);
+
         while (fadeCount > 0.001f)
         {
             fadeCount -= 0.01f;
@@ -59,8 +46,24 @@ public class TutorialDirector : MonoBehaviour
         textBoardImage.gameObject.SetActive(false);
     }
 
+    /// Screen FadeIn
+    private IEnumerator FadeIn()
+    {
+        float fadeCount = 1;
+        fadeImage.gameObject.SetActive(true);
+
+        while (fadeCount > 0.001f)
+        {
+            fadeCount -= 0.01f;
+            yield return new WaitForSeconds(0.01f);
+            fadeImage.color = new Color(0, 0, 0, fadeCount);
+        }
+
+        fadeImage.gameObject.SetActive(false);
+    }
+
     /// Screen FadeOut & Goto MainScene
-    IEnumerator FadeOutSceneSwitch(string scenename)
+    private IEnumerator FadeOutSceneSwitch(string scenename)
     {
         fadeImage.gameObject.SetActive(true);
 
