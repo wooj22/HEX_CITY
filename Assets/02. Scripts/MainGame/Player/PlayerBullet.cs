@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private int damage;
+    private int damage;
     [HideInInspector] public int direction = 1; 
     private bool isHit;
     private Animator ani;
@@ -21,9 +21,11 @@ public class PlayerBullet : MonoBehaviour
         if(!isHit) transform.Translate(transform.right * speed * direction * Time.deltaTime, Space.World);
     }
 
-    public void SetDirection(int dir)
+    /// 방향과 damage set
+    public void Init(int dir, int power)
     {
         direction = dir;
+        damage = power;
     }
 
     // enemy와 충돌시 소멸
@@ -33,8 +35,7 @@ public class PlayerBullet : MonoBehaviour
         {
             isHit = true;
             GetComponent<BoxCollider2D>().enabled = false;
-            // TODO :: enemy hit
-            collision.gameObject.GetComponent<CopController>().Hit(damage);
+            collision.gameObject.GetComponent<EnemyController>().Hit(damage);
 
             ani.SetBool("isHit", true);
             AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);

@@ -174,6 +174,6 @@ public class PlayerController : MonoBehaviour
     {
         Transform bulletPos = (lastDir == -1) ? bulletPosL : bulletPosR;
         GameObject playerBullet = Instantiate(bulelt, bulletPos.position, Quaternion.identity);
-        playerBullet.GetComponent<PlayerBullet>().SetDirection(lastDir);
+        playerBullet.GetComponent<PlayerBullet>().Init(lastDir, player.power);
     }
 }

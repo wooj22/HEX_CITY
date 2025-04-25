@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 1000
-  power: 10
+  power: 100
   curState: 0
   preState: 0
   moveState: 2

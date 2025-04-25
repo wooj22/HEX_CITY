@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 719882018236171399}
   - component: {fileID: 9052580907964930113}
   - component: {fileID: 8216520707747137065}
-  - component: {fileID: 4445903852053401700}
   m_Layer: 6
   m_Name: Cop
   m_TagString: Enemy
@@ -194,29 +193,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7a722a0a87d5a1449d3849c6e27ff97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curState: 0
-  hp: 50
-  power: 5
-  speed: 3
-  yLimit: 1
-  traceLimit: 10
-  attackLimit: 5
-  attackCooltime: 3
-  bulelt: {fileID: 7024994301318110489, guid: e9c8b351e0ecf2f4183467df6b67197c, type: 3}
-  bulletPosL: {fileID: 3201643293296849649}
-  bulletPosR: {fileID: 1915032681547925311}
---- !u!114 &4445903852053401700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4043625993504371825}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf3dc165826a054ba8cbb4c4c1ccc29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 0

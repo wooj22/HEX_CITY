@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
     [Header ("Stat")]
     [SerializeField] private State curState;
     [SerializeField] private float hp;
-    [SerializeField] private float power;
+    [SerializeField] private int power;
     [SerializeField] private float speed;
 
     [Header("AI")]
@@ -157,12 +157,12 @@ public class EnemyController : MonoBehaviour
         if (direction == 1)
         {
             GameObject enemyBullet = Instantiate(bulelt, bulletPosL.position, Quaternion.identity);
-            enemyBullet.GetComponent<EnemyBullet>().SetDirection(direction);
+            enemyBullet.GetComponent<EnemyBullet>().Init(direction, power);
         }
         else
         {
             GameObject enemyBullet = Instantiate(bulelt, bulletPosR.position, Quaternion.identity);
-            enemyBullet.GetComponent<EnemyBullet>().SetDirection(direction);
+            enemyBullet.GetComponent<EnemyBullet>().Init(direction, power);
         }
         
     }
@@ -173,7 +173,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log("¾ÆÆÄ");
         hp -= damage;
 
-        if (hp < 0)
+        if (hp <= 0)
         {
             hp = 0;
             isDie = true;
