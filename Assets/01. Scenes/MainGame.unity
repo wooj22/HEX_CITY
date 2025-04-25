@@ -2404,10 +2404,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1396796442397394778, guid: 59b0ef5906026eb4b9af87cc73d1cc09, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3266261892284575898, guid: 59b0ef5906026eb4b9af87cc73d1cc09, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.03
@@ -2451,10 +2447,6 @@ PrefabInstance:
     - target: {fileID: 6119886205966525350, guid: 59b0ef5906026eb4b9af87cc73d1cc09, type: 3}
       propertyPath: m_Name
       value: Turret
-      objectReference: {fileID: 0}
-    - target: {fileID: 7502912149065670625, guid: 59b0ef5906026eb4b9af87cc73d1cc09, type: 3}
-      propertyPath: m_GravityScale
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

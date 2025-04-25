@@ -42,7 +42,7 @@ public class PlayerBullet : MonoBehaviour
             if(collision.gameObject.name == "Cop" || collision.gameObject.name == "Dron")
                 collision.gameObject.GetComponent<EnemyController>().Hit(damage);
             else if(collision.gameObject.name == "Turret")
-                collision.gameObject.GetComponent<TurretController>().Hit();
+                collision.gameObject.GetComponent<TurretController>().Hit(damage);
             else if(collision.gameObject.name == "Egg")
                 collision.gameObject.GetComponent<EggController>().Hit(damage);
 
