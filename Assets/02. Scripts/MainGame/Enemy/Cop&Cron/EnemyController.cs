@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator ani;
+    private Color originalColor;
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class EnemyController : MonoBehaviour
         ani = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player");
         timer = attackCooltime;     // √÷√  1»∏
+        originalColor = sr.color;
     }
 
     private void Update()
@@ -184,8 +186,6 @@ public class EnemyController : MonoBehaviour
     {
         int blinkCount = 3;
         float blinkInterval = 0.1f;
-
-        Color originalColor = sr.color;
         Color blinkColor = new Color(0.5f, 0f, 0f, 0.7f);
 
         for (int i = 0; i < blinkCount; i++)

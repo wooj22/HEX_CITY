@@ -2164,6 +2164,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4295907002301755653, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
+      propertyPath: attackCooltime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7677507365103120603, guid: 21c635d2d7de1ad439fa8e2b2c33a68d, type: 3}
       propertyPath: m_Name
       value: Player
