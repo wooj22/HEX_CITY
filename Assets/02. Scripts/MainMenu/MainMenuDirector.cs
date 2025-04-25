@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class MainMenuDirector : MonoBehaviour
 {
+    // fade
+    [SerializeField] Image fadeImage;
+
     // light 연출
     [SerializeField] Light2D light;
     [SerializeField] float lightLimit;
@@ -12,6 +16,7 @@ public class MainMenuDirector : MonoBehaviour
 
     private void Start()
     {
+        fadeImage.gameObject.SetActive(false);
         StartCoroutine(lightDirector());
     }
 
@@ -31,5 +36,27 @@ public class MainMenuDirector : MonoBehaviour
                 yield return new WaitForSeconds(lightSpeed);
             }
         }
+    }
+
+    // fadeOut 후 씬 전환
+    public void GoToScene(string scenename)
+    {
+        StartCoroutine(FadeOutCo(scenename));
+    }
+
+    IEnumerator FadeOutCo(string scenename)
+    {
+        fadeImage.gameObject.SetActive(true);
+
+        float fadeCount = 0;
+        while (fadeCount < 1.0f)
+        {
+            fadeCount += 0.01f;
+            yield return new WaitForSeconds(0.01f);
+            fadeImage.color = new Color(0, 0, 0, fadeCount);
+        }
+
+        SceneSwitch.Instance.SceneSwithcing(scenename);
+        yield return null;
     }
 }
