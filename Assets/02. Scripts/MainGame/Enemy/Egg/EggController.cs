@@ -12,7 +12,6 @@ public class EggController : MonoBehaviour
     [Header ("AI")]
     [SerializeField] private float yLimit;
     [SerializeField] private float attackLimit;
-    [SerializeField] private float attackDelay;
     [SerializeField] private float attackCooltime;
 
     [Header("Asset")]

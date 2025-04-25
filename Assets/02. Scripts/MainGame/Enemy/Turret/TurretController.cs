@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TurretController : MonoBehaviour
 {
     [SerializeField] float hp;
+    [SerializeField] Animator effectAni1;
+    [SerializeField] Animator effectAni2;
+
     private SpriteRenderer sr;
     private Color originalColor;
 
@@ -25,7 +29,9 @@ public class TurretController : MonoBehaviour
         {
             hp = 0;
             GetComponent<BoxCollider2D>().enabled = false;
-            StartCoroutine(Die());
+            effectAni1.SetBool("isHit", true);
+            effectAni2.SetBool("isHit", true);
+            Die();
         }   
     }
 
@@ -47,9 +53,9 @@ public class TurretController : MonoBehaviour
 
     /// Die ø¨√‚
     // TODO :: Item Drop
-    IEnumerator Die()
+    private void Die()
     {
-        Destroy(this.gameObject);
-        yield return null;
+        AnimatorStateInfo stateInfo = effectAni1.GetCurrentAnimatorStateInfo(0);
+        Destroy(this.gameObject, stateInfo.length);
     }
 }
