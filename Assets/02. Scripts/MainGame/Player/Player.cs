@@ -18,10 +18,6 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isInLadder;
     [SerializeField] private bool isChargeMax;
 
-    public enum PlayerState { IDLE, MOVE, JUMP, CLIMB, ATTACK, HIT, DIE, NONE }
-    public enum PlayerMoveState { WALK, RUN, NONE }
-    public enum PlayerAttackState { ATTACK, SPECIALATTACK, NONE }
-
     [Header("Key Bindings")]
     [SerializeField] public KeyCode moveL = KeyCode.LeftArrow;
     [SerializeField] public KeyCode moveR = KeyCode.RightArrow;
@@ -33,13 +29,25 @@ public class Player : MonoBehaviour
     [SerializeField] public KeyCode attack = KeyCode.D;
     [SerializeField] public KeyCode specialAttack = KeyCode.F;
 
+    // data
+    public enum PlayerState { IDLE, MOVE, JUMP, CLIMB, ATTACK, HIT, DIE, NONE }
+    public enum PlayerMoveState { WALK, RUN, NONE }
+    public enum PlayerAttackState { ATTACK, SPECIALATTACK, NONE }
+    
+    // controll
+    private Color originalColor;
+    private float gravity;
+
     // component
     private Rigidbody2D rb;
-    private float gravity;
+    private SpriteRenderer sr;
+    
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = rb.GetComponent<SpriteRenderer>();
+        originalColor = sr.color;
         gravity = rb.gravityScale;
     }
 
@@ -179,7 +187,24 @@ public class Player : MonoBehaviour
         else
         {
             curState = PlayerState.HIT;
-            StartCoroutine(nameof(Waiting));
+            StartCoroutine(HitColor());
+            StartCoroutine(Waiting());
+        }
+    }
+
+    /// Hit ø¨√‚
+    IEnumerator HitColor()
+    {
+        int blinkCount = 3;
+        float blinkInterval = 0.1f;
+        Color blinkColor = new Color(0.5f, 0f, 0f, 0.7f);
+
+        for (int i = 0; i < blinkCount; i++)
+        {
+            sr.color = blinkColor;
+            yield return new WaitForSeconds(blinkInterval);
+            sr.color = originalColor;
+            yield return new WaitForSeconds(blinkInterval);
         }
     }
 
