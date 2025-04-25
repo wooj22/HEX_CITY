@@ -40,6 +40,8 @@ public class PlayerBullet : MonoBehaviour
                 collision.gameObject.GetComponent<EnemyController>().Hit(damage);
             else if(collision.gameObject.name == "Turret")
                 collision.gameObject.GetComponent<TurretController>().Hit();
+            else if(collision.gameObject.name == "Egg")
+                collision.gameObject.GetComponent<EggController>().Hit(damage);
 
             ani.SetBool("isHit", true);
             AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);

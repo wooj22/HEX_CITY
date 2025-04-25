@@ -33,12 +33,13 @@ public class EnemyController : MonoBehaviour
     private float yDist;
     private float timer;
     private int direction;    // right : 1, left : -1
+    private Color originalColor;
 
     // component
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator ani;
-    private Color originalColor;
+    
 
     private void Start()
     {
@@ -166,6 +167,7 @@ public class EnemyController : MonoBehaviour
     public void Hit(int damage)
     {
         hp -= damage;
+        StartCoroutine(HitColor());
 
         if (hp <= 0)
         {
@@ -174,10 +176,6 @@ public class EnemyController : MonoBehaviour
             rb.gravityScale = 0;
             GetComponent<BoxCollider2D>().enabled = false;
             StartCoroutine(Die());
-        }
-        else
-        {
-            StartCoroutine(HitColor());
         }
     }
 
