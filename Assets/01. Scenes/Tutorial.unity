@@ -359,6 +359,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8b22ec1a4664e4c82298aeff20c0ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  director: {fileID: 1405890569}
+  scriptsText: {fileID: 632572654}
+  typingSpeed: 0.05
+  waitTime: 2
   scripts:
   - "\uC548\uB155\uD558\uC138\uC694"
   - "\uD29C\uD1A0\uB9AC\uC5BC \uC2A4\uD06C\uB9BD\uD2B8\uC785\uB2C8\uB2E4"
@@ -369,9 +373,7 @@ MonoBehaviour:
   - 7777777777777
   - 888888888888888888
   - 9999999999999999999
-  - "\uB05D\uB0AC\uC5B4\uC694 \uC774\uC81C \uBA54\uC778\uD654\uBA74 \uAC08\uAC70\uC5D0"
-  scriptsText: {fileID: 632572654}
-  director: {fileID: 1405890569}
+  - "\uB05D\uB0AC\uC5B4\uC694 \uC774\uC81C \uBA54\uC778\uD654\uBA74 \uAC08\uAC70\uC608\uC694"
 --- !u!1 &432711515
 GameObject:
   m_ObjectHideFlags: 0

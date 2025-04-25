@@ -15,6 +15,7 @@ public class TutorialDirector : MonoBehaviour
 
     public void TextBoardOn() { StartCoroutine(TextBoardOnCo()); }
     public void TextBoardOff() { StartCoroutine(TextBoardOffCo()); }
+    public void FadeOut(string name) { StartCoroutine(FadeOutSceneSwitch(name)); }
 
     /// Text Borad On
     private IEnumerator TextBoardOnCo()
