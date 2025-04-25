@@ -144,13 +144,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    /// Die
-    private void Die()
-    {
-        // 죽는 연출 추가
-        Destroy(this.gameObject);
-    }
-
     /// Shoot
     private void Shoot()
     {
@@ -170,14 +163,44 @@ public class EnemyController : MonoBehaviour
     // Hit
     public void Hit(int damage)
     {
-        Debug.Log("아파");
         hp -= damage;
 
         if (hp <= 0)
         {
             hp = 0;
             isDie = true;
-            Die();
+            rb.gravityScale = 0;
+            GetComponent<BoxCollider2D>().enabled = false;
+            StartCoroutine(Die());
         }
+        else
+        {
+            StartCoroutine(HitColor());
+        }
+    }
+
+    /// Hit 연출
+    IEnumerator HitColor()
+    {
+        int blinkCount = 3;
+        float blinkInterval = 0.1f;
+
+        Color originalColor = sr.color;
+        Color blinkColor = new Color(0.5f, 0f, 0f, 0.7f);
+
+        for (int i = 0; i < blinkCount; i++)
+        {
+            sr.color = blinkColor;
+            yield return new WaitForSeconds(blinkInterval);
+            sr.color = originalColor;
+            yield return new WaitForSeconds(blinkInterval);
+        }
+    }
+
+    /// Die 연출
+    IEnumerator Die()
+    {
+        Destroy(this.gameObject);
+        yield return null;
     }
 }

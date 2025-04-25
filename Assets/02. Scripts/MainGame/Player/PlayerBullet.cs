@@ -35,7 +35,11 @@ public class PlayerBullet : MonoBehaviour
         {
             isHit = true;
             GetComponent<BoxCollider2D>().enabled = false;
-            collision.gameObject.GetComponent<EnemyController>().Hit(damage);
+
+            if(collision.gameObject.name == "Cop" || collision.gameObject.name == "Dron")
+                collision.gameObject.GetComponent<EnemyController>().Hit(damage);
+            else if(collision.gameObject.name == "Turret")
+                collision.gameObject.GetComponent<TurretController>().Hit();
 
             ani.SetBool("isHit", true);
             AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
