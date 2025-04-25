@@ -12,14 +12,14 @@ public class TurretController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    // Hit
+    /// Hit
     public void Hit()
     {
         GetComponent<BoxCollider2D>().enabled = false;
         StartCoroutine(Die());
     }
 
-    // Hit ±ôºý°Å¸² ¿¬Ãâ ÈÄ Die
+    /// Hit ±ôºý°Å¸² ¿¬Ãâ ÈÄ Die
     // TODO :: Item Drop
     IEnumerator Die()
     {

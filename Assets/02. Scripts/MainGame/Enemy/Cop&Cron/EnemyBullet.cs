@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    // controll
     [SerializeField] private float speed;
     private int damage;
-    [HideInInspector] public int direction = 1;
-    private Animator ani;
+    private int direction;
     private bool isHit;
+
+    // component
+    private Animator ani;
 
     private void Start()
     {

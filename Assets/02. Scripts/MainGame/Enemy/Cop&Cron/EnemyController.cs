@@ -28,12 +28,12 @@ public class EnemyController : MonoBehaviour
     // controll data
     private bool isDie;
     private GameObject player;
-    private Vector3 playerPos;
-    private float dist;
-    private float yDist;
-    private float timer;
-    private int direction;    // right : 1, left : -1
-    private Color originalColor;
+    private Vector3  playerPos;
+    private float   dist;
+    private float   yDist;
+    private float   timer;
+    private int     direction;    // right : 1, left : -1
+    private Color   originalColor;
 
     // component
     private Rigidbody2D rb;
@@ -152,12 +152,12 @@ public class EnemyController : MonoBehaviour
     {
         if (direction == 1)
         {
-            GameObject enemyBullet = Instantiate(bulelt, bulletPosL.position, Quaternion.identity);
+            GameObject enemyBullet = Instantiate(bulelt, bulletPosR.position, Quaternion.identity);
             enemyBullet.GetComponent<EnemyBullet>().Init(direction, power);
         }
         else
         {
-            GameObject enemyBullet = Instantiate(bulelt, bulletPosR.position, Quaternion.identity);
+            GameObject enemyBullet = Instantiate(bulelt, bulletPosL.position, Quaternion.identity);
             enemyBullet.GetComponent<EnemyBullet>().Init(direction, power);
         }
         

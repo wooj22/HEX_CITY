@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
+    // controll
     [SerializeField] private float speed;
     private int damage;
-    [HideInInspector] public int direction = 1; 
+    private int direction; 
     private bool isHit;
+
+    // component
     private Animator ani;
 
     private void Start()
@@ -28,7 +31,7 @@ public class PlayerBullet : MonoBehaviour
         damage = power;
     }
 
-    // enemy客 面倒矫 家戈
+    /// enemy客 面倒矫 家戈
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))

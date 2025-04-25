@@ -1,22 +1,120 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Rendering.InspectorCurveEditor;
 
 public class EggController : MonoBehaviour
 {
+    [Header("Stat")]
     [SerializeField] private float hp;
     [SerializeField] private int power;
-    private bool isDie;
-    private Color originalColor;
 
+    [Header ("AI")]
+    [SerializeField] private float yLimit;
+    [SerializeField] private float attackLimit;
+    [SerializeField] private float attackDelay;
+    [SerializeField] private float attackCooltime;
+
+    [Header("Asset")]
+    [SerializeField] private GameObject bulelt; // TODO :: bullet 레이저리소스 찾아서 바꾸기
+    [SerializeField] private Transform bulletPosL;
+    [SerializeField] private Transform bulletPosR;
+
+    // controll
+    private GameObject player;
+    private Vector3 playerPos;
+    private float   dist;
+    private float   yDist;
+    private int     direction;    // right : 1, left : -1
+    private bool    isDie;
+    private float   timer;
+    private Color   originalColor;
+
+    // compnent
     private SpriteRenderer sr;
     private Animator ani;
 
     private void Start()
     {
+        player = GameObject.FindWithTag("Player");
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
+        timer = attackCooltime;   
         originalColor = sr.color;
+    }
+
+    private void Update()
+    {
+        if (!isDie)
+        {
+            timer += Time.deltaTime;
+            CheakPlayer();
+        }
+    }
+
+    // Cheak Player
+    private void CheakPlayer()
+    {
+        playerPos = player.transform.position;
+        dist = (playerPos - this.transform.position).magnitude;
+        yDist = Mathf.Abs(playerPos.y - this.transform.position.y);
+
+        // attack
+        if (yDist <= yLimit)
+        {
+            if(dist <= attackLimit)
+            {
+                ani.SetBool("isAttack", true);
+                Attack();
+            }
+            else
+            {
+                ani.SetBool("isAttack", false);
+            }
+        }
+        else
+        {
+            ani.SetBool("isAttack", false);
+        }
+    }
+
+    // Attack
+    private void Attack()
+    {
+        // direction
+        if (playerPos.x < this.transform.position.x)
+        {
+            sr.flipX = false;
+            direction = -1;
+        }
+        else
+        {
+            sr.flipX = true;
+            direction = 1;
+        }
+
+        // shoot
+        if (timer >= attackLimit)
+        {
+            Shoot();
+            timer = 0;
+        }
+    }
+
+    /// Shoot
+    private void Shoot()
+    {
+        if (direction == 1)
+        {
+            GameObject enemyBullet = Instantiate(bulelt, bulletPosR.position, Quaternion.identity);
+            enemyBullet.GetComponent<EnemyBullet>().Init(direction, power);
+        }
+        else
+        {
+            GameObject enemyBullet = Instantiate(bulelt, bulletPosL.position, Quaternion.identity);
+            enemyBullet.GetComponent<EnemyBullet>().Init(direction, power);
+        }
+
     }
 
     /// Hit
