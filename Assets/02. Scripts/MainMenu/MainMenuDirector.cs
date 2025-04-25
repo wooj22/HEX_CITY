@@ -17,10 +17,10 @@ public class MainMenuDirector : MonoBehaviour
     private void Start()
     {
         fadeImage.gameObject.SetActive(false);
-        StartCoroutine(lightDirector());
+        StartCoroutine(LightDirector());
     }
 
-    IEnumerator lightDirector()
+    IEnumerator LightDirector()
     {
         while (true)
         {
