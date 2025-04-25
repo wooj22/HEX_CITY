@@ -41,10 +41,10 @@ public class MainMenuDirector : MonoBehaviour
     // fadeOut ÈÄ ¾À ÀüÈ¯
     public void GoToScene(string scenename)
     {
-        StartCoroutine(FadeOutCo(scenename));
+        StartCoroutine(FadeOutSceneSwitch(scenename));
     }
 
-    IEnumerator FadeOutCo(string scenename)
+    IEnumerator FadeOutSceneSwitch(string scenename)
     {
         fadeImage.gameObject.SetActive(true);
 
