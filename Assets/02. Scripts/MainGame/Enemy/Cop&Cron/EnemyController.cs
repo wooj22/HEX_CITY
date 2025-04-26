@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static Player;
+using static Player_Old;
 
 public class EnemyController : MonoBehaviour
 {

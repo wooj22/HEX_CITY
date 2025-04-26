@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Idle : MoveState
+public class Idle : BaseMoveState
 {
-    public Idle(Player2 player) : base(player) { }
+    public Idle(Player player) : base(player) { }
 
     public override void Enter()
     {

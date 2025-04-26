@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player2 : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    [Header ("현재 MOVEMENT")]
-    [SerializeField] public MoveState currentState;
+    [Header ("MoveState")]
+    [SerializeField] public BaseMoveState curMoveState;
+    [HideInInspector] public BaseMoveState[] moveStates;
     public enum MovementState
     {
         Idle, Walk, Run, Crouch, Jump, Climb
@@ -43,7 +44,6 @@ public class Player2 : MonoBehaviour
     [HideInInspector] public float moveX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
     [HideInInspector] public float moveY;
     [HideInInspector] public int lastDir;       // right : 1, left : -1
-    [HideInInspector] public float attackTimer;
     private Color originalColor;
     private float gravity;
    
@@ -54,6 +54,17 @@ public class Player2 : MonoBehaviour
 
     private void Awake()
     {
+        // movement states 등록
+        moveStates = new BaseMoveState[System.Enum.GetValues(typeof(MovementState)).Length];
+
+        moveStates[(int)MovementState.Idle] = new Idle(this);
+        //moveStates[(int)MovementState.Walk] = new Walk(this);
+        //moveStates[(int)MovementState.Run] = new Run(this);
+        //moveStates[(int)MovementState.Crouch] = new Crouch(this);
+        //moveStates[(int)MovementState.Jump] = new Jump(this);
+        //moveStates[(int)MovementState.Climb] = new Climb(this);
+
+        // get component
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
@@ -61,24 +72,26 @@ public class Player2 : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(new Idle(this));
+        // start movement state setting
+        ChangeState(MovementState.Idle);
+
+        // data setting
         originalColor = sr.color;
         gravity = rb.gravityScale;
     }
 
     private void Update()
     {
-        attackTimer += Time.deltaTime;
-        currentState?.HandleInput();
-        currentState?.LogicUpdate();
+        curMoveState?.HandleInput();
+        curMoveState?.LogicUpdate();
     }
 
     /// Movement FSM - State Change
-    public void ChangeState(MoveState newState)
+    public void ChangeState(MovementState state)
     {
-        currentState?.Exit();
-        currentState = newState;
-        currentState?.Enter();
+        curMoveState?.Exit();
+        curMoveState = moveStates[(int)state];
+        curMoveState?.Enter();
     }
 
     /// Hit

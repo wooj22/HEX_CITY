@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController_Old : MonoBehaviour
 {
     [Header("Stat")]
     [SerializeField] private float walkSpeed;
@@ -23,14 +23,14 @@ public class PlayerController : MonoBehaviour
     private float timer;
 
     // component
-    private Player player;
+    private Player_Old player;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator ani;
 
     private void Start()
     {
-        player = GetComponent<Player>();
+        player = GetComponent<Player_Old>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             // movement contoll
             switch (player.curState)
         {
-            case Player.PlayerState.IDLE:
+            case Player_Old.PlayerState.IDLE:
                 rb.velocity = Vector2.zero;
                 ani.SetBool("isWalk", false);
                 ani.SetBool("isRun", false);
@@ -69,18 +69,18 @@ public class PlayerController : MonoBehaviour
                 ani.SetBool("isClimb", false);
                 break;
 
-            case Player.PlayerState.MOVE:
+            case Player_Old.PlayerState.MOVE:
                 Move();
                 ani.SetBool("isJump", false);
                 ani.SetBool("isClimb", false);
                 break;
 
-            case Player.PlayerState.JUMP:
+            case Player_Old.PlayerState.JUMP:
                 ani.SetBool("isJump", true);
                 Jump();
                 break;
 
-            case Player.PlayerState.CLIMB:
+            case Player_Old.PlayerState.CLIMB:
                 ani.SetBool("isWalk", false);
                 ani.SetBool("isRun", false);
                 ani.SetBool("isJump", false);
@@ -88,14 +88,14 @@ public class PlayerController : MonoBehaviour
                 Climb();
                 break;
 
-            case Player.PlayerState.ATTACK:
+            case Player_Old.PlayerState.ATTACK:
                 Attack();
                 break;
 
-            case Player.PlayerState.HIT:
+            case Player_Old.PlayerState.HIT:
                 ani.SetTrigger("Hurt");
                 break;
-            case Player.PlayerState.DIE:
+            case Player_Old.PlayerState.DIE:
 
                 break;
             default:
@@ -109,12 +109,12 @@ public class PlayerController : MonoBehaviour
         // walk, run
         switch (player.moveState)
         {
-            case Player.PlayerMoveState.WALK:
+            case Player_Old.PlayerMoveState.WALK:
                 ani.SetBool("isWalk", true);
                 ani.SetBool("isRun", false);
                 rb.velocity = new Vector2(moveX * walkSpeed, rb.velocity.y);
                 break;
-            case Player.PlayerMoveState.RUN:
+            case Player_Old.PlayerMoveState.RUN:
                 ani.SetBool("isWalk", false);
                 ani.SetBool("isRun", true);
                 rb.velocity = new Vector2(moveX * runSpeed, rb.velocity.y);
@@ -146,7 +146,7 @@ public class PlayerController : MonoBehaviour
     {
         switch (player.attackState)
         {
-            case Player.PlayerAttackState.ATTACK:
+            case Player_Old.PlayerAttackState.ATTACK:
                 if (timer >= attackCooltime)
                 {
                     ani.SetTrigger("Attack");
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
 
-            case Player.PlayerAttackState.SPECIALATTACK:
+            case Player_Old.PlayerAttackState.SPECIALATTACK:
                 if (timer >= attackCooltime)
                 {
                     ani.SetTrigger("SpecialAttack");

@@ -4,11 +4,11 @@ using UnityEngine;
 
 /*  Player Movement FSMÀÇ BaseState  */
 /* Idle, Walk, Run, Crouch, Jump, Climb */
-public class MoveState : MonoBehaviour
+public class BaseMoveState
 {
-    protected Player2 player;
+    protected Player player;
 
-    public MoveState(Player2 player)
+    public BaseMoveState(Player player)
     {
         this.player = player;
     }

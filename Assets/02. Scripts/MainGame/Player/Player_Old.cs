@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player_Old : MonoBehaviour
 {
     [Header("Stat")]
     [SerializeField] public int hp;

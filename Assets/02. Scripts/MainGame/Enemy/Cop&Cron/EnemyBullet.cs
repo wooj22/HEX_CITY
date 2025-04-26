@@ -38,7 +38,7 @@ public class EnemyBullet : MonoBehaviour
         {
             isHit = true;
             GetComponent<BoxCollider2D>().enabled = false;
-            collision.gameObject.GetComponent<Player>().Hit(damage);
+            collision.gameObject.GetComponent<Player_Old>().Hit(damage);
 
             ani.SetBool("isHit", true);
             AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackHandler : MonoBehaviour
 {
-    private AttackType curentAttackType;
+    private AttackType curAttackType;
     public enum AttackType
     {
         STANDING,   // idle, walk
@@ -21,11 +21,18 @@ public class AttackHandler : MonoBehaviour
     [SerializeField] private Transform bulletPosL;
     [SerializeField] private Transform bulletPosR;
 
-    private Player2 player;
+    // controll
+    private Player player;
+    private float attackTimer;
 
     private void Awake()
     {
-        player = GetComponent<Player2>();
+        player = GetComponent<Player>();
+    }
+
+    private void Update()
+    {
+        attackTimer += Time.deltaTime;
     }
 
     /// Attack (movement states called)
@@ -36,36 +43,36 @@ public class AttackHandler : MonoBehaviour
         switch (type)
         {
             case AttackType.STANDING:
-                curentAttackType = AttackType.STANDING;
+                curAttackType = AttackType.STANDING;
                 // animation
                 // shoot
-                if (player.attackTimer >= attackCooltime)
+                if (attackTimer >= attackCooltime)
                 {
                     Shoot();
-                    player.attackTimer = 0;
+                    attackTimer = 0;
                 }
 
                 break;
 
             case AttackType.RUNNING:
-                curentAttackType = AttackType.STANDING;
+                curAttackType = AttackType.STANDING;
                 // animation
                 // shoot
-                if (player.attackTimer >= attackCooltime)
+                if (attackTimer >= attackCooltime)
                 {
                     Shoot();
-                    player.attackTimer = 0;
+                    attackTimer = 0;
                 }
                 break;
 
             case AttackType.CROUCHING:
-                curentAttackType = AttackType.STANDING;
+                curAttackType = AttackType.STANDING;
                 // animation
                 // shoot
-                if (player.attackTimer >= attackCooltime)
+                if (attackTimer >= attackCooltime)
                 {
                     Shoot();
-                    player.attackTimer = 0;
+                    attackTimer = 0;
                 }
                 break;
 
@@ -85,7 +92,7 @@ public class AttackHandler : MonoBehaviour
     {
         // position
         Vector3 bulletPos = (player.lastDir == -1) ? bulletPosL.position : bulletPosR.position;
-        bulletPos.y = (curentAttackType == AttackType.CROUCHING) ? bulletPos.y - 0.5f : bulletPos.y;
+        bulletPos.y = (curAttackType == AttackType.CROUCHING) ? bulletPos.y - 0.5f : bulletPos.y;
 
         // shoot
         GameObject playerBullet = Instantiate(bulelt, bulletPos, Quaternion.identity);
