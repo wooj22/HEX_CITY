@@ -35,6 +35,18 @@ public class Run : BaseMoveState
         // idle
         if (!Input.GetKey(player.moveL) && !Input.GetKey(player.moveR))
             player.ChangeState(Player.MovementState.Idle);
+
+        // jump
+        if (Input.GetKeyDown(player.jump2) && player.isFloor ||
+            Input.GetKeyDown(player.jump) && player.isFloor && !player.isInLadder)
+        {
+            player.ChangeState(Player.MovementState.Jump);
+        }
+
+        // crouch
+
+        // climb
+
     }
 
     /// LogicUpdate

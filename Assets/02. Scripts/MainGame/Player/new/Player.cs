@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public bool isChargeMax;
     public bool isFloor;
     public bool isInLadder;
+    public bool isJumping;
 
     [Header("Key Bindings")]
     public KeyCode moveL = KeyCode.LeftArrow;
@@ -45,8 +46,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public float moveX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
     [HideInInspector] public float moveY;
     [HideInInspector] public int lastDir;       // right : 1, left : -1
-    private Color originalColor;
-    private float gravity;
+    [HideInInspector] public float originGravity;
+    private Color originColor;
    
     // Components
     [HideInInspector] public SpriteRenderer sr;
@@ -62,7 +63,7 @@ public class Player : MonoBehaviour
         moveStates[(int)MovementState.Walk] = new Walk(this);
         moveStates[(int)MovementState.Run] = new Run(this);
         //moveStates[(int)MovementState.Crouch] = new Crouch(this);
-        //moveStates[(int)MovementState.Jump] = new Jump(this);
+        moveStates[(int)MovementState.Jump] = new Jump(this);
         //moveStates[(int)MovementState.Climb] = new Climb(this);
 
         // get component
@@ -77,8 +78,8 @@ public class Player : MonoBehaviour
         ChangeState(MovementState.Idle);
 
         // data setting
-        originalColor = sr.color;
-        gravity = rb.gravityScale;
+        originColor = sr.color;
+        originGravity = rb.gravityScale;
     }
 
     private void Update()
@@ -125,7 +126,7 @@ public class Player : MonoBehaviour
         {
             sr.color = blinkColor;
             yield return new WaitForSeconds(blinkInterval);
-            sr.color = originalColor;
+            sr.color = originColor;
             yield return new WaitForSeconds(blinkInterval);
         }
     }

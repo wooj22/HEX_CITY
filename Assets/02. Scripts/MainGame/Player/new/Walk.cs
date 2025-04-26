@@ -35,6 +35,18 @@ public class Walk : BaseMoveState
         {
             player.ChangeState(Player.MovementState.Run);
         }
+
+        // jump
+        if (Input.GetKeyDown(player.jump2) && player.isFloor ||
+            Input.GetKeyDown(player.jump) && player.isFloor && !player.isInLadder)
+        {
+            player.ChangeState(Player.MovementState.Jump);
+        }
+
+        // crouch
+
+        // climb
+
     }
 
     /// LogicUpdate
