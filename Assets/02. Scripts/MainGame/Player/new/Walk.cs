@@ -44,6 +44,8 @@ public class Walk : BaseMoveState
         }
 
         // crouch
+        if (Input.GetKey(player.crouch))
+            player.ChangeState(Player.MovementState.Crouch);
 
         // climb
 

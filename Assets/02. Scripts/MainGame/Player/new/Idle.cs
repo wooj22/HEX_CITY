@@ -33,14 +33,16 @@ public class Idle : BaseMoveState
                 player.ChangeState(Player.MovementState.Walk);
         }
 
+        // crouch
+        if (Input.GetKey(player.crouch))
+            player.ChangeState(Player.MovementState.Crouch);
+
         // jump
         if (Input.GetKeyDown(player.jump2) && player.isFloor ||
             Input.GetKeyDown(player.jump) && player.isFloor && !player.isInLadder)
         {
             player.ChangeState(Player.MovementState.Jump);
         }
-
-        // crouch
 
         // climb
 

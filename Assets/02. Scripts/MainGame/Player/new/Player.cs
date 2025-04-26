@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         moveStates[(int)MovementState.Idle] = new Idle(this);
         moveStates[(int)MovementState.Walk] = new Walk(this);
         moveStates[(int)MovementState.Run] = new Run(this);
-        //moveStates[(int)MovementState.Crouch] = new Crouch(this);
+        moveStates[(int)MovementState.Crouch] = new Crouch(this);
         moveStates[(int)MovementState.Jump] = new Jump(this);
         //moveStates[(int)MovementState.Climb] = new Climb(this);
 
