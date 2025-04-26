@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header ("MoveState")]
-    [SerializeField] public BaseMoveState curMoveState;
-    [HideInInspector] public BaseMoveState[] moveStates;
+    [Header("MoveState")]
+    [SerializeField] MovementState moveState;
+    public BaseMoveState curMoveState;
+    public BaseMoveState[] moveStates;
     public enum MovementState
     {
         Idle, Walk, Run, Crouch, Jump, Climb
@@ -58,8 +59,8 @@ public class Player : MonoBehaviour
         moveStates = new BaseMoveState[System.Enum.GetValues(typeof(MovementState)).Length];
 
         moveStates[(int)MovementState.Idle] = new Idle(this);
-        //moveStates[(int)MovementState.Walk] = new Walk(this);
-        //moveStates[(int)MovementState.Run] = new Run(this);
+        moveStates[(int)MovementState.Walk] = new Walk(this);
+        moveStates[(int)MovementState.Run] = new Run(this);
         //moveStates[(int)MovementState.Crouch] = new Crouch(this);
         //moveStates[(int)MovementState.Jump] = new Jump(this);
         //moveStates[(int)MovementState.Climb] = new Climb(this);
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour
     {
         curMoveState?.Exit();
         curMoveState = moveStates[(int)state];
+        moveState = state;
         curMoveState?.Enter();
     }
 

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 /*  Player Movement FSMÀÇ BaseState  */
 /* Idle, Walk, Run, Crouch, Jump, Climb */
