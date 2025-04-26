@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Idle : BaseMoveState
 {
+    private AttackHandler attackHandle;
+
     public Idle(Player player) : base(player) { }
 
     /// Enter
@@ -18,11 +20,26 @@ public class Idle : BaseMoveState
 
         // velocity zero
         player.rb.velocity = Vector2.zero;
+
+        // attack handle get
+        attackHandle = player.GetComponent<AttackHandler>();
     }
 
     /// HandleInput
     public override void HandleInput()
     {
+        // attack flag setting
+        if (Input.GetKeyDown(player.attack))
+        {
+            player.isAttack = true;
+            player.ani.SetBool("isAttack", true);
+        }
+        if (Input.GetKeyUp(player.attack))
+        {
+            player.isAttack = false;
+            player.ani.SetBool("isAttack", false);
+        }
+
         // state change
         // climb
         if (player.isInLadder && Input.GetKey(player.climbUp))
@@ -33,7 +50,7 @@ public class Idle : BaseMoveState
         // walk & run
         if (Input.GetKey(player.moveL) || Input.GetKey(player.moveR))
         {
-            if(Input.GetKey(player.run))
+            if (Input.GetKey(player.run))
                 player.ChangeState(Player.MovementState.Run);
             else
                 player.ChangeState(Player.MovementState.Walk);
@@ -52,7 +69,14 @@ public class Idle : BaseMoveState
     }
 
     /// LogicUpdate
-    public override void LogicUpdate() { }
+    public override void LogicUpdate() 
+    {
+        // attack
+        if (Input.GetKey(player.attack))
+        {
+            attackHandle.Attack(AttackHandler.AttackType.STANDING);
+        } 
+    }
 
     /// Exit
     public override void Exit()

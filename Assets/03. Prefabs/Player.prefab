@@ -281,7 +281,7 @@ Animator:
   m_GameObject: {fileID: 8483778079872964666}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a9ff405c8867fe4ebf0683be73f86e6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -304,18 +304,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54db301995d55c04f96cde07d73bf160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveState: 0
   hp: 100
   power: 10
   walkSpeed: 3.5
   runSpeed: 7
   climbSpeed: 2
-  jumpPower: 1.5
+  jumpPower: 15
   isDie: 0
   isHit: 0
   isAttack: 0
   isChargeMax: 0
   isFloor: 0
   isInLadder: 0
+  isJumping: 0
   moveL: 276
   moveR: 275
   run: 304
@@ -329,6 +331,7 @@ MonoBehaviour:
   moveX: 0
   moveY: 0
   lastDir: 0
+  originGravity: 0
   sr: {fileID: 0}
   rb: {fileID: 0}
   ani: {fileID: 0}

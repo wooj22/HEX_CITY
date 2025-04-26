@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Crouch : BaseMoveState
 {
+    private AttackHandler attackHandle;
+
     public Crouch(Player player) : base(player) { }
 
     /// Enter
@@ -18,6 +20,9 @@ public class Crouch : BaseMoveState
 
         // velocity zero
         player.rb.velocity = Vector2.zero;
+
+        // attack handle get
+        attackHandle = player.GetComponent<AttackHandler>();
     }
 
     /// HandleInput
@@ -25,7 +30,18 @@ public class Crouch : BaseMoveState
     {
         // input   
         player.moveX = Input.GetAxis("Horizontal");
-        player.moveY = Input.GetAxis("Vertical");
+
+        // attack flag setting
+        if (Input.GetKeyDown(player.attack))
+        {
+            player.isAttack = true;
+            player.ani.SetBool("isAttack", true);
+        }
+        if (Input.GetKeyUp(player.attack))
+        {
+            player.isAttack = false;
+            player.ani.SetBool("isAttack", false);
+        }
 
         // state change
         if (!Input.GetKey(player.crouch))
@@ -50,7 +66,11 @@ public class Crouch : BaseMoveState
                 player.ChangeState(Player.MovementState.Jump);
             }
 
-            // climb    
+            // climb
+            if (player.isInLadder && Input.GetKey(player.climbUp))
+            {
+                player.ChangeState(Player.MovementState.Climb);
+            }
         }
     }
 
@@ -70,6 +90,10 @@ public class Crouch : BaseMoveState
             player.sr.flipX = false;
             player.lastDir = 1;
         }
+
+        // attack
+        if (Input.GetKey(player.attack))
+            attackHandle.Attack(AttackHandler.AttackType.CROUCHING);
     }
 
     /// Exit

@@ -1,20 +1,25 @@
 using UnityEngine;
 
-public class Run : BaseMoveState
+public class Walk : BaseMoveState
 {
-    public Run(Player player) : base(player) { }
+    private AttackHandler attackHandle;
+
+    public Walk(Player player) : base(player) { }
 
     /// Enter
     public override void Enter()
     {
-        Debug.Log("Run Enter");
+        Debug.Log("Walk Enter");
 
         // animation setting
-        player.ani.SetBool("isWalk", false);
-        player.ani.SetBool("isRun", true);
+        player.ani.SetBool("isWalk", true);
+        player.ani.SetBool("isRun", false);
         player.ani.SetBool("isCrouch", false);
         player.ani.SetBool("isJump", false);
         player.ani.SetBool("isClimb", false);
+
+        // attack handle get
+        attackHandle = player.GetComponent<AttackHandler>();
     }
 
     /// HandleInput
@@ -23,17 +28,29 @@ public class Run : BaseMoveState
         // input   
         player.moveX = Input.GetAxis("Horizontal");
 
-        // state change
-        // walk
-        if (!Input.GetKey(player.run) &&
-            (Input.GetKey(player.moveL) || Input.GetKey(player.moveR)))
+        // attack flag setting
+        if (Input.GetKeyDown(player.attack))
         {
-            player.ChangeState(Player.MovementState.Walk);
+            player.isAttack = true;
+            player.ani.SetBool("isAttack", true);
+        }
+        if (Input.GetKeyUp(player.attack))
+        {
+            player.isAttack = false;
+            player.ani.SetBool("isAttack", false);
         }
 
+        // state change
         // idle
         if (!Input.GetKey(player.moveL) && !Input.GetKey(player.moveR))
             player.ChangeState(Player.MovementState.Idle);
+
+        // run
+        if (Input.GetKey(player.run) &&
+            (Input.GetKey(player.moveL) || Input.GetKey(player.moveR)))
+        {
+            player.ChangeState(Player.MovementState.Run);
+        }
 
         // jump
         if (Input.GetKeyDown(player.jump2) && player.isFloor ||
@@ -70,13 +87,18 @@ public class Run : BaseMoveState
             player.lastDir = 1;
         }
 
-        // run
-        player.rb.velocity = new Vector2(player.moveX * player.runSpeed, player.rb.velocity.y);
+        // attack
+        if (Input.GetKey(player.attack))
+            attackHandle.Attack(AttackHandler.AttackType.STANDING);
+
+        // walk
+        if (!player.isAttack)
+            player.rb.velocity = new Vector2(player.moveX * player.walkSpeed, player.rb.velocity.y); 
     }
 
     /// Exit
     public override void Exit()
     {
-        Debug.Log("Run Exit");
+        Debug.Log("Walk Exit");
     }
 }
