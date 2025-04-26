@@ -47,7 +47,10 @@ public class Jump : BaseMoveState
         }
 
         // climb
-
+        if (player.isInLadder && Input.GetKey(player.climbUp))
+        {
+            player.ChangeState(Player.MovementState.Climb);
+        }
     }
 
     /// LogicUpdate
@@ -63,6 +66,7 @@ public class Jump : BaseMoveState
     /// Exit
     public override void Exit()
     {
+        player.isJumping = false;
         Debug.Log("Jump Exit");
     }
 }

@@ -24,6 +24,12 @@ public class Idle : BaseMoveState
     public override void HandleInput()
     {
         // state change
+        // climb
+        if (player.isInLadder && Input.GetKey(player.climbUp))
+        {
+            player.ChangeState(Player.MovementState.Climb);
+        }
+
         // walk & run
         if (Input.GetKey(player.moveL) || Input.GetKey(player.moveR))
         {
@@ -43,9 +49,6 @@ public class Idle : BaseMoveState
         {
             player.ChangeState(Player.MovementState.Jump);
         }
-
-        // climb
-
     }
 
     /// LogicUpdate

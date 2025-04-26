@@ -22,7 +22,6 @@ public class Run : BaseMoveState
     {
         // input   
         player.moveX = Input.GetAxis("Horizontal");
-        player.moveY = Input.GetAxis("Vertical");
 
         // state change
         // walk
@@ -48,7 +47,10 @@ public class Run : BaseMoveState
             player.ChangeState(Player.MovementState.Crouch);
 
         // climb
-
+        if (player.isInLadder && Input.GetKey(player.climbUp))
+        {
+            player.ChangeState(Player.MovementState.Climb);
+        }
     }
 
     /// LogicUpdate

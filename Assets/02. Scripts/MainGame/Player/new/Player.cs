@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public KeyCode jump = KeyCode.UpArrow;
     public KeyCode jump2 = KeyCode.Space;
     public KeyCode climbUp = KeyCode.UpArrow;
-    public KeyCode climbDown = KeyCode.DownArrow;
+    public KeyCode climbDown = KeyCode.DownArrow;   // ªË¡¶?
     public KeyCode attack = KeyCode.D;
     public KeyCode specialAttack = KeyCode.F;
 
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         moveStates[(int)MovementState.Run] = new Run(this);
         moveStates[(int)MovementState.Crouch] = new Crouch(this);
         moveStates[(int)MovementState.Jump] = new Jump(this);
-        //moveStates[(int)MovementState.Climb] = new Climb(this);
+        moveStates[(int)MovementState.Climb] = new Climb(this);
 
         // get component
         rb = GetComponent<Rigidbody2D>();
