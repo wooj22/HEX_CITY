@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!isHit && !isDie)
+        if (!isDie)
         {
             curMoveState?.HandleInput();
             curMoveState?.LogicUpdate();
@@ -114,7 +114,7 @@ public class Player : MonoBehaviour
         else
         {
             isHit = true;
-            ani.SetBool("isHit", true);
+            //ani.SetBool("isHit", true);
             StartCoroutine(HitColor());
             StartCoroutine(HitFlagRelease());
         }
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
         yield return new WaitForSeconds(stateInfo.length);
-        ani.SetBool("isHit", false);
+        //ani.SetBool("isHit", false);
         isHit = false;
     }
     
