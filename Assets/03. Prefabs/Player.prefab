@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveState: 0
-  hp: 100
+  hp: 300
   power: 10
   walkSpeed: 3.5
   runSpeed: 7

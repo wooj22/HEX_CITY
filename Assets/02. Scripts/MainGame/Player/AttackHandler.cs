@@ -82,10 +82,6 @@ public class AttackHandler : MonoBehaviour
         // animation flip 재적용
         //if (player.lastDir == -1) player.sr.flipX = true;
         //else if (player.lastDir == 1) player.sr.flipX = false;
-
-        // 돌아가는거 확인. 근데 moveX에 따른 이동은 안댐. 정 안되면 여기 이동로직 작성
-        //if (Input.GetKey(KeyCode.LeftArrow))
-        //    player.sr.flipX = true;
     }
 
     /// Special Attack (movement states called)

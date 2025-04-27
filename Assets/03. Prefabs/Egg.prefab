@@ -261,8 +261,7 @@ MonoBehaviour:
   power: 30
   yLimit: 1
   attackLimit: 8
-  attackDelay: 3
-  attackCooltime: 7
+  attackCooltime: 5
   bulelt: {fileID: 7024994301318110489, guid: e9c8b351e0ecf2f4183467df6b67197c, type: 3}
   bulletPosL: {fileID: 994924664997209688}
   bulletPosR: {fileID: 3530104646002876185}
