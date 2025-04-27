@@ -84,8 +84,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        curMoveState?.HandleInput();
-        curMoveState?.LogicUpdate();
+        if (!isHit && !isDie)
+        {
+            curMoveState?.HandleInput();
+            curMoveState?.LogicUpdate();
+        }
     }
 
     /// Movement FSM - State Change
@@ -102,17 +105,26 @@ public class Player : MonoBehaviour
     {
         hp -= damage;
 
-        if (hp < 0)
+        if (hp <= 0)
         {
             hp = 0;
             isDie = true;
+            Die();
         }
         else
         {
             isHit = true;
-            // hit 애니메이션 재생하고, 끝나면 isHit false
+            ani.SetBool("isHit", true);
             StartCoroutine(HitColor());
+            StartCoroutine(HitFlagRelease());
         }
+    }
+
+    /// TODO :: Die 로직 처리
+    private void Die()
+    {
+        Debug.Log("paleyr Die!");
+        this.gameObject.SetActive(false);
     }
 
     /// Hit 연출
@@ -130,6 +142,16 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(blinkInterval);
         }
     }
+
+    /// isHit false
+    private IEnumerator HitFlagRelease()
+    {
+        AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        yield return new WaitForSeconds(stateInfo.length);
+        ani.SetBool("isHit", false);
+        isHit = false;
+    }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
