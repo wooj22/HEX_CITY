@@ -23,22 +23,9 @@ public class Walk : BaseMoveState
         attackHandle = player.GetComponent<AttackHandler>();
     }
 
-    /// HandleInput
+    /// Change State
     public override void ChangeStateLogic()
     {
-        // attack flag setting
-        if (player.isAttackKey)
-        {
-            player.isAttack = true;
-            player.ani.SetBool("isAttack", true);
-        }
-        if (!player.isAttackKey)
-        {
-            player.isAttack = false;
-            player.ani.SetBool("isAttack", false);
-        }
-
-        // state change
         // idle
         if (!player.isMoveLKey && !player.isMoveRKey)
             player.ChangeState(Player.MovementState.Idle);
@@ -68,7 +55,7 @@ public class Walk : BaseMoveState
         }
     }
 
-    /// LogicUpdate
+    /// Logic Update
     public override void UpdateLigic()
     {
         // input   
@@ -87,6 +74,18 @@ public class Walk : BaseMoveState
         {
             player.sr.flipX = false;
             player.lastDir = 1;
+        }
+
+        // attack flag setting
+        if (player.isAttackKey)
+        {
+            player.isAttack = true;
+            player.ani.SetBool("isAttack", true);
+        }
+        if (!player.isAttackKey)
+        {
+            player.isAttack = false;
+            player.ani.SetBool("isAttack", false);
         }
 
         // attack

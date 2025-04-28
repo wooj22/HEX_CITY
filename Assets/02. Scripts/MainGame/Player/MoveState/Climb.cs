@@ -21,10 +21,9 @@ public class Climb : BaseMoveState
         player.ani.SetBool("isClimb", true);
     }
 
-    /// HandleInput
+    /// Change State
     public override void ChangeStateLogic()
     {
-        // state change
         if (!player.isInLadder)
             player.ChangeState(Player.MovementState.Idle);
     }

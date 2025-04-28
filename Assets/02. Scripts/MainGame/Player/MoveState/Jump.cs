@@ -21,7 +21,7 @@ public class Jump : BaseMoveState
         player.rb.AddForce(player.transform.up * player.jumpPower, ForceMode2D.Impulse);
     }
 
-    /// HandleInput
+    /// Change State
     public override void ChangeStateLogic()
     {
         // state change
@@ -53,7 +53,7 @@ public class Jump : BaseMoveState
         }
     }
 
-    /// LogicUpdate
+    /// Logic Update
     public override void UpdateLigic() 
     {
         // isJumping flag controll

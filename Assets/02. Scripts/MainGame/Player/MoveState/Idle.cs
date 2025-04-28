@@ -25,22 +25,9 @@ public class Idle : BaseMoveState
         attackHandle = player.GetComponent<AttackHandler>();
     }
 
-    /// HandleInput
+    /// Change State
     public override void ChangeStateLogic()
     {
-        // attack flag setting
-        if (player.isAttackKey)
-        {
-            player.isAttack = true;
-            player.ani.SetBool("isAttack", true);
-        }
-        if (!player.isAttackKey)
-        {
-            player.isAttack = false;
-            player.ani.SetBool("isAttack", false);
-        }
-
-        // state change
         // climb
         if (player.isInLadder && player.isClimbUpKey)
         {
@@ -68,9 +55,21 @@ public class Idle : BaseMoveState
         }
     }
 
-    /// LogicUpdate
+    /// Logic Update
     public override void UpdateLigic()
     {
+        // attack flag setting
+        if (player.isAttackKey)
+        {
+            player.isAttack = true;
+            player.ani.SetBool("isAttack", true);
+        }
+        if (!player.isAttackKey)
+        {
+            player.isAttack = false;
+            player.ani.SetBool("isAttack", false);
+        }
+
         // attack
         if (player.isAttack)
         {

@@ -25,19 +25,6 @@ public class Run : BaseMoveState
     /// HandleInput
     public override void ChangeStateLogic()
     {
-        // attack flag setting
-        if (player.isAttackKey)
-        {
-            player.isAttack = true;
-            player.ani.SetBool("isAttack", true);
-        }
-        if (!player.isAttackKey)
-        {
-            player.isAttack = false;
-            player.ani.SetBool("isAttack", false);
-        }
-
-        // state change
         // walk
         if (!player.isRunKey &&
             (player.isMoveLKey || player.isMoveRKey))
@@ -67,7 +54,7 @@ public class Run : BaseMoveState
         }
     }
 
-    /// LogicUpdate
+    /// Logic Update
     public override void UpdateLigic()
     {
         // input   
@@ -86,6 +73,18 @@ public class Run : BaseMoveState
         {
             player.sr.flipX = false;
             player.lastDir = 1;
+        }
+
+        // attack flag setting
+        if (player.isAttackKey)
+        {
+            player.isAttack = true;
+            player.ani.SetBool("isAttack", true);
+        }
+        if (!player.isAttackKey)
+        {
+            player.isAttack = false;
+            player.ani.SetBool("isAttack", false);
         }
 
         // attack
