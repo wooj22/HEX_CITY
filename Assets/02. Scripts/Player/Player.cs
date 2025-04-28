@@ -181,6 +181,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// Turret 강화
+    public void Enhance()
+    {
+        hp = maxHp;
+        charge = maxCharge;
+
+        PlayerUIManager.Instance.UpdatePlayerHpUI(hp);
+        PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
+
+        Debug.Log("Player Enhance ~~~");
+    }
+
     /// TODO :: Die 로직 처리
     private void Die()
     {

@@ -42,6 +42,7 @@ public class TurretController : MonoBehaviour
         {
             hp = 0;
             GetComponent<BoxCollider2D>().enabled = false;
+            GameObject.FindWithTag("Player").GetComponent<Player>().Enhance();
             effectAni1.SetBool("isHit", true);
             effectAni2.SetBool("isHit", true);
             Die();
