@@ -179,7 +179,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8122545409971094189
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -278,13 +278,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6659460183433544181}
     m_Modifications:
+    - target: {fileID: 748728668042275393, guid: 8dd7662c0289f31458a1cc8ac4a847c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6349190959522617441, guid: 8dd7662c0289f31458a1cc8ac4a847c4, type: 3}
       propertyPath: m_Name
       value: ObjectCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 6349190959522617441, guid: 8dd7662c0289f31458a1cc8ac4a847c4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6446429393123644166, guid: 8dd7662c0289f31458a1cc8ac4a847c4, type: 3}
       propertyPath: m_Pivot.x
