@@ -27,6 +27,7 @@ public class Walk : BaseMoveState
     {
         // input   
         player.moveX = Input.GetAxis("Horizontal");
+        Debug.Log(player.moveX);
 
         // attack flag setting
         if (Input.GetKeyDown(player.attack))
@@ -92,7 +93,7 @@ public class Walk : BaseMoveState
             attackHandle.Attack(AttackHandler.AttackType.STANDING);
 
         // walk
-        if (!player.isAttack)
+        if (player.isAttack)
             player.rb.velocity = new Vector2(player.moveX * player.walkSpeed, player.rb.velocity.y); 
     }
 

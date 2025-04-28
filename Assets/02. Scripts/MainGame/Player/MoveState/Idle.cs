@@ -69,10 +69,10 @@ public class Idle : BaseMoveState
     }
 
     /// LogicUpdate
-    public override void LogicUpdate() 
+    public override void LogicUpdate()
     {
         // attack
-        if (Input.GetKey(player.attack))
+        if (player.isAttack)
         {
             attackHandle.Attack(AttackHandler.AttackType.STANDING);
         } 

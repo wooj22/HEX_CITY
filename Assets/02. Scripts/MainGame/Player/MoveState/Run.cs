@@ -27,6 +27,7 @@ public class Run : BaseMoveState
     {
         // input   
         player.moveX = Input.GetAxis("Horizontal");
+        Debug.Log(player.moveX);
 
         // attack flag setting
         if (Input.GetKeyDown(player.attack))
@@ -88,7 +89,7 @@ public class Run : BaseMoveState
         }
 
         // attack
-        if (Input.GetKey(player.attack))
+        if (player.isAttack)
             attackHandle.Attack(AttackHandler.AttackType.RUNNING);
 
         // run
