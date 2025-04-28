@@ -19,6 +19,6 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SceneSwitch.Instance.SceneSwithcing("MainGame");
+        SceneSwitch.Instance.SceneReload();
     }
 }

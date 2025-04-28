@@ -22,4 +22,9 @@ public class SceneSwitch : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void SceneReload()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
