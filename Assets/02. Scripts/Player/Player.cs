@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Debug.Log("paleyr Die!");
-        SceneSwitch.Instance.SceneSwithcing("MainGame");        // ¾À ¸®·Îµå
+        GameManager.Instance.GameOver();
     }
 
     /// Hit ¿¬Ãâ
@@ -219,6 +219,12 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ladder"))
         {
             isInLadder = true;
+        }
+
+        // ¸Ê °æ°è¿¡ ´ê¾ÒÀ» °æ¿ì Die
+        if (collision.gameObject.CompareTag("MapBoder"))
+        {
+            Die();
         }
     }
 
