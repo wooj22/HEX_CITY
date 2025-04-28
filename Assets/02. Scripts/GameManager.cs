@@ -21,4 +21,9 @@ public class GameManager : MonoBehaviour
     {
         SceneSwitch.Instance.SceneReload();
     }
+
+    public void MainMapClear()
+    {
+        SceneSwitch.Instance.SceneSwithcing("BossMap");
+    }
 }

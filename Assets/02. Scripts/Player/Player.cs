@@ -239,6 +239,11 @@ public class Player : MonoBehaviour
         {
             Die();
         }
+
+        if(collision.gameObject.CompareTag("Goal"))
+        {
+            GameManager.Instance.MainMapClear();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
