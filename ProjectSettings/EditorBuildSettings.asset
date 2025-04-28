@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/01. Scenes/Tutorial.unity
     guid: 40eaea233171a2b459819fc53c40c65b
   - enabled: 1
-    path: Assets/01. Scenes/MainGame.unity
+    path: Assets/01. Scenes/MainMap.unity
     guid: 4ff719445d1ed734595a12a60b939e30
+  - enabled: 1
+    path: Assets/01. Scenes/BossMap.unity
+    guid: 52ba8d03cf843eb4c8d844910dbd047e
   m_configObjects: {}
