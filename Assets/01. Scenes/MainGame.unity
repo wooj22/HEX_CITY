@@ -2206,6 +2206,10 @@ PrefabInstance:
       propertyPath: maxHp
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 5800730336666850175, guid: 81350324bea2edf45af9398740615e6d, type: 3}
+      propertyPath: attackCooltime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8449788491953503921, guid: 81350324bea2edf45af9398740615e6d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.3
