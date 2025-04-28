@@ -6,23 +6,35 @@ using UnityEngine;
 
 public class TurretController : MonoBehaviour
 {
-    [SerializeField] float hp;
+    [SerializeField] int hp;
+    [SerializeField] int maxHp;
     [SerializeField] Animator effectAni1;
     [SerializeField] Animator effectAni2;
 
+    // component
     private SpriteRenderer sr;
     private Color originalColor;
+    private EnemyHpUI enemyHpUI;
 
     private void Start()
     {
+        // getcomponent
         sr = GetComponent<SpriteRenderer>();
+        enemyHpUI = GetComponentInChildren<EnemyHpUI>();
+
+        // data setting
         originalColor = sr.color;
+        hp = maxHp;
+
+        // ui setting
+        enemyHpUI.SetObjectHpData(maxHp);
     }
 
     /// Hit
     public void Hit(int damage)
     {
         hp -= damage;
+        enemyHpUI.UpdatePlayerHpUI(hp);
         StartCoroutine(HitColor());
 
         if (hp <= 0)
