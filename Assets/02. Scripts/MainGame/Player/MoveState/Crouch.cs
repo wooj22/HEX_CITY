@@ -26,48 +26,45 @@ public class Crouch : BaseMoveState
     }
 
     /// HandleInput
-    public override void HandleInput()
+    public override void ChangeStateLogic()
     {
-        // input   
-        player.moveX = Input.GetAxis("Horizontal");
-
         // attack flag setting
-        if (Input.GetKeyDown(player.attack))
+        if (player.isAttackKey)
         {
             player.isAttack = true;
             player.ani.SetBool("isAttack", true);
         }
-        if (Input.GetKeyUp(player.attack))
+        if (!player.isAttackKey)
         {
             player.isAttack = false;
             player.ani.SetBool("isAttack", false);
         }
 
         // state change
-        if (!Input.GetKey(player.crouch))
+        if (!player.isCrouchKey)
         {
             // idle
-            if (!Input.GetKey(player.moveL) && !Input.GetKey(player.moveR))
+            if (!player.isMoveLKey && !player.isMoveRKey)
                 player.ChangeState(Player.MovementState.Idle);
 
             // walk & run
-            if (Input.GetKey(player.moveL) || Input.GetKey(player.moveR))
+            if (player.isMoveLKey || player.isMoveRKey)
             {
-                if (Input.GetKey(player.run))
+                if (player.isRunKey)
                     player.ChangeState(Player.MovementState.Run);
                 else
                     player.ChangeState(Player.MovementState.Walk);
             }
 
             // jump
-            if (Input.GetKeyDown(player.jump2) && player.isFloor ||
-                Input.GetKeyDown(player.jump) && player.isFloor && !player.isInLadder)
+            if (player.isJump2Key && player.isFloor ||
+                player.isJumpKey && player.isFloor && !player.isInLadder)
             {
                 player.ChangeState(Player.MovementState.Jump);
             }
 
             // climb
-            if (player.isInLadder && Input.GetKey(player.climbUp))
+            if (player.isInLadder && player.isClimbUpKey)
             {
                 player.ChangeState(Player.MovementState.Climb);
             }
@@ -75,8 +72,12 @@ public class Crouch : BaseMoveState
     }
 
     /// LogicUpdate
-    public override void LogicUpdate() 
+    public override void UpdateLigic() 
     {
+        // input   
+        player.moveX = Input.GetAxis("Horizontal");
+        Debug.Log(player.moveX);
+
         // filp
         // left
         if (player.moveX < 0)

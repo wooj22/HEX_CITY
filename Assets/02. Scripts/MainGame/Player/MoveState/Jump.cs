@@ -22,15 +22,15 @@ public class Jump : BaseMoveState
     }
 
     /// HandleInput
-    public override void HandleInput()
+    public override void ChangeStateLogic()
     {
         // state change
         if (!player.isJumping)
         {
             // walk & run
-            if (Input.GetKey(player.moveL) || Input.GetKey(player.moveR))
+            if (player.isMoveLKey || player.isMoveRKey)
             {
-                if (Input.GetKey(player.run))
+                if (player.isRunKey)
                     player.ChangeState(Player.MovementState.Run);
                 else
                     player.ChangeState(Player.MovementState.Walk);
@@ -39,7 +39,7 @@ public class Jump : BaseMoveState
             }
 
             // crouch
-            if(Input.GetKey(player.crouch))
+            if(player.isCrouchKey)
                 player.ChangeState(Player.MovementState.Crouch);
 
             // idle
@@ -47,14 +47,14 @@ public class Jump : BaseMoveState
         }
 
         // climb
-        if (player.isInLadder && Input.GetKey(player.climbUp))
+        if (player.isInLadder && player.isClimbUpKey)
         {
             player.ChangeState(Player.MovementState.Climb);
         }
     }
 
     /// LogicUpdate
-    public override void LogicUpdate() 
+    public override void UpdateLigic() 
     {
         // isJumping flag controll
         if (player.rb.velocity.y > 0.01f)

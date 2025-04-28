@@ -11,7 +11,7 @@ public class BaseMoveState
     }
 
     public virtual void Enter() { } 
-    public virtual void HandleInput() { } 
-    public virtual void LogicUpdate() { }
+    public virtual void ChangeStateLogic() { } 
+    public virtual void UpdateLigic() { }
     public virtual void Exit() { } 
 }

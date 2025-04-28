@@ -22,19 +22,20 @@ public class Climb : BaseMoveState
     }
 
     /// HandleInput
-    public override void HandleInput()
+    public override void ChangeStateLogic()
     {
-        // input
-        player.moveY = Input.GetAxis("Vertical");
-
         // state change
         if (!player.isInLadder)
             player.ChangeState(Player.MovementState.Idle);
     }
 
     /// LogicUpdate
-    public override void LogicUpdate()
+    public override void UpdateLigic()
     {
+        // input
+        player.moveY = Input.GetAxis("Vertical");
+
+        // climb
         player.rb.velocity = player.transform.up * player.moveY * player.climbSpeed;
     }
 

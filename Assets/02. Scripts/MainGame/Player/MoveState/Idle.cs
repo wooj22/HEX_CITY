@@ -26,15 +26,15 @@ public class Idle : BaseMoveState
     }
 
     /// HandleInput
-    public override void HandleInput()
+    public override void ChangeStateLogic()
     {
         // attack flag setting
-        if (Input.GetKeyDown(player.attack))
+        if (player.isAttackKey)
         {
             player.isAttack = true;
             player.ani.SetBool("isAttack", true);
         }
-        if (Input.GetKeyUp(player.attack))
+        if (!player.isAttackKey)
         {
             player.isAttack = false;
             player.ani.SetBool("isAttack", false);
@@ -42,34 +42,34 @@ public class Idle : BaseMoveState
 
         // state change
         // climb
-        if (player.isInLadder && Input.GetKey(player.climbUp))
+        if (player.isInLadder && player.isClimbUpKey)
         {
             player.ChangeState(Player.MovementState.Climb);
         }
 
         // walk & run
-        if (Input.GetKey(player.moveL) || Input.GetKey(player.moveR))
+        if (player.isMoveLKey || player.isMoveRKey)
         {
-            if (Input.GetKey(player.run))
+            if (player.isRunKey)
                 player.ChangeState(Player.MovementState.Run);
             else
                 player.ChangeState(Player.MovementState.Walk);
         }
 
         // crouch
-        if (Input.GetKey(player.crouch))
+        if (player.isCrouchKey)
             player.ChangeState(Player.MovementState.Crouch);
 
         // jump
-        if (Input.GetKeyDown(player.jump2) && player.isFloor ||
-            Input.GetKeyDown(player.jump) && player.isFloor && !player.isInLadder)
+        if (player.isJump2Key && player.isFloor ||
+            player.isJumpKey && player.isFloor && !player.isInLadder)
         {
             player.ChangeState(Player.MovementState.Jump);
         }
     }
 
     /// LogicUpdate
-    public override void LogicUpdate()
+    public override void UpdateLigic()
     {
         // attack
         if (player.isAttack)

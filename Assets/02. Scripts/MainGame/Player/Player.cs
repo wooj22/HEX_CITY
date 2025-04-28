@@ -98,8 +98,9 @@ public class Player : MonoBehaviour
     {
         if (!isDie)
         {
-            curMoveState?.HandleInput();
-            curMoveState?.LogicUpdate();
+            KeyInputHandler();
+            curMoveState?.ChangeStateLogic();
+            curMoveState?.UpdateLigic();
         }
     }
 
@@ -115,30 +116,42 @@ public class Player : MonoBehaviour
     /// Player Key Input
     public void KeyInputHandler()
     {
+        // move key input
         if (Input.GetKeyDown(moveL)) isMoveLKey = true;
         if (Input.GetKeyUp(moveL)) isMoveLKey = false;
 
         if (Input.GetKeyDown(moveR)) isMoveRKey = true;
         if (Input.GetKeyUp(moveR)) isMoveRKey = false;
 
+        // run key input
         if (Input.GetKeyDown(run)) isRunKey = true;
         if (Input.GetKeyUp(run)) isRunKey = false;
 
+        // crouch key input
         if (Input.GetKeyDown(crouch)) isCrouchKey = true;
         if(Input.GetKeyUp(crouch)) isCrouchKey = false;
 
-        if (Input.GetKeyDown(jump)) isJumping = true;
-        if (Input.GetKeyUp(jump)) isJumping = false;
-
+        // jump key input
         if (Input.GetKeyDown(jump2)) isJump2Key = true;
         if (Input.GetKeyUp(jump2)) isJump2Key = false;
 
-        if (Input.GetKeyDown(climbUp)) isClimbUpKey = true;
-        if (Input.GetKeyUp(climbUp)) isClimbUpKey = false;
+        // climb key input
+        if (Input.GetKeyDown(climbUp))
+        {
+            isClimbUpKey = true;
+            isJumpKey = true;  // 동일키
+        }
+        if (Input.GetKeyUp(climbUp))
+        {
+            isClimbUpKey = false;
+            isJumpKey = false;  // 동일키
+        }
 
+        // climb down key input
         if (Input.GetKeyDown(climbDown)) isClimbDownKey = true;
         if (Input.GetKeyUp(climbDown)) isClimbDownKey = false;
 
+        // attack key input
         if (Input.GetKeyDown(attack)) isAttackKey = true;
         if (Input.GetKeyUp(attack)) isAttackKey = false;
 

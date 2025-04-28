@@ -23,19 +23,15 @@ public class Run : BaseMoveState
     }
 
     /// HandleInput
-    public override void HandleInput()
+    public override void ChangeStateLogic()
     {
-        // input   
-        player.moveX = Input.GetAxis("Horizontal");
-        Debug.Log(player.moveX);
-
         // attack flag setting
-        if (Input.GetKeyDown(player.attack))
+        if (player.isAttackKey)
         {
             player.isAttack = true;
             player.ani.SetBool("isAttack", true);
         }
-        if (Input.GetKeyUp(player.attack))
+        if (!player.isAttackKey)
         {
             player.isAttack = false;
             player.ani.SetBool("isAttack", false);
@@ -43,37 +39,41 @@ public class Run : BaseMoveState
 
         // state change
         // walk
-        if (!Input.GetKey(player.run) &&
-            (Input.GetKey(player.moveL) || Input.GetKey(player.moveR)))
+        if (!player.isRunKey &&
+            (player.isMoveLKey || player.isMoveRKey))
         {
             player.ChangeState(Player.MovementState.Walk);
         }
 
         // idle
-        if (!Input.GetKey(player.moveL) && !Input.GetKey(player.moveR))
+        if (!player.isMoveLKey && !player.isMoveRKey)
             player.ChangeState(Player.MovementState.Idle);
 
         // jump
-        if (Input.GetKeyDown(player.jump2) && player.isFloor ||
-            Input.GetKeyDown(player.jump) && player.isFloor && !player.isInLadder)
+        if (player.isJump2Key && player.isFloor ||
+            player.isJumpKey && player.isFloor && !player.isInLadder)
         {
             player.ChangeState(Player.MovementState.Jump);
         }
 
         // crouch
-        if (Input.GetKey(player.crouch))
+        if (player.isCrouchKey)
             player.ChangeState(Player.MovementState.Crouch);
 
         // climb
-        if (player.isInLadder && Input.GetKey(player.climbUp))
+        if (player.isInLadder && player.isClimbUpKey)
         {
             player.ChangeState(Player.MovementState.Climb);
         }
     }
 
     /// LogicUpdate
-    public override void LogicUpdate()
+    public override void UpdateLigic()
     {
+        // input   
+        player.moveX = Input.GetAxis("Horizontal");
+        Debug.Log(player.moveX);
+
         // filp
         // left
         if (player.moveX < 0)
@@ -93,7 +93,7 @@ public class Run : BaseMoveState
             attackHandle.Attack(AttackHandler.AttackType.RUNNING);
 
         // run
-        player.rb.velocity = new Vector2(player.moveX * player.runSpeed, player.rb.velocity.y);
+        player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
     }
 
     /// Exit
