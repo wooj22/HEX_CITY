@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public BaseState[] stateArr;                // state class array
     public enum PlayerState                     // state class array 접근, 관리용 enum
     {
-        Idle, Walk, Run, Crouch, Jump, Climb
+        Idle, Walk, Run, Crouch, Jump, Climb        // attackState 미추가 (지금 핸들러로 테스트중)
     }
 
     [Header("Player Stat")]
@@ -51,13 +51,13 @@ public class Player : MonoBehaviour
     public KeyCode jump2 = KeyCode.Space;
     public KeyCode climbUp = KeyCode.UpArrow;
     public KeyCode climbDown = KeyCode.DownArrow;   // 삭제?
-    public KeyCode attack = KeyCode.D;
+    public KeyCode attack = KeyCode.C;
     public KeyCode specialAttack = KeyCode.F;
 
     // controll
     [HideInInspector] public float moveX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
     [HideInInspector] public float moveY;
-    [HideInInspector] public int lastDir;       // right : 1, left : -1
+    [SerializeField] public int lastDir;       // right : 1, left : -1 (체크용으로 인스펙터 잠깐 빼둠)
     [HideInInspector] public float originGravity;
     private Color originColor;
    

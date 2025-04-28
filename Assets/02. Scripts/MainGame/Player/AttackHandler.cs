@@ -38,11 +38,6 @@ public class AttackHandler : MonoBehaviour
     /// Attack (movement states called)
     public void Attack(AttackType type)
     {
-        // 수정하기 전 그냥 해보는거
-        // walk, run flilp
-        if (player.isMoveLKey) player.sr.flipX = true;
-        else if (player.isMoveRKey) player.sr.flipX = false;
-
         // run attack moveing
         if (player.state == Player.PlayerState.Run)
         {

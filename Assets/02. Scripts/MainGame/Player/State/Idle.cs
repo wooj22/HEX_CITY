@@ -58,6 +58,10 @@ public class Idle : BaseState
     /// Logic Update
     public override void UpdateLigic()
     {
+        // input   
+        player.moveX = Input.GetAxis("Horizontal");
+        Debug.Log(player.moveX);
+
         // attack flag setting
         if (player.isAttackKey)
         {

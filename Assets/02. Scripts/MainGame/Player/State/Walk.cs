@@ -63,18 +63,8 @@ public class Walk : BaseState
         Debug.Log(player.moveX);
 
         // filp
-        // left
-        if (player.moveX < 0)
-        {
-            player.sr.flipX = true;
-            player.lastDir = -1;
-        }
-        // right
-        else if (player.moveX > 0)
-        {
-            player.sr.flipX = false;
-            player.lastDir = 1;
-        }
+        if (player.moveX < 0) { player.sr.flipX = true; player.lastDir = -1; }      // left
+        else if (player.moveX > 0) { player.sr.flipX = false; player.lastDir = 1; } // right
 
         // attack flag setting
         if (player.isAttackKey)
