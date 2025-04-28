@@ -1,19 +1,20 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Run : BaseMoveState
+public class Walk : BaseState
 {
     private AttackHandler attackHandle;
 
-    public Run(Player player) : base(player) { }
+    public Walk(Player player) : base(player) { }
 
     /// Enter
     public override void Enter()
     {
-        Debug.Log("Run Enter");
+        Debug.Log("Walk Enter");
 
         // animation setting
-        player.ani.SetBool("isWalk", false);
-        player.ani.SetBool("isRun", true);
+        player.ani.SetBool("isWalk", true);
+        player.ani.SetBool("isRun", false);
         player.ani.SetBool("isCrouch", false);
         player.ani.SetBool("isJump", false);
         player.ani.SetBool("isClimb", false);
@@ -22,35 +23,35 @@ public class Run : BaseMoveState
         attackHandle = player.GetComponent<AttackHandler>();
     }
 
-    /// HandleInput
+    /// Change State
     public override void ChangeStateLogic()
     {
-        // walk
-        if (!player.isRunKey &&
-            (player.isMoveLKey || player.isMoveRKey))
-        {
-            player.ChangeState(Player.MovementState.Walk);
-        }
-
         // idle
         if (!player.isMoveLKey && !player.isMoveRKey)
-            player.ChangeState(Player.MovementState.Idle);
+            player.ChangeState(Player.PlayerState.Idle);
+
+        // run
+        if (player.isRunKey &&
+            (player.isMoveLKey || player.isMoveRKey))
+        {
+            player.ChangeState(Player.PlayerState.Run);
+        }
 
         // jump
         if (player.isJump2Key && player.isFloor ||
             player.isJumpKey && player.isFloor && !player.isInLadder)
         {
-            player.ChangeState(Player.MovementState.Jump);
+            player.ChangeState(Player.PlayerState.Jump);
         }
 
         // crouch
         if (player.isCrouchKey)
-            player.ChangeState(Player.MovementState.Crouch);
+            player.ChangeState(Player.PlayerState.Crouch);
 
         // climb
         if (player.isInLadder && player.isClimbUpKey)
         {
-            player.ChangeState(Player.MovementState.Climb);
+            player.ChangeState(Player.PlayerState.Climb);
         }
     }
 
@@ -89,15 +90,16 @@ public class Run : BaseMoveState
 
         // attack
         if (player.isAttack)
-            attackHandle.Attack(AttackHandler.AttackType.RUNNING);
+            attackHandle.Attack(AttackHandler.AttackType.STANDING);
 
-        // run
-        player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
+        // walk
+        if (!player.isAttack)
+            player.rb.velocity = new Vector2(player.lastDir * player.walkSpeed, player.rb.velocity.y); 
     }
 
     /// Exit
     public override void Exit()
     {
-        Debug.Log("Run Exit");
+        Debug.Log("Walk Exit");
     }
 }

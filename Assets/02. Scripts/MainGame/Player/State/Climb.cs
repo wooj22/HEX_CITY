@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Climb : BaseMoveState
+public class Climb : BaseState
 {
     public Climb(Player player) : base(player) { }
 
@@ -12,6 +12,10 @@ public class Climb : BaseMoveState
         // ladder mode setting
         player.gameObject.layer = LayerMask.NameToLayer("Ladder");
         player.rb.gravityScale = 0;
+
+        // attack flag off
+        player.isAttack = false;
+        player.ani.SetBool("isAttack", false);
 
         // animation setting
         player.ani.SetBool("isWalk", false);
@@ -25,7 +29,7 @@ public class Climb : BaseMoveState
     public override void ChangeStateLogic()
     {
         if (!player.isInLadder)
-            player.ChangeState(Player.MovementState.Idle);
+            player.ChangeState(Player.PlayerState.Idle);
     }
 
     /// LogicUpdate

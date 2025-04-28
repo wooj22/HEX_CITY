@@ -38,6 +38,29 @@ public class AttackHandler : MonoBehaviour
     /// Attack (movement states called)
     public void Attack(AttackType type)
     {
+        // 수정하기 전 그냥 해보는거
+        // walk, run flilp
+        if (player.isMoveLKey) player.sr.flipX = true;
+        else if (player.isMoveRKey) player.sr.flipX = false;
+
+        // run attack moveing
+        if (player.state == Player.PlayerState.Run)
+        {
+            player.moveX = Input.GetAxis("Horizontal");
+            if (player.moveX < 0)
+            {
+                player.sr.flipX = true;
+                player.lastDir = -1;
+            }
+            // right
+            else if (player.moveX > 0)
+            {
+                player.sr.flipX = false;
+                player.lastDir = 1;
+            }
+            player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
+        }
+
         // coolTime -> shoot
         switch (type)
         {
@@ -84,12 +107,6 @@ public class AttackHandler : MonoBehaviour
         //else if (player.lastDir == 1) player.sr.flipX = false;
     }
 
-    /// Special Attack (movement states called)
-    public void SpecialAttack()
-    {
-        
-    }
-
     /// Shoot
     private void Shoot()
     {
@@ -100,6 +117,13 @@ public class AttackHandler : MonoBehaviour
         // shoot
         GameObject playerBullet = Instantiate(bulelt, bulletPos, Quaternion.identity);
         playerBullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
+    }
+
+    /*---------------- 안할듯 -----------------------*/
+    /// Special Attack (movement states called)
+    public void SpecialAttack()
+    {
+
     }
 
     /// Special Shoot

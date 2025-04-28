@@ -5,10 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("MoveState")]
-    [SerializeField] MovementState moveState;
-    public BaseMoveState curMoveState;
-    public BaseMoveState[] moveStates;
-    public enum MovementState
+    [SerializeField] public PlayerState state;  // enum
+    public BaseState curState;                  // state class
+    public BaseState[] stateArr;                // state class array
+    public enum PlayerState                     // state class array 접근, 관리용 enum
     {
         Idle, Walk, Run, Crouch, Jump, Climb
     }
@@ -69,14 +69,14 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         // movement states 등록
-        moveStates = new BaseMoveState[System.Enum.GetValues(typeof(MovementState)).Length];
+        stateArr = new BaseState[System.Enum.GetValues(typeof(PlayerState)).Length];
 
-        moveStates[(int)MovementState.Idle] = new Idle(this);
-        moveStates[(int)MovementState.Walk] = new Walk(this);
-        moveStates[(int)MovementState.Run] = new Run(this);
-        moveStates[(int)MovementState.Crouch] = new Crouch(this);
-        moveStates[(int)MovementState.Jump] = new Jump(this);
-        moveStates[(int)MovementState.Climb] = new Climb(this);
+        stateArr[(int)PlayerState.Idle] = new Idle(this);
+        stateArr[(int)PlayerState.Walk] = new Walk(this);
+        stateArr[(int)PlayerState.Run] = new Run(this);
+        stateArr[(int)PlayerState.Crouch] = new Crouch(this);
+        stateArr[(int)PlayerState.Jump] = new Jump(this);
+        stateArr[(int)PlayerState.Climb] = new Climb(this);
 
         // get component
         rb = GetComponent<Rigidbody2D>();
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         // start movement state setting
-        ChangeState(MovementState.Idle);
+        ChangeState(PlayerState.Idle);
 
         // data setting
         originColor = sr.color;
@@ -99,18 +99,18 @@ public class Player : MonoBehaviour
         if (!isDie)
         {
             KeyInputHandler();
-            curMoveState?.ChangeStateLogic();
-            curMoveState?.UpdateLigic();
+            curState?.ChangeStateLogic();
+            curState?.UpdateLigic();
         }
     }
 
     /// Movement FSM - State Change
-    public void ChangeState(MovementState state)
+    public void ChangeState(PlayerState state)
     {
-        curMoveState?.Exit();
-        curMoveState = moveStates[(int)state];
-        moveState = state;
-        curMoveState?.Enter();
+        curState?.Exit();
+        curState = stateArr[(int)state];
+        this.state = state;
+        curState?.Enter();
     }
 
     /// Player Key Input

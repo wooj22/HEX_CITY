@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Idle : BaseMoveState
+public class Idle : BaseState
 {
     private AttackHandler attackHandle;
 
@@ -31,27 +31,27 @@ public class Idle : BaseMoveState
         // climb
         if (player.isInLadder && player.isClimbUpKey)
         {
-            player.ChangeState(Player.MovementState.Climb);
+            player.ChangeState(Player.PlayerState.Climb);
         }
 
         // walk & run
         if (player.isMoveLKey || player.isMoveRKey)
         {
             if (player.isRunKey)
-                player.ChangeState(Player.MovementState.Run);
+                player.ChangeState(Player.PlayerState.Run);
             else
-                player.ChangeState(Player.MovementState.Walk);
+                player.ChangeState(Player.PlayerState.Walk);
         }
 
         // crouch
         if (player.isCrouchKey)
-            player.ChangeState(Player.MovementState.Crouch);
+            player.ChangeState(Player.PlayerState.Crouch);
 
         // jump
         if (player.isJump2Key && player.isFloor ||
             player.isJumpKey && player.isFloor && !player.isInLadder)
         {
-            player.ChangeState(Player.MovementState.Jump);
+            player.ChangeState(Player.PlayerState.Jump);
         }
     }
 
