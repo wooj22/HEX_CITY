@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Debug.Log("paleyr Die!");
-        this.gameObject.SetActive(false);
+        SceneSwitch.Instance.SceneSwithcing("MainGame");        // 씬 리로드
     }
 
     /// Hit 연출
