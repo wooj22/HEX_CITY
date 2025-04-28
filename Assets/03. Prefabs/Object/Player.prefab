@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54db301995d55c04f96cde07d73bf160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveState: 0
+  playerMoveState: 0
   hp: 300
   power: 10
   walkSpeed: 3.5
@@ -318,6 +318,15 @@ MonoBehaviour:
   isFloor: 0
   isInLadder: 0
   isJumping: 0
+  isMoveLKey: 0
+  isMoveRKey: 0
+  isRunKey: 0
+  isCrouchKey: 0
+  isJumpKey: 0
+  isJump2Key: 0
+  isClimbUpKey: 0
+  isAttackKey: 0
+  isSpecialAttackKey: 0
   moveL: 276
   moveR: 275
   run: 304
@@ -325,7 +334,6 @@ MonoBehaviour:
   jump: 273
   jump2: 32
   climbUp: 273
-  climbDown: 274
   attack: 100
   specialAttack: 102
   moveX: 0
