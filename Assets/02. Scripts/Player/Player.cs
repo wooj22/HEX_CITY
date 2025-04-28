@@ -15,11 +15,14 @@ public class Player : MonoBehaviour
 
     [Header("Player Stat")]
     public int hp;
+    private int maxHp = 100;
     public int power;
     public float walkSpeed;
     public float runSpeed;
     public float climbSpeed;
     public float jumpPower;
+    private int charge;
+    private int maxCharge = 10;
 
     [Header("Player State Flags")]
     public bool isDie;
@@ -58,7 +61,7 @@ public class Player : MonoBehaviour
     [SerializeField] public int lastDir;        // right : 1, left : -1 (√º≈©øÎ¿∏∑Œ ¿ŒΩ∫∆Â≈Õ ¿·±Ò ª©µ“)
     [HideInInspector] public float originGravity;
     private Color originColor;
-   
+
     // Components
     [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public Rigidbody2D rb;
@@ -88,8 +91,12 @@ public class Player : MonoBehaviour
         ChangeState(PlayerState.Idle);
 
         // data setting
+        hp = maxHp;
         originColor = sr.color;
         originGravity = rb.gravityScale;
+
+        // ui data setting
+        PlayerUIManager.Instance.SetPlayerUIDate(maxHp, maxCharge);
     }
 
     private void Update()
@@ -157,6 +164,7 @@ public class Player : MonoBehaviour
     public void Hit(int damage)
     {
         hp -= damage;
+        PlayerUIManager.Instance.UpdatePlayerHpUI(hp);
 
         if (hp <= 0)
         {

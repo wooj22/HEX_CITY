@@ -60,7 +60,6 @@ public class Idle : BaseMoveState
     {
         // input   
         player.moveX = Input.GetAxis("Horizontal");
-        Debug.Log(player.moveX);
 
         // attack flag setting
         if (player.isAttackKey)

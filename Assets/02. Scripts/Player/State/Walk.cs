@@ -60,7 +60,6 @@ public class Walk : BaseMoveState
     {
         // input   
         player.moveX = Input.GetAxis("Horizontal");
-        Debug.Log(player.moveX);
 
         // filp
         if (player.moveX < 0) { player.sr.flipX = true; player.lastDir = -1; }      // left
