@@ -24,6 +24,6 @@ public class GameManager : MonoBehaviour
 
     public void MainMapClear()
     {
-        SceneSwitch.Instance.SceneSwithcing("BossMap");
+        MainMapDirector.Instance.FadeOutSceneChange("BossMap");
     }
 }
