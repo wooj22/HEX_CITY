@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMapDirector : MonoBehaviour
+public class SceneDirector : MonoBehaviour
 {
     [SerializeField] Image fadeImage;
 
-    public static MainMapDirector Instance { get; private set; }
+    public static SceneDirector Instance { get; private set; }
     private void Awake()
     {
         if (Instance == null)

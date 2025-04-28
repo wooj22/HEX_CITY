@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -24,6 +25,6 @@ public class GameManager : MonoBehaviour
 
     public void MainMapClear()
     {
-        MainMapDirector.Instance.FadeOutSceneChange("BossMap");
+        SceneDirector.Instance.FadeOutSceneChange("BossMap");
     }
 }
