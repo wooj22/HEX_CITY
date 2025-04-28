@@ -1,11 +1,11 @@
 
 /*  Player Movement FSMÀÇ BaseState  */
 /* Idle, Walk, Run, Crouch, Jump, Climb */
-public class BaseState
+public class BaseMoveState
 {
     protected Player player;
 
-    public BaseState(Player player)
+    public BaseMoveState(Player player)
     {
         this.player = player;
     }

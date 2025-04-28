@@ -39,7 +39,7 @@ public class AttackHandler : MonoBehaviour
     public void Attack(AttackType type)
     {
         // run attack moveing
-        if (player.state == Player.PlayerState.Run)
+        if (player.playerMoveState == Player.PlayerState.Run)
         {
             player.moveX = Input.GetAxis("Horizontal");
             if (player.moveX < 0)
@@ -96,10 +96,6 @@ public class AttackHandler : MonoBehaviour
             default:
                 break;
         }
-
-        // animation flip ÀçÀû¿ë
-        //if (player.lastDir == -1) player.sr.flipX = true;
-        //else if (player.lastDir == 1) player.sr.flipX = false;
     }
 
     /// Shoot

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Jump : BaseState
+public class Jump : BaseMoveState
 {
     public Jump(Player player) : base(player) { }
 

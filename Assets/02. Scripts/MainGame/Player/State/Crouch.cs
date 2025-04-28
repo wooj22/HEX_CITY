@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Crouch : BaseState
+public class Crouch : BaseMoveState
 {
     private AttackHandler attackHandle;
 

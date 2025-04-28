@@ -5,12 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("MoveState")]
-    [SerializeField] public PlayerState state;  // enum
-    public BaseState curState;                  // state class
-    public BaseState[] stateArr;                // state class array
-    public enum PlayerState                     // state class array 접근, 관리용 enum
+    [SerializeField] public PlayerState playerMoveState;  // enum
+    public BaseMoveState curMoveState;                    // state class
+    public BaseMoveState[] moveStateArr;                  // state class array
+    public enum PlayerState       // state class array 접근, 관리용 enum
     {
-        Idle, Walk, Run, Crouch, Jump, Climb        // attackState 미추가 (지금 핸들러로 테스트중)
+        Idle, Walk, Run, Crouch, Jump, Climb 
     }
 
     [Header("Player Stat")]
@@ -35,10 +35,9 @@ public class Player : MonoBehaviour
     public bool isMoveRKey;
     public bool isRunKey;
     public bool isCrouchKey;
-    public bool isJumpKey;
-    public bool isJump2Key;
-    public bool isClimbUpKey;
-    public bool isClimbDownKey;
+    public bool isJumpKey;      // up arrow
+    public bool isJump2Key;     // space bar
+    public bool isClimbUpKey;   // up arrow
     public bool isAttackKey;
     public bool isSpecialAttackKey;
 
@@ -50,14 +49,13 @@ public class Player : MonoBehaviour
     public KeyCode jump = KeyCode.UpArrow;
     public KeyCode jump2 = KeyCode.Space;
     public KeyCode climbUp = KeyCode.UpArrow;
-    public KeyCode climbDown = KeyCode.DownArrow;   // 삭제?
     public KeyCode attack = KeyCode.C;
     public KeyCode specialAttack = KeyCode.F;
 
     // controll
     [HideInInspector] public float moveX;       // keycode가 기본 horizontal이 아닐경우 수정 요함
     [HideInInspector] public float moveY;
-    [SerializeField] public int lastDir;       // right : 1, left : -1 (체크용으로 인스펙터 잠깐 빼둠)
+    [SerializeField] public int lastDir;        // right : 1, left : -1 (체크용으로 인스펙터 잠깐 빼둠)
     [HideInInspector] public float originGravity;
     private Color originColor;
    
@@ -69,14 +67,14 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         // movement states 등록
-        stateArr = new BaseState[System.Enum.GetValues(typeof(PlayerState)).Length];
+        moveStateArr = new BaseMoveState[System.Enum.GetValues(typeof(PlayerState)).Length];
 
-        stateArr[(int)PlayerState.Idle] = new Idle(this);
-        stateArr[(int)PlayerState.Walk] = new Walk(this);
-        stateArr[(int)PlayerState.Run] = new Run(this);
-        stateArr[(int)PlayerState.Crouch] = new Crouch(this);
-        stateArr[(int)PlayerState.Jump] = new Jump(this);
-        stateArr[(int)PlayerState.Climb] = new Climb(this);
+        moveStateArr[(int)PlayerState.Idle] = new Idle(this);
+        moveStateArr[(int)PlayerState.Walk] = new Walk(this);
+        moveStateArr[(int)PlayerState.Run] = new Run(this);
+        moveStateArr[(int)PlayerState.Crouch] = new Crouch(this);
+        moveStateArr[(int)PlayerState.Jump] = new Jump(this);
+        moveStateArr[(int)PlayerState.Climb] = new Climb(this);
 
         // get component
         rb = GetComponent<Rigidbody2D>();
@@ -99,18 +97,18 @@ public class Player : MonoBehaviour
         if (!isDie)
         {
             KeyInputHandler();
-            curState?.ChangeStateLogic();
-            curState?.UpdateLigic();
+            curMoveState?.ChangeStateLogic();
+            curMoveState?.UpdateLigic();
         }
     }
 
     /// Movement FSM - State Change
     public void ChangeState(PlayerState state)
     {
-        curState?.Exit();
-        curState = stateArr[(int)state];
-        this.state = state;
-        curState?.Enter();
+        curMoveState?.Exit();
+        curMoveState = moveStateArr[(int)state];
+        this.playerMoveState = state;
+        curMoveState?.Enter();
     }
 
     /// Player Key Input
@@ -146,10 +144,6 @@ public class Player : MonoBehaviour
             isClimbUpKey = false;
             isJumpKey = false;  // 동일키
         }
-
-        // climb down key input
-        if (Input.GetKeyDown(climbDown)) isClimbDownKey = true;
-        if (Input.GetKeyUp(climbDown)) isClimbDownKey = false;
 
         // attack key input
         if (Input.GetKeyDown(attack)) isAttackKey = true;

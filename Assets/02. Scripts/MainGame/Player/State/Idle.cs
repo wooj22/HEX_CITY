@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Idle : BaseState
+public class Idle : BaseMoveState
 {
     private AttackHandler attackHandle;
 

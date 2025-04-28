@@ -1,7 +1,7 @@
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Walk : BaseState
+public class Walk : BaseMoveState
 {
     private AttackHandler attackHandle;
 

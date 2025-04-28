@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Run : BaseState
+public class Run : BaseMoveState
 {
     private AttackHandler attackHandle;
 

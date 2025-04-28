@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Climb : BaseState
+public class Climb : BaseMoveState
 {
     public Climb(Player player) : base(player) { }
 
