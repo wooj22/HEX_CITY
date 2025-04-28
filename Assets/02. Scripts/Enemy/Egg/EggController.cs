@@ -6,7 +6,8 @@ using static UnityEditor.Rendering.InspectorCurveEditor;
 public class EggController : MonoBehaviour
 {
     [Header("Stat")]
-    [SerializeField] private float hp;
+    [SerializeField] private int hp;
+    [SerializeField] private int maxHp;
     [SerializeField] private int power;
 
     [Header ("AI")]
@@ -15,7 +16,7 @@ public class EggController : MonoBehaviour
     [SerializeField] private float attackCooltime;
 
     [Header("Asset")]
-    [SerializeField] private GameObject bulelt; // TODO :: bullet 레이저리소스 찾아서 바꾸기
+    [SerializeField] private GameObject bulelt;
     [SerializeField] private Transform bulletPosL;
     [SerializeField] private Transform bulletPosR;
 
@@ -32,14 +33,23 @@ public class EggController : MonoBehaviour
     // compnent
     private SpriteRenderer sr;
     private Animator ani;
+    private EnemyHpUI enemyHpUI;
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        // getcomponent
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
+        enemyHpUI = GetComponentInChildren<EnemyHpUI>();
+        player = GameObject.FindWithTag("Player");
+
+        // data setting
+        hp = maxHp;
         timer = attackCooltime;   
         originalColor = sr.color;
+
+        // ui setting
+        enemyHpUI.SetEnemyHpData(maxHp);
     }
 
     private void Update()
@@ -120,6 +130,7 @@ public class EggController : MonoBehaviour
     public void Hit(int damage)
     {
         hp -= damage;
+        enemyHpUI.UpdateEnemyHpUI(hp);
         StartCoroutine(HitColor());
 
         if (hp <= 0)

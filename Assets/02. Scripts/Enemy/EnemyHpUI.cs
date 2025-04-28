@@ -8,12 +8,12 @@ public class EnemyHpUI : MonoBehaviour
     [SerializeField] private Image enemyHp_Image;
     private int enemyMaxHp;
 
-    public void SetObjectHpData(int maxHp)
+    public void SetEnemyHpData(int maxHp)
     {
         enemyMaxHp = maxHp;
     }
 
-    public void UpdatePlayerHpUI(int hp)
+    public void UpdateEnemyHpUI(int hp)
     {
         enemyHp_Image.fillAmount = (float)hp / (float)enemyMaxHp;
     }

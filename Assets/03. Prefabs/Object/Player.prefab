@@ -306,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMoveState: 0
   hp: 300
+  maxHp: 300
   power: 10
   walkSpeed: 3.5
   runSpeed: 7

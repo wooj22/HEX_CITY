@@ -57,7 +57,7 @@ public class EnemyController : MonoBehaviour
         hp = maxHp;
 
         // ui setting
-        enemyHpUI.SetObjectHpData(maxHp);
+        enemyHpUI.SetEnemyHpData(maxHp);
     }
 
     private void Update()
@@ -176,7 +176,7 @@ public class EnemyController : MonoBehaviour
     public void Hit(int damage)
     {
         hp -= damage;
-        enemyHpUI.UpdatePlayerHpUI(hp);
+        enemyHpUI.UpdateEnemyHpUI(hp);
         StartCoroutine(HitColor());
 
         if (hp <= 0)
