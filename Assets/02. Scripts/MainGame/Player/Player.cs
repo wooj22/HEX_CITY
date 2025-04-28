@@ -30,6 +30,18 @@ public class Player : MonoBehaviour
     public bool isInLadder;
     public bool isJumping;
 
+    [Header("Player Key Input Flags")]
+    public bool isMoveLKey;
+    public bool isMoveRKey;
+    public bool isRunKey;
+    public bool isCrouchKey;
+    public bool isJumpKey;
+    public bool isJump2Key;
+    public bool isClimbUpKey;
+    public bool isClimbDownKey;
+    public bool isAttackKey;
+    public bool isSpecialAttackKey;
+
     [Header("Key Bindings")]
     public KeyCode moveL = KeyCode.LeftArrow;
     public KeyCode moveR = KeyCode.RightArrow;
@@ -98,6 +110,40 @@ public class Player : MonoBehaviour
         curMoveState = moveStates[(int)state];
         moveState = state;
         curMoveState?.Enter();
+    }
+
+    /// Player Key Input
+    public void KeyInputHandler()
+    {
+        if (Input.GetKeyDown(moveL)) isMoveLKey = true;
+        if (Input.GetKeyUp(moveL)) isMoveLKey = false;
+
+        if (Input.GetKeyDown(moveR)) isMoveRKey = true;
+        if (Input.GetKeyUp(moveR)) isMoveRKey = false;
+
+        if (Input.GetKeyDown(run)) isRunKey = true;
+        if (Input.GetKeyUp(run)) isRunKey = false;
+
+        if (Input.GetKeyDown(crouch)) isCrouchKey = true;
+        if(Input.GetKeyUp(crouch)) isCrouchKey = false;
+
+        if (Input.GetKeyDown(jump)) isJumping = true;
+        if (Input.GetKeyUp(jump)) isJumping = false;
+
+        if (Input.GetKeyDown(jump2)) isJump2Key = true;
+        if (Input.GetKeyUp(jump2)) isJump2Key = false;
+
+        if (Input.GetKeyDown(climbUp)) isClimbUpKey = true;
+        if (Input.GetKeyUp(climbUp)) isClimbUpKey = false;
+
+        if (Input.GetKeyDown(climbDown)) isClimbDownKey = true;
+        if (Input.GetKeyUp(climbDown)) isClimbDownKey = false;
+
+        if (Input.GetKeyDown(attack)) isAttackKey = true;
+        if (Input.GetKeyUp(attack)) isAttackKey = false;
+
+        if(Input.GetKeyDown(specialAttack)) isSpecialAttackKey = true;
+        if (Input.GetKeyUp(specialAttack)) isSpecialAttackKey = false;
     }
 
     /// Hit
