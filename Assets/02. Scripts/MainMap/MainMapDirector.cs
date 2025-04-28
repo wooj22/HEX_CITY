@@ -27,7 +27,7 @@ public class MainMapDirector : MonoBehaviour
 
     public void FadeOutSceneChange(string name) { StartCoroutine(FadeOutSceneSwitch(name)); }
 
-    /// FadeIn
+    /// FadeIn 
     private IEnumerator FadeInCo()
     {
         float fadeCount = 1;
