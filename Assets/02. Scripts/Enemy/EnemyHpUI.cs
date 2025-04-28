@@ -15,6 +15,7 @@ public class EnemyHpUI : MonoBehaviour
 
     public void UpdateEnemyHpUI(int hp)
     {
+        if(!enemyHp_Image.gameObject.activeSelf) enemyHp_Image.gameObject.SetActive(true);
         enemyHp_Image.fillAmount = (float)hp / (float)enemyMaxHp;
     }
 }
