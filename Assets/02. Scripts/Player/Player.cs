@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 
     [Header("Player Stat")]
     public int hp;
-    private int maxHp = 100;
+    [SerializeField] private int maxHp;
     public int power;
     public float walkSpeed;
     public float runSpeed;

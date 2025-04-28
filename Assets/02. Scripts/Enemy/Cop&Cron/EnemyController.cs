@@ -9,7 +9,8 @@ public class EnemyController : MonoBehaviour
 
     [Header ("Stat")]
     [SerializeField] private State curState;
-    [SerializeField] private float hp;
+    [SerializeField] private int hp;
+    [SerializeField] private int maxHp;
     [SerializeField] private int power;
     [SerializeField] private float speed;
 
@@ -38,16 +39,25 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator ani;
-    
+    private EnemyHpUI enemyHpUI;
+
 
     private void Start()
     {
+        // getcomponent
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
+        enemyHpUI = GetComponentInChildren<EnemyHpUI>();
         player = GameObject.FindWithTag("Player");
+
+        // data setting
         timer = attackCooltime;     // √÷√  1»∏
         originalColor = sr.color;
+        hp = maxHp;
+
+        // ui setting
+        enemyHpUI.SetObjectHpData(maxHp);
     }
 
     private void Update()
@@ -166,6 +176,7 @@ public class EnemyController : MonoBehaviour
     public void Hit(int damage)
     {
         hp -= damage;
+        enemyHpUI.UpdatePlayerHpUI(hp);
         StartCoroutine(HitColor());
 
         if (hp <= 0)
