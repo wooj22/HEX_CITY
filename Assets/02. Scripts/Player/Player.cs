@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     // controll
     [HideInInspector] public float moveX;       // keycode∞° ±‚∫ª horizontal¿Ã æ∆¥“∞ÊøÏ ºˆ¡§ ø‰«‘
     [HideInInspector] public float moveY;
-    [SerializeField] public int lastDir;        // right : 1, left : -1 (√º≈©øÎ¿∏∑Œ ¿ŒΩ∫∆Â≈Õ ¿·±Ò ª©µ“)
+    [SerializeField] public int lastDir = 1;        // right : 1, left : -1 (√º≈©øÎ¿∏∑Œ ¿ŒΩ∫∆Â≈Õ ¿·±Ò ª©µ“)
     [HideInInspector] public float originGravity;
     private Color originColor;
 

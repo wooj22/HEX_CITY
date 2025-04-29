@@ -14,7 +14,7 @@ public class PlayerBullet : MonoBehaviour
     private Animator ani;
     private BoxCollider2D boxCol;
 
-    private void Start()
+    private void Awake()
     {
         // get component
         ani = GetComponent<Animator>();
@@ -32,7 +32,7 @@ public class PlayerBullet : MonoBehaviour
         isHit = false;
         boxCol.enabled = true;
         ani.SetBool("isHit", false);
-        StartCoroutine(ActiveFalse(1f));
+        StartCoroutine(ActiveFalse(1.5f));
     }
 
     /// direction & damage set => attackHandler called

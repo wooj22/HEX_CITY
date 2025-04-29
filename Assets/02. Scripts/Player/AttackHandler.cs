@@ -16,7 +16,7 @@ public class AttackHandler : MonoBehaviour
     [SerializeField] private float attackCooltime;
 
     [Header ("Asset")]
-    [SerializeField] private GameObject bulelt;
+    [SerializeField] private GameObject buleltPrefab;
     [SerializeField] private GameObject specialBulelt;
     [SerializeField] private Transform bulletPosL;
     [SerializeField] private Transform bulletPosR;
@@ -24,7 +24,7 @@ public class AttackHandler : MonoBehaviour
 
     // bullet pulling
     List<GameObject> bulletPool = new List<GameObject>();
-    private int poolSize = 20;
+    private int poolSize = 30;
 
     // controll
     private Player player;
@@ -116,9 +116,13 @@ public class AttackHandler : MonoBehaviour
 
         // shoot
         GameObject bullet = ActivateBullet();
-        bullet.transform.position = bulletPos;
-        bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
-        bullet.SetActive(true);
+        if(bullet != null)
+        {
+            bullet.transform.position = bulletPos;
+            bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
+            bullet.SetActive(true);
+        }
+        
     }
 
     /// Bullet Object Pooling
@@ -127,7 +131,7 @@ public class AttackHandler : MonoBehaviour
         // bullet pool
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject bullet = Instantiate(bulelt);
+            GameObject bullet = Instantiate(buleltPrefab);
             bullet.SetActive(false);
             bullet.transform.SetParent(bulletParent);
             bulletPool.Add(bullet);
