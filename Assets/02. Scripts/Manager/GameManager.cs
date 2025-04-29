@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        Invoke("Test", 0.5f);
+    }
+
+    public void Test()
+    {
         MainMapInit();
         SoundManager.Instance.SetBGM("BGM_MainMap");
         SoundManager.Instance.FadeInBGM();
