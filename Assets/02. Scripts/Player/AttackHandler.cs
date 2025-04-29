@@ -20,6 +20,11 @@ public class AttackHandler : MonoBehaviour
     [SerializeField] private GameObject specialBulelt;
     [SerializeField] private Transform bulletPosL;
     [SerializeField] private Transform bulletPosR;
+    [SerializeField] private Transform bulletParent;
+
+    // bullet pulling
+    List<GameObject> bulletPool = new List<GameObject>();
+    private int poolSize = 20;
 
     // controll
     private Player player;
@@ -27,7 +32,11 @@ public class AttackHandler : MonoBehaviour
 
     private void Awake()
     {
+        // get component
         player = GetComponent<Player>();
+
+        // bullet pulling
+        BulletPuling();
     }
 
     private void Update()
@@ -106,9 +115,38 @@ public class AttackHandler : MonoBehaviour
         bulletPos.y = (curAttackType == AttackType.CROUCHING) ? bulletPos.y - 0.35f : bulletPos.y;
 
         // shoot
-        GameObject playerBullet = Instantiate(bulelt, bulletPos, Quaternion.identity);
-        playerBullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
+        GameObject bullet = ActivateBullet();
+        bullet.transform.position = bulletPos;
+        bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
+        bullet.SetActive(true);
     }
+
+    /// Bullet Object Pooling
+    private void BulletPuling()
+    {
+        // bullet pool
+        for (int i = 0; i < poolSize; i++)
+        {
+            GameObject bullet = Instantiate(bulelt);
+            bullet.SetActive(false);
+            bullet.transform.SetParent(bulletParent);
+            bulletPool.Add(bullet);
+        }
+    }
+
+    /// Activate Bullet
+    private GameObject ActivateBullet()
+    {
+        for(int i = 0; i < bulletPool.Count; i++)
+        {
+            if (!bulletPool[i].activeSelf)
+            {
+                return bulletPool[i];
+            }
+        }
+        return null;
+    }
+
 
     /*---------------- ¾ÈÇÒµí -----------------------*/
     /// Special Attack (movement states called)

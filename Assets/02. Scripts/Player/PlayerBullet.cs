@@ -12,23 +12,40 @@ public class PlayerBullet : MonoBehaviour
 
     // component
     private Animator ani;
+    private BoxCollider2D boxCol;
 
     private void Start()
     {
+        // get component
         ani = GetComponent<Animator>();
-        Destroy(this.gameObject, 1f);
+        boxCol = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
-        if(!isHit) transform.Translate(transform.right * speed * direction * Time.deltaTime, Space.World);
+        Move();
     }
 
-    /// 방향과 damage set
+    // 활성화 Init
+    private void OnEnable()
+    {
+        isHit = false;
+        boxCol.enabled = true;
+        ani.SetBool("isHit", false);
+        StartCoroutine(ActiveFalse(1f));
+    }
+
+    /// direction & damage set => attackHandler called
     public void Init(int dir, int power)
     {
         direction = dir;
         damage = power;
+    }
+    
+    /// Move
+    public void Move()
+    {
+        if (!isHit) transform.Translate(transform.right * speed * direction * Time.deltaTime, Space.World);
     }
 
     /// enemy와 충돌시 소멸
@@ -37,7 +54,7 @@ public class PlayerBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             isHit = true;
-            GetComponent<BoxCollider2D>().enabled = false;
+            boxCol.enabled = false;
 
             if(collision.gameObject.name == "Cop" || collision.gameObject.name == "Dron")
                 collision.gameObject.GetComponent<EnemyController>().Hit(damage);
@@ -48,7 +65,14 @@ public class PlayerBullet : MonoBehaviour
 
             ani.SetBool("isHit", true);
             AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
-            Destroy(ani.gameObject, stateInfo.length);
+            StartCoroutine(ActiveFalse(stateInfo.length));  
         }
+    }
+
+    // 비활성화
+    private IEnumerator ActiveFalse(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        gameObject.SetActive(false);
     }
 }
