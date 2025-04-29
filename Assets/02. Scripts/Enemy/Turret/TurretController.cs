@@ -14,6 +14,7 @@ public class TurretController : MonoBehaviour
 
     // component
     private SpriteRenderer sr;
+    private AudioSource audio;
     private Color originalColor;
     private EnemyHpUI enemyHpUI;
 
@@ -21,6 +22,7 @@ public class TurretController : MonoBehaviour
     {
         // getcomponent
         sr = GetComponent<SpriteRenderer>();
+        audio = GetComponent<AudioSource>();
         enemyHpUI = GetComponentInChildren<EnemyHpUI>();
 
         // data setting
@@ -67,6 +69,7 @@ public class TurretController : MonoBehaviour
     private void Die()
     {
         GameObject.FindWithTag("Player").GetComponent<Player>().Enhance();
+        audio.Play();
         effectAni1.SetBool("isHit", true);
         effectAni2.SetBool("isHit", true);
 
