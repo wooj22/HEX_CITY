@@ -104,31 +104,24 @@ public class AttackHandler : MonoBehaviour
                 curAttackType = AttackType.STANDING;
 
                 // shoot
-                if (player.isChargeMax)
-                {
-                    SpecialShoot();
-                }
-
+                if (player.isChargeMax) SpecialShoot();
+                else PlayerUIManager.Instance.ChargeShortFall();
                 break;
 
             case AttackType.RUNNING:
                 curAttackType = AttackType.RUNNING;
 
                 // shoot
-                if (player.isChargeMax)
-                {
-                    SpecialShoot();
-                }
+                if (player.isChargeMax) SpecialShoot();
+                else PlayerUIManager.Instance.ChargeShortFall();
                 break;
 
             case AttackType.CROUCHING:
                 curAttackType = AttackType.CROUCHING;
 
                 // shoot
-                if (player.isChargeMax)
-                {
-                    SpecialShoot();
-                }
+                if (player.isChargeMax) SpecialShoot();
+                else PlayerUIManager.Instance.ChargeShortFall();
                 break;
 
             default:
