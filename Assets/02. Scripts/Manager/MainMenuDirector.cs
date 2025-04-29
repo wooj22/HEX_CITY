@@ -10,7 +10,7 @@ public class MainMenuDirector : MonoBehaviour
     [SerializeField] Image fadeImage;
 
     // light ø¨√‚
-    [SerializeField] Light2D light;
+    [SerializeField] Light2D lt;
     [SerializeField] float lightLimit;
     [SerializeField] float lightSpeed;
 
@@ -28,15 +28,15 @@ public class MainMenuDirector : MonoBehaviour
     {
         while (true)
         {
-            while (light.intensity < lightLimit)
+            while (lt.intensity < lightLimit)
             {
-                light.intensity += 0.1f;
+                lt.intensity += 0.1f;
                 yield return new WaitForSeconds(lightSpeed);
             }
 
-            while (light.intensity > 1)
+            while (lt.intensity > 1)
             {
-                light.intensity -= 0.1f;
+                lt.intensity -= 0.1f;
                 yield return new WaitForSeconds(lightSpeed);
             }
         }

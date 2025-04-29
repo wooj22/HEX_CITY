@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         // main -> boss 최초 1회 로드
         Invoke(nameof(PlayerBossMapSet), 4.5f);
-        Invoke(nameof(BossMapInit), 4.7f);
+        Invoke(nameof(BossMapInit), 4.8f);
     }
 
     /// Player Boss Map Setting (1회)
