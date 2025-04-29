@@ -267,7 +267,7 @@ MonoBehaviour:
   traceLimit: 10
   attackLimit: 3
   attackCooltime: 2
-  bulelt: {fileID: 7024994301318110489, guid: e9c8b351e0ecf2f4183467df6b67197c, type: 3}
+  bulelt: {fileID: 1944091320818725738, guid: 6cb22e59a289bcb47a97c102ecff3c20, type: 3}
   bulletPosL: {fileID: 1426464389384113541}
   bulletPosR: {fileID: 5868531817462401302}
 --- !u!1001 &884937421548532312
