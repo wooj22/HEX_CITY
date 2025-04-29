@@ -38,6 +38,7 @@ public class TurretController : MonoBehaviour
     {
         hp -= damage;
         enemyHpUI.UpdateEnemyHpUI(hp);
+        enemyHpUI.EnemyDamageUI(damage);
         StartCoroutine(HitColor());
 
         if (hp <= 0)

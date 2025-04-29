@@ -160,7 +160,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3609814817545205105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,3 +191,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHp_Image: {fileID: 8697131092418363162}
+  enemyDamage_Text: {fileID: 284359203331899852, guid: 29e3bbea8c9227c4cba4b0eb07ffa1f0, type: 3}

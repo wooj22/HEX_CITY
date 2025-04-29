@@ -131,6 +131,7 @@ public class EggController : MonoBehaviour
     {
         hp -= damage;
         enemyHpUI.UpdateEnemyHpUI(hp);
+        enemyHpUI.EnemyDamageUI(damage);
         StartCoroutine(HitColor());
 
         if (hp <= 0)
