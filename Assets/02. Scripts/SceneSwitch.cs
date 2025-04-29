@@ -20,6 +20,15 @@ public class SceneSwitch : MonoBehaviour
 
     public void SceneSwithcing(string sceneName)
     {
+        // 만약 Menu로 돌아간다면 GameManager, Player Destroy
+        if (sceneName == "MainMenu")
+        {
+            if(GameManager.Instance != null)
+                Destroy(GameManager.Instance.gameObject);
+            if (Player.Instance != null)
+                Destroy(Player.Instance.gameObject);
+        }
+
         SceneManager.LoadScene(sceneName);
     }
 
