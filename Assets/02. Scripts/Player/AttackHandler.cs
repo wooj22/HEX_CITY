@@ -121,8 +121,8 @@ public class AttackHandler : MonoBehaviour
             bullet.transform.position = bulletPos;
             bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
             bullet.SetActive(true);
+            SoundManager.Instance.PlaySFX("SFX_Shoot");
         }
-        
     }
 
     /// Bullet Object Pooling

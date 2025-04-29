@@ -42,9 +42,6 @@ public class TurretController : MonoBehaviour
         {
             hp = 0;
             GetComponent<BoxCollider2D>().enabled = false;
-            GameObject.FindWithTag("Player").GetComponent<Player>().Enhance();
-            effectAni1.SetBool("isHit", true);
-            effectAni2.SetBool("isHit", true);
             Die();
         }   
     }
@@ -69,6 +66,10 @@ public class TurretController : MonoBehaviour
     // TODO :: Item Drop
     private void Die()
     {
+        GameObject.FindWithTag("Player").GetComponent<Player>().Enhance();
+        effectAni1.SetBool("isHit", true);
+        effectAni2.SetBool("isHit", true);
+
         AnimatorStateInfo stateInfo = effectAni1.GetCurrentAnimatorStateInfo(0);
         Destroy(this.gameObject, stateInfo.length);
     }
