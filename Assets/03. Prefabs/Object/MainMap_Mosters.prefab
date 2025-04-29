@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3336513475630495055}
   m_Layer: 0
-  m_Name: Mosters
+  m_Name: MainMap_Mosters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

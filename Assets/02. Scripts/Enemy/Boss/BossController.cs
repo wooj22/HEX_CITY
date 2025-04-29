@@ -25,6 +25,7 @@ public class BossController : MonoBehaviour
     private bool isDie;
     private GameObject player;
     private Vector3 playerPos;
+    private Vector2 moveDir;
     private float xDist;
     private float yDist;
     private float timer;
@@ -75,25 +76,34 @@ public class BossController : MonoBehaviour
     /// Trace
     private void Trace()
     {
-        if (xDist > traceXLimit || yDist > traceYLimit)
+        // X
+        if (xDist > traceXLimit)
         {
             if (playerPos.x < transform.position.x)
             {
                 sr.flipX = false;
                 direction = -1;
+                moveDir.x = -1;
             }
             else
             {
                 sr.flipX = true;
                 direction = 1;
+                moveDir.x = 1;
             }
+        }
 
-            rb.velocity = new Vector2(direction * speed, rb.velocity.y);
-        }
-        else
+        // Y
+        if (yDist > traceYLimit)
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            if (playerPos.y > transform.position.y)
+                moveDir.y = 1;
+            else
+                moveDir.y = -1;
         }
+
+        // trace
+        rb.velocity = moveDir.normalized * speed;
     }
 
     /// Attack
@@ -161,8 +171,8 @@ public class BossController : MonoBehaviour
     /// Die ø¨√‚
     IEnumerator Die()
     {
-        Destroy(this.gameObject);
         yield return new WaitForSeconds(1f);
         GameManager.Instance.BossMapClear();
+        Destroy(this.gameObject);
     }
 }

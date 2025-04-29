@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     private void BossMapInit()
     {
         player.PlayerInit(new Vector3(-8.63f, -4.07f, -1));
+        MonsterManager.Instance.MonsterInit();
 
         SceneDirector.Instance.FadeIn();
         SoundManager.Instance.SetBGM("BGM_Boss");
@@ -96,6 +97,5 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.Instance.FadeOutBGM();
         SceneDirector.Instance.FadeOutSceneChange("MainManu");
-        Destroy(player.gameObject);
     }
 }
