@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public void MainMapOver()
     {
         SceneSwitch.Instance.SceneReload();
-        Invoke(nameof(MainMapInit), 0.5f);
+        //Invoke(nameof(MainMapInit), 0.5f);
     }
 
     // MainMap Clear

@@ -197,7 +197,6 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Debug.Log("paleyr Die!");
-        SoundManager.Instance.PlaySFX("SFX_Die");
         GameManager.Instance.MainMapOver();
     }
 
