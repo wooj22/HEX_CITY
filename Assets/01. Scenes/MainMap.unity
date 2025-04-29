@@ -2743,6 +2743,10 @@ PrefabInstance:
       propertyPath: maxHp
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 1074488208117913850, guid: 81350324bea2edf45af9398740615e6d, type: 3}
+      propertyPath: lastDir
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1272805095850704413, guid: 81350324bea2edf45af9398740615e6d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.042999983
