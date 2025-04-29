@@ -28,9 +28,6 @@ public class PlayerUIManager : MonoBehaviour
     {
         playerMaxHp = maxHp;
         playerMaxCharge = maxCharge;
-
-        playerHp_Image.fillAmount = 1;
-        playerCharge_Image.fillAmount = 1;
     }
 
     // PlayerHpUI Update

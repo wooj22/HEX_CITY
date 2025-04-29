@@ -23,8 +23,10 @@ public class AttackHandler : MonoBehaviour
     [SerializeField] private Transform bulletParent;
 
     // bullet pulling
-    List<GameObject> bulletPool = new List<GameObject>();
+    private List<GameObject> bulletPool = new List<GameObject>();
+    private List<GameObject> specialBulletPool = new List<GameObject>();
     private int poolSize = 30;
+    private int specialPoolSize = 5;
 
     // controll
     private Player player;
@@ -159,14 +161,13 @@ public class AttackHandler : MonoBehaviour
         Vector3 bulletPos = (player.lastDir == -1) ? bulletPosL.position : bulletPosR.position;
         bulletPos.y = (curAttackType == AttackType.CROUCHING) ? bulletPos.y - 0.35f : bulletPos.y;
 
-        // shoot // TODO :: special attack bullet 풀 만들고 수정
-        GameObject bullet = ActivateBullet();
+        GameObject bullet = AtctiveSpecialBullet();
         if (bullet != null)
         {
             bullet.transform.position = bulletPos;
             bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power * 2);     // damage 2배
             bullet.SetActive(true);
-            SoundManager.Instance.PlaySFX("SFX_Shoot");
+            SoundManager.Instance.PlaySFX("SFX_SpecialShoot");
             player.ChargeInit();
         }
     }
@@ -175,6 +176,7 @@ public class AttackHandler : MonoBehaviour
     private void BulletPuling()
     {
         bulletPool.Clear();
+        specialBulletPool.Clear();
 
         // bullet pool
         for (int i = 0; i < poolSize; i++)
@@ -183,6 +185,15 @@ public class AttackHandler : MonoBehaviour
             bullet.SetActive(false);
             bullet.transform.SetParent(bulletParent);
             bulletPool.Add(bullet);
+        }
+
+        // special bullet pool
+        for (int i = 0; i < specialPoolSize; i++)
+        {
+            GameObject specialBullet = Instantiate(specialBulelt);
+            specialBullet.SetActive(false);
+            specialBullet.transform.SetParent(bulletParent);
+            specialBulletPool.Add(specialBullet);
         }
     }
 
@@ -194,6 +205,19 @@ public class AttackHandler : MonoBehaviour
             if (!bulletPool[i].activeSelf)
             {
                 return bulletPool[i];
+            }
+        }
+        return null;
+    }
+
+    /// Activate Special Bullet
+    private GameObject AtctiveSpecialBullet()
+    {
+        for (int i = 0; i < specialBulletPool.Count; i++)
+        {
+            if (!specialBulletPool[i].activeSelf)
+            {
+                return specialBulletPool[i];
             }
         }
         return null;

@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public float runSpeed;
     public float climbSpeed;
     public float jumpPower;
-    private int charge = 0;
+    [SerializeField] private int charge = 0;
     private int maxCharge = 10;
 
     [Header("Player State Flags")]
@@ -117,6 +117,8 @@ public class Player : MonoBehaviour
 
         // ui data setting
         PlayerUIManager.Instance.SetPlayerUIDate(maxHp, maxCharge);
+        PlayerUIManager.Instance.UpdatePlayerHpUI(hp);
+        PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
     }
 
     private void Update()
@@ -189,6 +191,9 @@ public class Player : MonoBehaviour
         charge = 0;
         transform.position = position;
         rb.velocity = Vector2.zero;
+
+        PlayerUIManager.Instance.UpdatePlayerHpUI(hp);
+        PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
     }
 
     /// Player Bullet Init (Boss맵으로 넘어갈 때)
