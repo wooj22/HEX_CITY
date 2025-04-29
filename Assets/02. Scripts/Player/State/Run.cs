@@ -65,12 +65,13 @@ public class Run : BaseMoveState
         else if (player.moveX > 0) { player.sr.flipX = false; player.lastDir = 1; } // right
 
         // attack flag setting
-        if (player.isAttackKey)
+        if (player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = true;
             player.ani.SetBool("isAttack", true);
         }
-        if (!player.isAttackKey)
+
+        if (!player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = false;
             player.ani.SetBool("isAttack", false);
@@ -79,6 +80,10 @@ public class Run : BaseMoveState
         // attack
         if (player.isAttack)
             attackHandle.Attack(AttackHandler.AttackType.RUNNING);
+
+        // special attack
+        if (player.isSpecialAttackKey)
+            attackHandle.SpecialAttack(AttackHandler.AttackType.STANDING);
 
         // run
         player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);

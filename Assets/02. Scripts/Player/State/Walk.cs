@@ -66,12 +66,13 @@ public class Walk : BaseMoveState
         else if (player.moveX > 0) { player.sr.flipX = false; player.lastDir = 1; } // right
 
         // attack flag setting
-        if (player.isAttackKey)
+        if (player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = true;
             player.ani.SetBool("isAttack", true);
         }
-        if (!player.isAttackKey)
+
+        if (!player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = false;
             player.ani.SetBool("isAttack", false);
@@ -80,6 +81,10 @@ public class Walk : BaseMoveState
         // attack
         if (player.isAttack)
             attackHandle.Attack(AttackHandler.AttackType.STANDING);
+
+        // special attack
+        if(player.isSpecialAttackKey)
+            attackHandle.SpecialAttack(AttackHandler.AttackType.STANDING);
 
         // walk
         if (!player.isAttack)

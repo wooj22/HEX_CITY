@@ -62,12 +62,13 @@ public class Idle : BaseMoveState
         player.moveX = Input.GetAxis("Horizontal");
 
         // attack flag setting
-        if (player.isAttackKey)
+        if (player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = true;
             player.ani.SetBool("isAttack", true);
         }
-        if (!player.isAttackKey)
+
+        if (!player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = false;
             player.ani.SetBool("isAttack", false);
@@ -77,7 +78,11 @@ public class Idle : BaseMoveState
         if (player.isAttack)
         {
             attackHandle.Attack(AttackHandler.AttackType.STANDING);
-        } 
+        }
+
+        // special attack
+        if (player.isSpecialAttackKey)
+            attackHandle.SpecialAttack(AttackHandler.AttackType.STANDING);
     }
 
     /// Exit

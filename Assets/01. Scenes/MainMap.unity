@@ -2277,9 +2277,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5800730336666850175, guid: 81350324bea2edf45af9398740615e6d, type: 3}
+      propertyPath: buleltPrefab
+      value: 
+      objectReference: {fileID: 2879158061872464390, guid: 8392edf61591e5145a9fc0173ab1c1ee, type: 3}
+    - target: {fileID: 5800730336666850175, guid: 81350324bea2edf45af9398740615e6d, type: 3}
       propertyPath: bulletParent
       value: 
       objectReference: {fileID: 214771996}
+    - target: {fileID: 5800730336666850175, guid: 81350324bea2edf45af9398740615e6d, type: 3}
+      propertyPath: specialBulelt
+      value: 
+      objectReference: {fileID: 2866791502759938035, guid: e9273b43ff557914c83c2774148cbd68, type: 3}
     - target: {fileID: 8449788491953503921, guid: 81350324bea2edf45af9398740615e6d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.9
@@ -4541,7 +4549,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

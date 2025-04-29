@@ -14,6 +14,7 @@ public class AttackHandler : MonoBehaviour
 
     [Header("Stat")]
     [SerializeField] private float attackCooltime;
+    [SerializeField] private float specialAttackCooltime;
 
     [Header ("Asset")]
     [SerializeField] private GameObject buleltPrefab;
@@ -29,6 +30,7 @@ public class AttackHandler : MonoBehaviour
     // controll
     private Player player;
     private float attackTimer;
+    private float specialAttackTimer;
 
     private void Awake()
     {
@@ -38,6 +40,7 @@ public class AttackHandler : MonoBehaviour
     private void Update()
     {
         attackTimer += Time.deltaTime;
+        specialAttackTimer += Time.deltaTime;
     }
 
     public void AttackHandlerInit()
@@ -51,22 +54,22 @@ public class AttackHandler : MonoBehaviour
     public void Attack(AttackType type)
     {
         // run attack moveing
-        if (player.playerMoveState == Player.PlayerState.Run)
-        {
-            player.moveX = Input.GetAxis("Horizontal");
-            if (player.moveX < 0)
-            {
-                player.sr.flipX = true;
-                player.lastDir = -1;
-            }
-            // right
-            else if (player.moveX > 0)
-            {
-                player.sr.flipX = false;
-                player.lastDir = 1;
-            }
-            player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
-        }
+        //if (player.playerMoveState == Player.PlayerState.Run)
+        //{
+        //    player.moveX = Input.GetAxis("Horizontal");
+        //    if (player.moveX < 0)
+        //    {
+        //        player.sr.flipX = true;
+        //        player.lastDir = -1;
+        //    }
+        //    // right
+        //    else if (player.moveX > 0)
+        //    {
+        //        player.sr.flipX = false;
+        //        player.lastDir = 1;
+        //    }
+        //    player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
+        //}
 
         // coolTime -> shoot
         switch (type)
@@ -110,6 +113,69 @@ public class AttackHandler : MonoBehaviour
         }
     }
 
+    /// Special Attack (movement states called)
+    public void SpecialAttack(AttackType type)
+    {
+        // run attack moveing
+        //if (player.playerMoveState == Player.PlayerState.Run)
+        //{
+        //    player.moveX = Input.GetAxis("Horizontal");
+        //    if (player.moveX < 0)
+        //    {
+        //        player.sr.flipX = true;
+        //        player.lastDir = -1;
+        //    }
+        //    // right
+        //    else if (player.moveX > 0)
+        //    {
+        //        player.sr.flipX = false;
+        //        player.lastDir = 1;
+        //    }
+        //    player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
+        //}
+
+        // coolTime -> shoot
+        switch (type)
+        {
+            case AttackType.STANDING:
+                curAttackType = AttackType.STANDING;
+
+                // shoot
+                if (player.isChargeMax && specialAttackTimer >= specialAttackCooltime)
+                {
+                    SpecialShoot();
+                    specialAttackTimer = 0;
+                }
+
+                break;
+
+            case AttackType.RUNNING:
+                curAttackType = AttackType.RUNNING;
+
+                // shoot
+                if (player.isChargeMax && specialAttackTimer >= specialAttackCooltime)
+                {
+                    SpecialShoot();
+                    specialAttackTimer = 0;
+                }
+                break;
+
+            case AttackType.CROUCHING:
+                curAttackType = AttackType.CROUCHING;
+
+                // shoot
+                if (player.isChargeMax && specialAttackTimer >= specialAttackCooltime)
+                {
+                    SpecialShoot();
+                    specialAttackTimer = 0;
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
     /// Shoot
     private void Shoot()
     {
@@ -120,6 +186,24 @@ public class AttackHandler : MonoBehaviour
         // shoot
         GameObject bullet = ActivateBullet();
         if(bullet != null)
+        {
+            bullet.transform.position = bulletPos;
+            bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
+            bullet.SetActive(true);
+            SoundManager.Instance.PlaySFX("SFX_Shoot");
+        }
+    }
+
+    /// Special Shoot
+    private void SpecialShoot()
+    {
+        // position
+        Vector3 bulletPos = (player.lastDir == -1) ? bulletPosL.position : bulletPosR.position;
+        bulletPos.y = (curAttackType == AttackType.CROUCHING) ? bulletPos.y - 0.35f : bulletPos.y;
+
+        // shoot // TODO :: special attack bullet 풀 만들고 수정
+        GameObject bullet = ActivateBullet();
+        if (bullet != null)
         {
             bullet.transform.position = bulletPos;
             bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
@@ -154,19 +238,5 @@ public class AttackHandler : MonoBehaviour
             }
         }
         return null;
-    }
-
-
-    /*---------------- 안할듯 -----------------------*/
-    /// Special Attack (movement states called)
-    public void SpecialAttack()
-    {
-
-    }
-
-    /// Special Shoot
-    private void SpecialShoot()
-    {
-        
     }
 }

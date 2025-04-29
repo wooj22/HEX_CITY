@@ -69,12 +69,13 @@ public class Crouch : BaseMoveState
         else if (player.moveX > 0) { player.sr.flipX = false; player.lastDir = 1; } // right
 
         // attack flag setting
-        if (player.isAttackKey)
+        if (player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = true;
             player.ani.SetBool("isAttack", true);
         }
-        if (!player.isAttackKey)
+
+        if (!player.isAttackKey || player.isSpecialAttackKey)
         {
             player.isAttack = false;
             player.ani.SetBool("isAttack", false);
@@ -83,6 +84,10 @@ public class Crouch : BaseMoveState
         // attack
         if (Input.GetKey(player.attack))
             attackHandle.Attack(AttackHandler.AttackType.CROUCHING);
+
+        // special attack
+        if (player.isSpecialAttackKey)
+            attackHandle.SpecialAttack(AttackHandler.AttackType.STANDING);
     }
 
     /// Exit

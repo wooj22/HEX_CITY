@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     public float runSpeed;
     public float climbSpeed;
     public float jumpPower;
-    private int charge;
+    private int charge = 0;
     private int maxCharge = 10;
 
     [Header("Player State Flags")]
@@ -108,9 +108,11 @@ public class Player : MonoBehaviour
 
         // data setting
         hp = maxHp;
+        power = initPower;
+        charge = 0;
         originColor = sr.color;
         originGravity = rb.gravityScale;
-        
+
         // ui data setting
         PlayerUIManager.Instance.SetPlayerUIDate(maxHp, maxCharge);
     }
@@ -180,8 +182,8 @@ public class Player : MonoBehaviour
     public void PlayerInit(Vector3 position)
     {
         hp = maxHp;
-        charge = maxCharge;
         power = initPower;
+        charge = 0;
         transform.position = position;
         rb.velocity = Vector2.zero;
     }
@@ -217,6 +219,19 @@ public class Player : MonoBehaviour
             StartCoroutine(HitColor());
             StartCoroutine(HitFlagRelease());
         }
+    }
+
+
+    /// ChargeUp
+    public void ChargeUp()
+    {
+        charge += 1;
+        if (charge >= maxCharge)
+        {
+            charge = maxCharge;
+            isChargeMax = true;
+        }
+        PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
     }
 
     /// Turret °­È­

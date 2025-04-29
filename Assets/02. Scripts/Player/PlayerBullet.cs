@@ -13,6 +13,7 @@ public class PlayerBullet : MonoBehaviour
     // component
     private Animator ani;
     private BoxCollider2D boxCol;
+    private Player player;
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class PlayerBullet : MonoBehaviour
         isHit = false;
         boxCol.enabled = true;
         ani.SetBool("isHit", false);
-        StartCoroutine(ActiveFalse(0.7f));
+        StartCoroutine(ActiveFalse(1f));
     }
 
     /// direction & damage set => attackHandler called
@@ -48,7 +49,7 @@ public class PlayerBullet : MonoBehaviour
         if (!isHit) transform.Translate(transform.right * speed * direction * Time.deltaTime, Space.World);
     }
 
-    /// enemy客 面倒矫 家戈
+    /// enemy客 面倒矫 家戈, player charge up
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -64,6 +65,7 @@ public class PlayerBullet : MonoBehaviour
                 collision.gameObject.GetComponent<EggController>().Hit(damage);
 
             ani.SetBool("isHit", true);
+            Player.Instance.ChargeUp();
             AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
             StartCoroutine(ActiveFalse(stateInfo.length));  
         }
