@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("MainMapInit");
 
         player.PlayerInit(new Vector3(-7.7f, -4.07f, -1));
+        MonsterManager.Instance.MonsterInit();
 
         SceneDirector.Instance.FadeIn();
         SoundManager.Instance.SetBGM("BGM_MainMap");
