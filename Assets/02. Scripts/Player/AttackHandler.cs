@@ -158,7 +158,7 @@ public class AttackHandler : MonoBehaviour
         if (bullet != null)
         {
             bullet.transform.position = bulletPos;
-            bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power * 2);     // damage 2น่
+            bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power * 5);     // damage 5น่
             bullet.SetActive(true);
             SoundManager.Instance.PlaySFX("SFX_SpecialShoot");
             player.ChargeInit();
