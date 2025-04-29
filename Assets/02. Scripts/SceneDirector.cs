@@ -56,6 +56,7 @@ public class SceneDirector : MonoBehaviour
             fadeImage.color = new Color(0, 0, 0, fadeCount);
         }
 
+        yield return new WaitForSeconds(2f);
         SceneSwitch.Instance.SceneSwithcing(scenename);
         yield return null;
     }
