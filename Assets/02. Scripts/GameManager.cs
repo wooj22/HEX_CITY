@@ -25,50 +25,61 @@ public class GameManager : MonoBehaviour
         MainMapInit();
     }
 
-    /// MainMapInit
+    /// MainMap Init - player, monster 초기화
     private void MainMapInit()
     {
         Debug.Log("MainMapInit");
 
         player.PlayerInit(new Vector3(-7.7f, -4.07f, -1));
+
+        SceneDirector.Instance.FadeIn();
         SoundManager.Instance.SetBGM("BGM_MainMap");
         SoundManager.Instance.FadeInBGM();
     }
 
-    // MainMap Clear
-    public void MainMapClear()
-    {
-        player.InitPowerInit();     // power 강화 데이터 저장
-        SoundManager.Instance.FadeOutBGM();
-        SceneDirector.Instance.FadeOutSceneChange("BossMap");
-        Invoke(nameof(BossMapInit), 10f);
-    }
-
-    // MainMap Over
+    /// MainMap Over
     public void MainMapOver()
     {
-        SceneSwitch.Instance.SceneReload();
         Invoke(nameof(MainMapInit), 0.5f);
     }
 
-    // BossMapInit
+    /// MainMap Clear
+    public void MainMapClear()
+    {
+        // main -> boss Player data 관리
+        player.InitPowerInit();
+
+        SoundManager.Instance.FadeOutBGM();
+        SceneDirector.Instance.FadeOutSceneChange("BossMap");
+
+        // main -> boss 최초 1회 로드
+        Invoke(nameof(BossMapInit), 4.7f);
+        Invoke(nameof(PlayerBulletReLoading), 4.7f);
+    }
+
+    private void PlayerBulletReLoading()
+    {
+        player.PlayerBulletInit();
+    }
+
+    /// BossMapInit - player, boss 초기화
     private void BossMapInit()
     {
         Debug.Log("BossMapInit");
-
         player.PlayerInit(new Vector3(-8.63f, -4.07f, -1));
+
+        SceneDirector.Instance.FadeIn();
         SoundManager.Instance.SetBGM("BGM_Boss");
         SoundManager.Instance.FadeInBGM();
     }
 
-    // BossMap Over
+    /// BossMap Over
     public void BossMapOver()
     {
-        SceneSwitch.Instance.SceneReload();
         Invoke(nameof(BossMapInit), 0.5f);
     }
 
-    // BossMap Clear
+    /// BossMap Clear
     public void BossMapClear()
     {
         SoundManager.Instance.FadeOutBGM();

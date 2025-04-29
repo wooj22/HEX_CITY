@@ -184,7 +184,11 @@ public class Player : MonoBehaviour
         power = initPower;
         transform.position = position;
         rb.velocity = Vector2.zero;
+    }
 
+    /// Player Bullet Init (Boss맵으로 넘어갈 때)
+    public void PlayerBulletInit()
+    {
         GetComponent<AttackHandler>().AttackHandlerInit();
     }
 

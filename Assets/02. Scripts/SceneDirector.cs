@@ -20,11 +20,7 @@ public class SceneDirector : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        StartCoroutine(FadeInCo());
-    }
-
+    public void FadeIn() { StartCoroutine(FadeInCo()); }
     public void FadeOutSceneChange(string name) { StartCoroutine(FadeOutSceneSwitch(name)); }
 
     /// FadeIn 
@@ -36,7 +32,7 @@ public class SceneDirector : MonoBehaviour
         while (fadeCount > 0.001f)
         {
             fadeCount -= 0.01f;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
             fadeImage.color = new Color(0, 0, 0, fadeCount);
         }
 
