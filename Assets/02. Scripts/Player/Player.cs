@@ -264,7 +264,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Debug.Log("paleyr Die!");
-        GameManager.Instance.MainMapOver();
+        GameManager.Instance.PlayerDie();
     }
 
     /// Goal => BossMap

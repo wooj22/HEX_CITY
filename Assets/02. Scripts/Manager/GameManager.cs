@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {   
@@ -36,6 +37,20 @@ public class GameManager : MonoBehaviour
         MonsterManager.Instance.MonsterInit();
 
         SceneDirector.Instance.FadeIn();
+    }
+
+    /// Player Die 로그라이크
+    public void PlayerDie()
+    {
+        string sceneName = SceneSwitch.Instance.GetCurrentScene();
+        if(sceneName == "MainMap")
+        {
+            MainMapOver();
+        }
+        else if (sceneName == "BossMap")
+        {
+            BossMapOver();
+        }
     }
 
     /// MainMap Over
