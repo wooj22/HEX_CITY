@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         MainMapInit();
+        SoundManager.Instance.SetBGM("BGM_MainMap");
+        SoundManager.Instance.FadeInBGM();
     }
 
     /// MainMap Init - player, monster √ ±‚»≠
@@ -34,8 +36,6 @@ public class GameManager : MonoBehaviour
         MonsterManager.Instance.MonsterInit();
 
         SceneDirector.Instance.FadeIn();
-        SoundManager.Instance.SetBGM("BGM_MainMap");
-        SoundManager.Instance.FadeInBGM();
     }
 
     /// MainMap Over

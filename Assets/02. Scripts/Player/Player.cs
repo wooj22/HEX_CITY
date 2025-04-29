@@ -220,8 +220,7 @@ public class Player : MonoBehaviour
             StartCoroutine(HitFlagRelease());
         }
     }
-
-
+        
     /// ChargeUp
     public void ChargeUp()
     {
