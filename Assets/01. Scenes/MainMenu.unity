@@ -847,7 +847,8 @@ MonoBehaviour:
   sfxSource: {fileID: 608333626}
   bgmClipList:
   - {fileID: 8300000, guid: ec63dce1e06684e51969fda535cbc967, type: 3}
-  sfxClipList: []
+  sfxClipList:
+  - {fileID: 8300000, guid: 7f284a9543ef80141a55ca2dc2800e6a, type: 3}
   fadeVolumeTime: 3
 --- !u!1 &619394800
 GameObject:
@@ -1195,6 +1196,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 608333628}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SFX_Button
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1405890569}
         m_TargetAssemblyTypeName: MainMenuDirector, Assembly-CSharp
         m_MethodName: GoToScene
@@ -1350,6 +1363,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 608333628}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SFX_Button
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1405890569}
         m_TargetAssemblyTypeName: MainMenuDirector, Assembly-CSharp
         m_MethodName: GoToScene
@@ -1644,7 +1669,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1578844402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 608333628}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SFX_Button
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1578844402
 MonoBehaviour:
   m_ObjectHideFlags: 0

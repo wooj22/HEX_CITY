@@ -17,6 +17,8 @@ public class MainMenuDirector : MonoBehaviour
     private void Start()
     {
         fadeImage.gameObject.SetActive(false);
+        SoundManager.Instance.SetBGM("BGM_MainMenu");
+        SoundManager.Instance.FadeInBGM();
         StartCoroutine(LightDirector());
     }
 
@@ -41,6 +43,7 @@ public class MainMenuDirector : MonoBehaviour
     // fadeOut ÈÄ ¾À ÀüÈ¯
     public void GoToScene(string scenename)
     {
+        SoundManager.Instance.FadeOutBGM();
         StartCoroutine(FadeOutSceneSwitch(scenename));
     }
 
@@ -52,7 +55,7 @@ public class MainMenuDirector : MonoBehaviour
         while (fadeCount < 1.0f)
         {
             fadeCount += 0.01f;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
             fadeImage.color = new Color(0, 0, 0, fadeCount);
         }
 

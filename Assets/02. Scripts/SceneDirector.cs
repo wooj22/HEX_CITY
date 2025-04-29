@@ -52,7 +52,7 @@ public class SceneDirector : MonoBehaviour
         while (fadeCount < 1.0f)
         {
             fadeCount += 0.01f;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.02f);
             fadeImage.color = new Color(0, 0, 0, fadeCount);
         }
 
