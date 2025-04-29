@@ -16,14 +16,14 @@ public class TurretController : MonoBehaviour
     private SpriteRenderer sr;
     private AudioSource audio;
     private Color originalColor;
-    private EnemyHpUI enemyHpUI;
+    private EnemyUI enemyHpUI;
 
     private void Start()
     {
         // getcomponent
         sr = GetComponent<SpriteRenderer>();
         audio = GetComponent<AudioSource>();
-        enemyHpUI = GetComponentInChildren<EnemyHpUI>();
+        enemyHpUI = GetComponentInChildren<EnemyUI>();
 
         // data setting
         originalColor = sr.color;

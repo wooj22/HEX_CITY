@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHpUI : MonoBehaviour
+public class EnemyUI : MonoBehaviour
 {
     [SerializeField] private Image enemyHp_Image;
     [SerializeField] private GameObject enemyDamage_Text;
@@ -28,6 +28,6 @@ public class EnemyHpUI : MonoBehaviour
         GameObject damageText = Instantiate(enemyDamage_Text, transform.position, Quaternion.identity, transform);
         damageText.GetComponent<Text>().text = damage.ToString();
         damageText.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), 3f), ForceMode2D.Impulse);
-        Destroy(damageText, 0.5f);
+        Destroy(damageText, 0.7f);
     }
 }

@@ -33,14 +33,14 @@ public class EggController : MonoBehaviour
     // compnent
     private SpriteRenderer sr;
     private Animator ani;
-    private EnemyHpUI enemyHpUI;
+    private EnemyUI enemyHpUI;
 
     private void Start()
     {
         // getcomponent
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
-        enemyHpUI = GetComponentInChildren<EnemyHpUI>();
+        enemyHpUI = GetComponentInChildren<EnemyUI>();
         player = GameObject.FindWithTag("Player");
 
         // data setting

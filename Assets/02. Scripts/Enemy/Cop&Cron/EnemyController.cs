@@ -39,7 +39,7 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Animator ani;
-    private EnemyHpUI enemyHpUI;
+    private EnemyUI enemyHpUI;
 
 
     private void Start()
@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
-        enemyHpUI = GetComponentInChildren<EnemyHpUI>();
+        enemyHpUI = GetComponentInChildren<EnemyUI>();
         player = GameObject.FindWithTag("Player");
 
         // data setting
