@@ -82,12 +82,12 @@ public class Crouch : BaseMoveState
         }
 
         // attack
-        if (Input.GetKey(player.attack))
+        if (player.isAttackKey)
             attackHandle.Attack(AttackHandler.AttackType.CROUCHING);
 
         // special attack
         if (player.isSpecialAttackKey)
-            attackHandle.SpecialAttack(AttackHandler.AttackType.STANDING);
+            attackHandle.SpecialAttack(AttackHandler.AttackType.CROUCHING);
     }
 
     /// Exit

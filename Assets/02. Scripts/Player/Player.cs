@@ -70,6 +70,8 @@ public class Player : MonoBehaviour
 
     public static Player Instance { get; private set; }
 
+    /*------------------------- Main Function -------------------------------*/
+
     private void Awake()
     {
         if (Instance == null)
@@ -178,6 +180,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(specialAttack)) isSpecialAttackKey = false;
     }
 
+    /*------------------------- Init -------------------------------*/
     /// Init
     public void PlayerInit(Vector3 position)
     {
@@ -200,6 +203,7 @@ public class Player : MonoBehaviour
         initPower = power;
     }
 
+    /*------------------------- Event -------------------------------*/
     /// Hit
     public void Hit(int damage)
     {
@@ -230,6 +234,14 @@ public class Player : MonoBehaviour
             charge = maxCharge;
             isChargeMax = true;
         }
+        PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
+    }
+
+    /// Charge √ ±‚»≠
+    public void ChargeInit()
+    {
+        charge = 0;
+        isChargeMax = false;
         PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
     }
 
@@ -283,7 +295,7 @@ public class Player : MonoBehaviour
         isHit = false;
     }
     
-
+    /*--------------------------------------------------------*/
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ladder"))

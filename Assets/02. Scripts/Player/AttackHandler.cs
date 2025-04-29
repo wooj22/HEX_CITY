@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackHandler : MonoBehaviour
 {
-    private AttackType curAttackType;
+    [SerializeField] private AttackType curAttackType;
     public enum AttackType
     {
         STANDING,   // idle, walk
@@ -14,7 +14,6 @@ public class AttackHandler : MonoBehaviour
 
     [Header("Stat")]
     [SerializeField] private float attackCooltime;
-    [SerializeField] private float specialAttackCooltime;
 
     [Header ("Asset")]
     [SerializeField] private GameObject buleltPrefab;
@@ -30,7 +29,6 @@ public class AttackHandler : MonoBehaviour
     // controll
     private Player player;
     private float attackTimer;
-    private float specialAttackTimer;
 
     private void Awake()
     {
@@ -40,7 +38,6 @@ public class AttackHandler : MonoBehaviour
     private void Update()
     {
         attackTimer += Time.deltaTime;
-        specialAttackTimer += Time.deltaTime;
     }
 
     public void AttackHandlerInit()
@@ -53,24 +50,6 @@ public class AttackHandler : MonoBehaviour
     /// Attack (movement states called)
     public void Attack(AttackType type)
     {
-        // run attack moveing
-        //if (player.playerMoveState == Player.PlayerState.Run)
-        //{
-        //    player.moveX = Input.GetAxis("Horizontal");
-        //    if (player.moveX < 0)
-        //    {
-        //        player.sr.flipX = true;
-        //        player.lastDir = -1;
-        //    }
-        //    // right
-        //    else if (player.moveX > 0)
-        //    {
-        //        player.sr.flipX = false;
-        //        player.lastDir = 1;
-        //    }
-        //    player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
-        //}
-
         // coolTime -> shoot
         switch (type)
         {
@@ -116,24 +95,6 @@ public class AttackHandler : MonoBehaviour
     /// Special Attack (movement states called)
     public void SpecialAttack(AttackType type)
     {
-        // run attack moveing
-        //if (player.playerMoveState == Player.PlayerState.Run)
-        //{
-        //    player.moveX = Input.GetAxis("Horizontal");
-        //    if (player.moveX < 0)
-        //    {
-        //        player.sr.flipX = true;
-        //        player.lastDir = -1;
-        //    }
-        //    // right
-        //    else if (player.moveX > 0)
-        //    {
-        //        player.sr.flipX = false;
-        //        player.lastDir = 1;
-        //    }
-        //    player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
-        //}
-
         // coolTime -> shoot
         switch (type)
         {
@@ -141,10 +102,9 @@ public class AttackHandler : MonoBehaviour
                 curAttackType = AttackType.STANDING;
 
                 // shoot
-                if (player.isChargeMax && specialAttackTimer >= specialAttackCooltime)
+                if (player.isChargeMax)
                 {
                     SpecialShoot();
-                    specialAttackTimer = 0;
                 }
 
                 break;
@@ -153,10 +113,9 @@ public class AttackHandler : MonoBehaviour
                 curAttackType = AttackType.RUNNING;
 
                 // shoot
-                if (player.isChargeMax && specialAttackTimer >= specialAttackCooltime)
+                if (player.isChargeMax)
                 {
                     SpecialShoot();
-                    specialAttackTimer = 0;
                 }
                 break;
 
@@ -164,10 +123,9 @@ public class AttackHandler : MonoBehaviour
                 curAttackType = AttackType.CROUCHING;
 
                 // shoot
-                if (player.isChargeMax && specialAttackTimer >= specialAttackCooltime)
+                if (player.isChargeMax)
                 {
                     SpecialShoot();
-                    specialAttackTimer = 0;
                 }
                 break;
 
@@ -206,9 +164,10 @@ public class AttackHandler : MonoBehaviour
         if (bullet != null)
         {
             bullet.transform.position = bulletPos;
-            bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power);
+            bullet.GetComponent<PlayerBullet>().Init(player.lastDir, player.power * 2);     // damage 2น่
             bullet.SetActive(true);
             SoundManager.Instance.PlaySFX("SFX_Shoot");
+            player.ChargeInit();
         }
     }
 

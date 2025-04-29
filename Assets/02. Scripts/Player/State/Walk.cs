@@ -79,7 +79,7 @@ public class Walk : BaseMoveState
         }
 
         // attack
-        if (player.isAttack)
+        if (player.isAttackKey)
             attackHandle.Attack(AttackHandler.AttackType.STANDING);
 
         // special attack

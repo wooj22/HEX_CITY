@@ -78,12 +78,12 @@ public class Run : BaseMoveState
         }
 
         // attack
-        if (player.isAttack)
+        if (player.isAttackKey)
             attackHandle.Attack(AttackHandler.AttackType.RUNNING);
 
         // special attack
         if (player.isSpecialAttackKey)
-            attackHandle.SpecialAttack(AttackHandler.AttackType.STANDING);
+            attackHandle.SpecialAttack(AttackHandler.AttackType.RUNNING);
 
         // run
         player.rb.velocity = new Vector2(player.lastDir * player.runSpeed, player.rb.velocity.y);
