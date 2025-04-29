@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3521943431368149829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.178, y: 0, z: 0}
+  m_LocalPosition: {x: 0.178, y: 0.042999983, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 3943991639959416997}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.135, y: 0, z: 0}
+  m_LocalPosition: {x: -0.135, y: 0.043, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -305,9 +305,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMoveState: 0
-  hp: 300
-  maxHp: 300
+  hp: 500
+  maxHp: 500
   power: 10
+  initPower: 10
   walkSpeed: 3.5
   runSpeed: 7
   climbSpeed: 2
@@ -339,7 +340,7 @@ MonoBehaviour:
   specialAttack: 102
   moveX: 0
   moveY: 0
-  lastDir: 0
+  lastDir: 1
   originGravity: 0
   sr: {fileID: 0}
   rb: {fileID: 0}
@@ -356,8 +357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d849bb01449fdcd4c9affe2170dc5b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooltime: 0.3
-  bulelt: {fileID: 2879158061872464390, guid: 8392edf61591e5145a9fc0173ab1c1ee, type: 3}
+  attackCooltime: 0.1
+  buleltPrefab: {fileID: 2879158061872464390, guid: 8392edf61591e5145a9fc0173ab1c1ee, type: 3}
   specialBulelt: {fileID: 2879158061872464390, guid: 8392edf61591e5145a9fc0173ab1c1ee, type: 3}
   bulletPosL: {fileID: 5375682108269258658}
   bulletPosR: {fileID: 1272805095850704413}
+  bulletParent: {fileID: 0}

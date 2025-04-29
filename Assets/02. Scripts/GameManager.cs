@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-{
-    private int _palyerHp;
-    private int _playerCharge;
+{   
+    public Player player;
 
     public static GameManager Instance { get; private set; }
     private void Awake()
@@ -13,6 +12,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -30,40 +30,49 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("MainMapInit");
 
+        player.PlayerInit(new Vector3(-7.7f, -4.07f, -1));
         SoundManager.Instance.SetBGM("BGM_MainMap");
         SoundManager.Instance.FadeInBGM();
     }
 
-    // BossMapInit
-    private void BossMapInit()
+    // MainMap Clear
+    public void MainMapClear()
     {
-        Debug.Log("BossMapInit");
+        player.InitPowerInit();     // power 강화 데이터 저장
+        SoundManager.Instance.FadeOutBGM();
+        SceneDirector.Instance.FadeOutSceneChange("BossMap");
+        Invoke(nameof(BossMapInit), 10f);
     }
 
     // MainMap Over
     public void MainMapOver()
     {
         SceneSwitch.Instance.SceneReload();
-        //Invoke(nameof(MainMapInit), 0.5f);
+        Invoke(nameof(MainMapInit), 0.5f);
     }
 
-    // MainMap Clear
-    public void MainMapClear()
+    // BossMapInit
+    private void BossMapInit()
     {
-        SoundManager.Instance.FadeOutBGM();
-        SceneDirector.Instance.FadeOutSceneChange("BossMap");
-        Invoke(nameof(BossMapInit), 0.5f);
+        Debug.Log("BossMapInit");
+
+        player.PlayerInit(new Vector3(-8.63f, -4.07f, -1));
+        SoundManager.Instance.SetBGM("BGM_Boss");
+        SoundManager.Instance.FadeInBGM();
     }
 
     // BossMap Over
     public void BossMapOver()
     {
-
+        SceneSwitch.Instance.SceneReload();
+        Invoke(nameof(BossMapInit), 0.5f);
     }
 
     // BossMap Clear
     public void BossMapClear()
     {
-
+        SoundManager.Instance.FadeOutBGM();
+        SceneDirector.Instance.FadeOutSceneChange("MainManu");
+        Destroy(player.gameObject);
     }
 }

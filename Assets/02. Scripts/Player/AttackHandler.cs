@@ -32,16 +32,19 @@ public class AttackHandler : MonoBehaviour
 
     private void Awake()
     {
-        // get component
-        player = GetComponent<Player>();
-
-        // bullet pulling
-        BulletPuling();
+        AttackHandlerInit();
     }
 
     private void Update()
     {
         attackTimer += Time.deltaTime;
+    }
+
+    public void AttackHandlerInit()
+    {
+        player = GetComponent<Player>();
+        bulletParent = GameObject.Find("Bullets").transform;
+        BulletPuling();
     }
 
     /// Attack (movement states called)
@@ -128,6 +131,8 @@ public class AttackHandler : MonoBehaviour
     /// Bullet Object Pooling
     private void BulletPuling()
     {
+        bulletPool.Clear();
+
         // bullet pool
         for (int i = 0; i < poolSize; i++)
         {

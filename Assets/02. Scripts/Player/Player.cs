@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public int hp;
     [SerializeField] private int maxHp;
     public int power;
+    public int initPower;
     public float walkSpeed;
     public float runSpeed;
     public float climbSpeed;
@@ -67,8 +68,20 @@ public class Player : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator ani;
 
+    public static Player Instance { get; private set; }
+
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         // movement states 등록
         moveStateArr = new BaseMoveState[System.Enum.GetValues(typeof(PlayerState)).Length];
 
@@ -87,6 +100,9 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        // game manager setting
+        GameManager.Instance.player = this;
+
         // start movement state setting
         ChangeState(PlayerState.Idle);
 
@@ -94,7 +110,7 @@ public class Player : MonoBehaviour
         hp = maxHp;
         originColor = sr.color;
         originGravity = rb.gravityScale;
-
+        
         // ui data setting
         PlayerUIManager.Instance.SetPlayerUIDate(maxHp, maxCharge);
     }
@@ -160,6 +176,24 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(specialAttack)) isSpecialAttackKey = false;
     }
 
+    /// Init
+    public void PlayerInit(Vector3 position)
+    {
+        hp = maxHp;
+        charge = maxCharge;
+        power = initPower;
+        transform.position = position;
+        rb.velocity = Vector2.zero;
+
+        GetComponent<AttackHandler>().AttackHandlerInit();
+    }
+
+    /// Init Power 초기화 (Boss맵으로 넘어갈 때)
+    public void InitPowerInit()
+    {
+        initPower = power;
+    }
+
     /// Hit
     public void Hit(int damage)
     {
@@ -198,6 +232,12 @@ public class Player : MonoBehaviour
     {
         Debug.Log("paleyr Die!");
         GameManager.Instance.MainMapOver();
+    }
+
+    /// Goal => BossMap
+    private void Goal()
+    {
+        GameManager.Instance.MainMapClear();
     }
 
     /// Hit 연출
@@ -241,7 +281,7 @@ public class Player : MonoBehaviour
 
         if(collision.gameObject.CompareTag("Goal"))
         {
-            GameManager.Instance.MainMapClear();
+            Goal();
         }
     }
 
