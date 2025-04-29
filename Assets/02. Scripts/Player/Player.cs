@@ -188,7 +188,6 @@ public class Player : MonoBehaviour
         charge = maxCharge;
         power *= 2;
 
-        SoundManager.Instance.PlaySFX("SFX_Enhance");
         PlayerUIManager.Instance.UpdatePlayerHpUI(hp);
         PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
         Debug.Log("Player Enhance ~~~");
