@@ -32,7 +32,7 @@ public class PlayerBullet : MonoBehaviour
         isHit = false;
         boxCol.enabled = true;
         ani.SetBool("isHit", false);
-        StartCoroutine(ActiveFalse(1.5f));
+        StartCoroutine(ActiveFalse(0.7f));
     }
 
     /// direction & damage set => attackHandler called

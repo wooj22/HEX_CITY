@@ -409,8 +409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 656998c27ef261449aa5ccd64fd7b262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 150
-  maxHp: 150
+  hp: 500
+  maxHp: 500
   effectAni1: {fileID: 1726970464122163286}
   effectAni2: {fileID: 8371331281053869106}
 --- !u!82 &1061382459385141012

@@ -224,7 +224,7 @@ public class Player : MonoBehaviour
     {
         hp = maxHp;
         charge = maxCharge;
-        power *= 2;
+        power += 15;
 
         PlayerUIManager.Instance.UpdatePlayerHpUI(hp);
         PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);

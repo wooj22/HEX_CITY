@@ -197,8 +197,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 0
-  hp: 100
-  maxHp: 100
+  hp: 200
+  maxHp: 200
   power: 10
   speed: 3
   yLimit: 1
