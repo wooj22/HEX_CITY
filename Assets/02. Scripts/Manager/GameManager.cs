@@ -61,6 +61,9 @@ public class GameManager : MonoBehaviour
     private void PlayerBulletReLoading()
     {
         player.PlayerBulletInit();
+
+        // 하드코딩..
+        GameObject.Find("Virtual Camera").GetComponent<Cinemachine.CinemachineVirtualCamera>().Follow = player.transform;
     }
 
     /// BossMapInit - player, boss 초기화
