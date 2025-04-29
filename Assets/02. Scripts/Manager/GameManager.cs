@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour
     /// MainMap Init - player, monster 초기화
     private void MainMapInit()
     {
-        Debug.Log("MainMapInit");
-
         player.PlayerInit(new Vector3(-7.7f, -4.07f, -1));
         MonsterManager.Instance.MonsterInit();
 
@@ -80,7 +78,6 @@ public class GameManager : MonoBehaviour
     /// BossMapInit - player, boss 초기화
     private void BossMapInit()
     {
-        Debug.Log("BossMapInit");
         player.PlayerInit(new Vector3(-8.63f, -4.07f, -1));
 
         SceneDirector.Instance.FadeIn();
@@ -94,7 +91,7 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(BossMapInit), 0.5f);
     }
 
-    /// BossMap Clear
+    /// BossMap Clear - BossController Called
     public void BossMapClear()
     {
         SoundManager.Instance.FadeOutBGM();

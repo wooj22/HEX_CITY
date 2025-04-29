@@ -191,6 +191,7 @@ public class Player : MonoBehaviour
         power = initPower;
         charge = 0;
         isChargeMax = false;
+        isDie = false;
         transform.position = position;
         rb.velocity = Vector2.zero;
 

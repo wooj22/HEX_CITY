@@ -63,6 +63,8 @@ public class PlayerBullet : MonoBehaviour
                 collision.gameObject.GetComponent<TurretController>().Hit(damage);
             else if(collision.gameObject.name == "Egg")
                 collision.gameObject.GetComponent<EggController>().Hit(damage);
+            else if(collision.gameObject.name == "Boss")
+                collision.gameObject.GetComponent<BossController>().Hit(damage);
 
             ani.SetBool("isHit", true);
             Player.Instance.ChargeUp();
