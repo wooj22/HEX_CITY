@@ -16,6 +16,8 @@ public class MainMenuDirector : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;        // 일시정지 패널로 돌아온 경우
+
         fadeImage.gameObject.SetActive(false);
         SoundManager.Instance.SetBGM("BGM_MainMenu");
         SoundManager.Instance.FadeInBGM();
