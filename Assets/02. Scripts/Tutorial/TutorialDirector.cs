@@ -11,11 +11,17 @@ public class TutorialDirector : MonoBehaviour
     private void Start()
     {
         StartCoroutine(FadeIn());
+        SoundManager.Instance.SetBGM("BGM_Tutorial");
+        SoundManager.Instance.FadeInBGM();
     }
 
     public void TextBoardOn() { StartCoroutine(TextBoardOnCo()); }
     public void TextBoardOff() { StartCoroutine(TextBoardOffCo()); }
-    public void FadeOut(string name) { StartCoroutine(FadeOutSceneSwitch(name)); }
+    public void FadeOut(string name) 
+    { 
+        SoundManager.Instance.FadeOutBGM();
+        StartCoroutine(FadeOutSceneSwitch(name)); 
+    }
 
     /// Text Borad On
     private IEnumerator TextBoardOnCo()

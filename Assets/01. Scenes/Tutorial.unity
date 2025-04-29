@@ -918,8 +918,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 608333627}
   sfxSource: {fileID: 608333626}
-  bgmClipList: []
-  sfxClipList: []
+  bgmClipList:
+  - {fileID: 8300000, guid: 0cbaca67e74b54d858b226f3eb321278, type: 3}
+  sfxClipList:
+  - {fileID: 8300000, guid: 7f284a9543ef80141a55ca2dc2800e6a, type: 3}
   fadeVolumeTime: 3
 --- !u!1 &619394800
 GameObject:
