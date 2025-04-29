@@ -96,6 +96,6 @@ public class GameManager : MonoBehaviour
     public void BossMapClear()
     {
         SoundManager.Instance.FadeOutBGM();
-        SceneDirector.Instance.FadeOutSceneChange("MainManu");
+        SceneDirector.Instance.FadeOutSceneChange("EndMap");
     }
 }
