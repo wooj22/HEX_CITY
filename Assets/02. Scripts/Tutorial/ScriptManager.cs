@@ -39,7 +39,7 @@ public class ScriptManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         director.TextBoardOff();
         yield return new WaitForSeconds(1f);
-        director.FadeOut("MainGame");
+        director.FadeOut("MainMap");
     }
 
     /// 타이핑 효과
