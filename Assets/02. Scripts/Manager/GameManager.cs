@@ -47,22 +47,18 @@ public class GameManager : MonoBehaviour
     /// MainMap Clear
     public void MainMapClear()
     {
-        // main -> boss Player data 관리
-        player.InitPowerInit();
-
         SoundManager.Instance.FadeOutBGM();
         SceneDirector.Instance.FadeOutSceneChange("BossMap");
 
         // main -> boss 최초 1회 로드
+        Invoke(nameof(PlayerBossMapSet), 4.5f);
         Invoke(nameof(BossMapInit), 4.7f);
-        Invoke(nameof(PlayerBulletReLoading), 4.7f);
     }
 
-    private void PlayerBulletReLoading()
+    /// Player Boss Map Setting (1회)
+    private void PlayerBossMapSet()
     {
-        player.PlayerBulletInit();
-
-        // 하드코딩..
+        player.PlayerBossMapSetting();
         GameObject.Find("Virtual Camera").GetComponent<Cinemachine.CinemachineVirtualCamera>().Follow = player.transform;
     }
 

@@ -189,6 +189,7 @@ public class Player : MonoBehaviour
         hp = maxHp;
         power = initPower;
         charge = 0;
+        isChargeMax = false;
         transform.position = position;
         rb.velocity = Vector2.zero;
 
@@ -196,16 +197,12 @@ public class Player : MonoBehaviour
         PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
     }
 
-    /// Player Bullet Init (Boss맵으로 넘어갈 때)
-    public void PlayerBulletInit()
+    /// Player BossMap Setting (Boss맵으로 넘어갈 때 1회)
+    public void PlayerBossMapSetting()
     {
-        GetComponent<AttackHandler>().AttackHandlerInit();
-    }
-
-    /// Init Power 초기화 (Boss맵으로 넘어갈 때)
-    public void InitPowerInit()
-    {
-        initPower = power;
+        initPower = power;  // 강화한 power init값으로 저장
+        GetComponent<AttackHandler>().AttackHandlerInit();           // bullet pulling
+        PlayerUIManager.Instance.SetPlayerUIDate(maxHp, maxCharge);  // ui init data
     }
 
     /*------------------------- Event -------------------------------*/
