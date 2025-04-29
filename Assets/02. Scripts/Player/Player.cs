@@ -18,12 +18,13 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHp;
     public int power;
     public int initPower;
+    [SerializeField] private int powerUpAmount;
+    [SerializeField] private int charge = 0;
+    private int maxCharge = 10;
     public float walkSpeed;
     public float runSpeed;
     public float climbSpeed;
     public float jumpPower;
-    [SerializeField] private int charge = 0;
-    private int maxCharge = 10;
 
     [Header("Player State Flags")]
     public bool isDie;
@@ -252,7 +253,7 @@ public class Player : MonoBehaviour
     {
         hp = maxHp;
         charge = maxCharge;
-        power += 15;
+        power += powerUpAmount;
 
         PlayerUIManager.Instance.UpdatePlayerHpUI(hp);
         PlayerUIManager.Instance.UpdatePlayerChargeUI(charge);
