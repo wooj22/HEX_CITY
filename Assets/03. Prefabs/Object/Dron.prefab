@@ -261,12 +261,12 @@ MonoBehaviour:
   curState: 0
   hp: 50
   maxHp: 50
-  power: 15
+  power: 10
   speed: 1
   yLimit: 1
-  traceLimit: 8
-  attackLimit: 5
-  attackCooltime: 3
+  traceLimit: 10
+  attackLimit: 3
+  attackCooltime: 2
   bulelt: {fileID: 7024994301318110489, guid: e9c8b351e0ecf2f4183467df6b67197c, type: 3}
   bulletPosL: {fileID: 1426464389384113541}
   bulletPosR: {fileID: 5868531817462401302}

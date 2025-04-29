@@ -203,8 +203,8 @@ MonoBehaviour:
   speed: 3
   yLimit: 1
   traceLimit: 10
-  attackLimit: 5
-  attackCooltime: 3
+  attackLimit: 3
+  attackCooltime: 2
   bulelt: {fileID: 7024994301318110489, guid: e9c8b351e0ecf2f4183467df6b67197c, type: 3}
   bulletPosL: {fileID: 3201643293296849649}
   bulletPosR: {fileID: 1915032681547925311}
