@@ -42,6 +42,7 @@ public class AttackHandler : MonoBehaviour
         attackTimer += Time.deltaTime;
     }
 
+    /// AttackHandler Init - MainMap, BossMap 진입시 1회
     public void AttackHandlerInit()
     {
         player = GetComponent<Player>();

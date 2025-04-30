@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerUIManager : MonoBehaviour
 {
+    // UI
     [SerializeField] private Image playerHp_Image;
     [SerializeField] private Image playerCharge_Image;
     [SerializeField] private Image chargeBack_Image;
     private int playerMaxHp;
     private int playerMaxCharge;
 
+    // controll data
     private bool isShortFalling = false;
     private Color originColor;
     private Color shortFallColor = new Color(245, 100, 103 ,255);

@@ -24,6 +24,7 @@ public class MainMenuDirector : MonoBehaviour
         StartCoroutine(LightDirector());
     }
 
+    // ºû ¹à±â ¿¬Ãâ
     IEnumerator LightDirector()
     {
         while (true)
