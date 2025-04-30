@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossController : MonoBehaviour
@@ -35,6 +36,7 @@ public class BossController : MonoBehaviour
     // component
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private Animator ani;
     private EnemyUI enemyHpUI;
 
 
@@ -43,6 +45,7 @@ public class BossController : MonoBehaviour
         // getcomponent
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        ani = GetComponentInChildren<Animator>();
         enemyHpUI = GetComponentInChildren<EnemyUI>();
         player = GameObject.FindWithTag("Player");
 
@@ -168,10 +171,24 @@ public class BossController : MonoBehaviour
         }
     }
 
-    /// Die 연출
+    /// Die 연출 - 이펙트, 보스투명처리
     IEnumerator Die()
     {
-        yield return new WaitForSeconds(1f);
+        ani.SetBool("isDie", true);
+        yield return new WaitForSeconds(ani.GetCurrentAnimatorStateInfo(0).length);
+
+        float fadeDuration = 1.0f;
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
+            yield return null;
+        }
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0f);
+
         GameManager.Instance.BossMapClear();
         Destroy(this.gameObject);
     }
